@@ -1,5 +1,5 @@
 {
-  "version": "v3",
+  "version": "v4",
   "knownBadDomains": [
     { "value": "capitec-secure.co.za", "category": "knownbaddomain", "weight": 100 },
     { "value": "capitec-verify.co.za", "category": "knownbaddomain", "weight": 100 },
@@ -36,7 +36,6 @@
     { "value": "court-summons.co.za", "category": "knownbaddomain", "weight": 100 },
     { "value": "legal-notice.co.za", "category": "knownbaddomain", "weight": 100 }
   ],
-
   "scamDomainKeywords": [
     { "value": "secure", "category": "domainkeyword", "weight": 30 },
     { "value": "verify", "category": "domainkeyword", "weight": 30 },
@@ -49,7 +48,6 @@
     { "value": "investment", "category": "domainkeyword", "weight": 30 },
     { "value": "crypto", "category": "domainkeyword", "weight": 30 }
   ],
-
   "saOfficialDomains": [
     { "value": "capitecbank.co.za", "category": "saofficialdomain", "weight": 0 },
     { "value": "fnb.co.za", "category": "saofficialdomain", "weight": 0 },
@@ -61,9 +59,7 @@
     { "value": "gov.za", "category": "saofficialdomain", "weight": 0 },
     { "value": "sassa.gov.za", "category": "saofficialdomain", "weight": 0 }
   ],
-
   "scamPatterns": [
-   
     { "value": "otp", "category": "credentialrequest", "weight": 100, "absolute": true },
     { "value": "one time password", "category": "credentialrequest", "weight": 100, "absolute": true },
     { "value": "pin", "category": "credentialrequest", "weight": 100, "absolute": true },
@@ -71,43 +67,130 @@
     { "value": "recovery fee", "category": "recoveryscam", "weight": 100, "absolute": true },
     { "value": "screenshot of your banking app", "category": "processviolation", "weight": 100, "absolute": true },
 
-    
     { "value": "final notice", "category": "urgency", "weight": 40 },
     { "value": "final warning", "category": "urgency", "weight": 40 },
     { "value": "urgent attention required", "category": "urgency", "weight": 45 },
+    { "value": "urgent response required", "category": "urgency", "weight": 45 },
     { "value": "respond immediately", "category": "urgency", "weight": 40 },
     { "value": "immediate action required", "category": "urgency", "weight": 45 },
     { "value": "do not ignore", "category": "urgency", "weight": 35 },
+    { "value": "time sensitive", "category": "urgency", "weight": 35 },
     { "value": "expires in 24 hours", "category": "urgency", "weight": 45 },
+    { "value": "before it's too late", "category": "urgency", "weight": 40 },
 
-    
     { "value": "your account will be closed", "category": "threatframing", "weight": 55 },
     { "value": "your account will be blocked", "category": "threatframing", "weight": 55 },
+    { "value": "your services will be suspended", "category": "threatframing", "weight": 55 },
+    { "value": "services will be disconnected", "category": "threatframing", "weight": 60 },
     { "value": "legal action will be taken", "category": "threatframing", "weight": 55 },
     { "value": "you will be arrested", "category": "threatframing", "weight": 65 },
     { "value": "criminal charges", "category": "threatframing", "weight": 60 },
     { "value": "handed over to legal", "category": "threatframing", "weight": 55 },
+    { "value": "failure to respond will result in", "category": "threatframing", "weight": 55 },
+    { "value": "we have noticed suspicious activity", "category": "threatframing", "weight": 50 },
+    { "value": "unusual activity detected", "category": "threatframing", "weight": 50 },
 
-   
     { "value": "you have won", "category": "rewardframing", "weight": 60 },
     { "value": "claim your prize", "category": "rewardframing", "weight": 55 },
+    { "value": "claim your reward", "category": "rewardframing", "weight": 55 },
+    { "value": "click here to claim", "category": "rewardframing", "weight": 55 },
     { "value": "guaranteed returns", "category": "investmentscam", "weight": 60 },
     { "value": "double your money", "category": "investmentscam", "weight": 55 },
     { "value": "risk free investment", "category": "investmentscam", "weight": 55 },
 
-    
     { "value": "official notification", "category": "authorityclaim", "weight": 40 },
     { "value": "this is a formal notice", "category": "authorityclaim", "weight": 45 },
     { "value": "according to our records", "category": "authorityclaim", "weight": 35 },
     { "value": "you are required to", "category": "authorityclaim", "weight": 40 },
+    { "value": "failure to comply will result in", "category": "authorityclaim", "weight": 55 },
 
-    
     { "value": "do not tell anyone", "category": "isolationpressure", "weight": 60 },
     { "value": "keep this confidential", "category": "isolationpressure", "weight": 60 },
+    { "value": "strictly confidential", "category": "isolationpressure", "weight": 60 },
     { "value": "do not contact your bank", "category": "isolationpressure", "weight": 65 },
+    { "value": "log in only via this link", "category": "isolationpressure", "weight": 65 },
 
-    
     { "value": "if you do not", "category": "conditionalpressure", "weight": 45 },
-    { "value": "failure to respond will result in", "category": "conditionalpressure", "weight": 50 }
+    { "value": "we will have no choice but to", "category": "conditionalpressure", "weight": 50 },
+
+    { "value": "i feel a strong connection", "category": "romancescam", "weight": 45 },
+    { "value": "i have never felt this way before", "category": "romancescam", "weight": 50 },
+    { "value": "we were meant to meet", "category": "romancescam", "weight": 45 },
+    { "value": "you are special to me", "category": "romancescam", "weight": 40 },
+    { "value": "i feel like i have known you forever", "category": "romancescam", "weight": 50 },
+    { "value": "i trust you completely", "category": "romancescam", "weight": 45 },
+    { "value": "you are the only one i can trust", "category": "romancescam", "weight": 60 },
+    { "value": "i can only talk to you about this", "category": "romancescam", "weight": 60 },
+    { "value": "please dont tell anyone", "category": "romancescam", "weight": 65 },
+    { "value": "others wouldnt understand our love", "category": "romancescam", "weight": 55 },
+    { "value": "they are just jealous of us", "category": "romancescam", "weight": 50 },
+    { "value": "i am working overseas", "category": "romancescam", "weight": 45 },
+    { "value": "i am currently on an oil rig", "category": "romancescam", "weight": 55 },
+    { "value": "i am deployed with the military", "category": "romancescam", "weight": 55 },
+    { "value": "i cant video call right now", "category": "romancescam", "weight": 50 },
+    { "value": "my camera is broken", "category": "romancescam", "weight": 45 },
+    { "value": "we will meet soon", "category": "romancescam", "weight": 40 },
+    { "value": "i have an emergency", "category": "romancescam", "weight": 50 },
+    { "value": "i am stuck and need help", "category": "romancescam", "weight": 55 },
+    { "value": "i have no one else to turn to", "category": "romancescam", "weight": 60 },
+    { "value": "i need help urgently", "category": "romancescam", "weight": 55 },
+    { "value": "please help me my love", "category": "romancescam", "weight": 65 },
+    { "value": "i will pay you back as soon as i can", "category": "romancescam", "weight": 65 },
+    { "value": "i promise this is the last time", "category": "romancescam", "weight": 65 },
+    { "value": "if you love me you will help me", "category": "romancescam", "weight": 75 },
+    { "value": "i thought you trusted me", "category": "romancescam", "weight": 65 },
+    { "value": "please dont abandon me", "category": "romancescam", "weight": 70 },
+
+    { "value": "admin fee to secure your interview", "category": "jobscam", "weight": 75 },
+    { "value": "pay an admin fee to secure your interview", "category": "jobscam", "weight": 75 },
+    { "value": "registration fee is required", "category": "jobscam", "weight": 65 },
+    { "value": "uniform fee is required", "category": "jobscam", "weight": 70 },
+    { "value": "file opening fee", "category": "jobscam", "weight": 70 },
+    { "value": "training fee is required", "category": "jobscam", "weight": 65 },
+    { "value": "placement fee", "category": "jobscam", "weight": 75 },
+    { "value": "learnership placement", "category": "jobscam", "weight": 60 },
+    { "value": "guaranteed job after payment", "category": "jobscam", "weight": 80 },
+    { "value": "no interview required", "category": "jobscam", "weight": 60 },
+    { "value": "you have been selected for the position", "category": "jobscam", "weight": 55 },
+    { "value": "your application has been approved", "category": "jobscam", "weight": 55 },
+    { "value": "whatsapp the recruiter", "category": "jobscam", "weight": 55 },
+    { "value": "send your id and bank statement", "category": "jobscam", "weight": 65 },
+    { "value": "send your id and proof of address", "category": "jobscam", "weight": 60 },
+
+    { "value": "pay via ewallet", "category": "paymentcoercion", "weight": 70 },
+    { "value": "pay using ewallet", "category": "paymentcoercion", "weight": 70 },
+    { "value": "pay via cashsend", "category": "paymentcoercion", "weight": 75 },
+    { "value": "pay using cashsend", "category": "paymentcoercion", "weight": 75 },
+    { "value": "send a cashsend", "category": "paymentcoercion", "weight": 70 },
+    { "value": "send a voucher code", "category": "paymentcoercion", "weight": 80 },
+    { "value": "buy a voucher and send the code", "category": "paymentcoercion", "weight": 85 },
+    { "value": "pay with a gift card", "category": "paymentcoercion", "weight": 75 },
+    { "value": "payment must be made in crypto", "category": "paymentcoercion", "weight": 80 },
+    { "value": "pay in bitcoin", "category": "paymentcoercion", "weight": 75 },
+    { "value": "crypto only", "category": "paymentcoercion", "weight": 70 },
+    { "value": "instant eft to this account", "category": "paymentcoercion", "weight": 65 },
+    { "value": "pay into my personal account", "category": "paymentcoercion", "weight": 85 },
+    { "value": "payment to a personal account", "category": "paymentcoercion", "weight": 85 },
+
+    { "value": "urgent appeal", "category": "charityscam", "weight": 55 },
+    { "value": "emergency relief fund", "category": "charityscam", "weight": 60 },
+    { "value": "every cent counts", "category": "charityscam", "weight": 55 },
+    { "value": "families are suffering", "category": "charityscam", "weight": 55 },
+    { "value": "help us save lives", "category": "charityscam", "weight": 60 },
+    { "value": "they have nothing to eat", "category": "charityscam", "weight": 60 },
+    { "value": "we are in desperate need", "category": "charityscam", "weight": 60 },
+    { "value": "your donation will change lives", "category": "charityscam", "weight": 55 },
+    { "value": "please open your heart", "category": "charityscam", "weight": 55 },
+    { "value": "god will bless you", "category": "charityscam", "weight": 60 },
+
+    { "value": "we can recover your funds", "category": "recoveryscam", "weight": 80 },
+    { "value": "recover your money", "category": "recoveryscam", "weight": 75 },
+    { "value": "fund recovery service", "category": "recoveryscam", "weight": 80 },
+    { "value": "asset recovery", "category": "recoveryscam", "weight": 75 },
+    { "value": "chargeback assistance", "category": "recoveryscam", "weight": 70 },
+    { "value": "we traced your funds", "category": "recoveryscam", "weight": 75 },
+    { "value": "we can trace the scammer", "category": "recoveryscam", "weight": 75 },
+    { "value": "pay a fee to start recovery", "category": "recoveryscam", "weight": 90 },
+    { "value": "pay a small fee to recover", "category": "recoveryscam", "weight": 90 }
   ]
 }
