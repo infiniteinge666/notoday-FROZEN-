@@ -1,6 +1,8 @@
 'use strict';
 
-function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+function clamp(n, min, max) {
+  return Math.max(min, Math.min(max, n));
+}
 
 function bandFromScore(score) {
   if (score >= 90) return 'CRITICAL';
@@ -9,11 +11,24 @@ function bandFromScore(score) {
   return 'SAFE';
 }
 
-function scoreEvidence({ absolute, knownBadDomain, keywordScore }) {
+/**
+ * Inputs expected from engine:
+ * {
+ *   absolute: boolean,
+ *   knownBadDomain: boolean,
+ *   keywordScore: number,     // from domain keywords
+ *   patternScore: number      // from text pattern hits
+ * }
+ */
+function scoreEvidence({ absolute, knownBadDomain, keywordScore, patternScore }) {
   if (absolute) return { score: 100, band: 'CRITICAL' };
-  let score = 0;
-  if (knownBadDomain) score = 100;
-  else score = clamp(keywordScore, 0, 85);
+  if (knownBadDomain) return { score: 100, band: 'CRITICAL' };
+
+  const k = Number(keywordScore || 0);
+  const p = Number(patternScore || 0);
+
+  // Combine (simple, deterministic)
+  const score = clamp(k + p, 0, 85);
   return { score, band: bandFromScore(score) };
 }
 
