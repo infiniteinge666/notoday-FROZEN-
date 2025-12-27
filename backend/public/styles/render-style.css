@@ -1,448 +1,267 @@
-/* =========================================================
-   NoToday — Render Production Stylesheet
-   Cold White • Glassmorphism • Input-Safe • Render-Compatible
-   ========================================================= */
+/* NoToday — render-style.css (v5 UI)
+   - glass UI baseline
+   - band color states: SAFE / SUSPICIOUS / CRITICAL
+   - subtle emphasis animation (no dark patterns)
+   - accessibility contrast + focus rings
+*/
 
 /* ---------- RESET ---------- */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
+
+/* ---------- THEME TOKENS ---------- */
+:root{
+  --bg1:#121826;
+  --bg2:#1b2433;
+
+  --text:#ffffff;
+  --muted:rgba(255,255,255,.72);
+  --muted2:rgba(255,255,255,.55);
+
+  --card:rgba(255,255,255,.06);
+  --card2:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.12);
+
+  --shadow: 0 10px 40px rgba(0,0,0,.35);
+
+  --safe:#39d98a;
+  --susp:#ffcc66;
+  --crit:#ff5c5c;
+
+  --ring: 0 0 0 3px rgba(120,180,255,.35);
 }
 
-/* ---------- ROOT ---------- */
-html, body {
-  width: 100%;
-  height: 100%;
-}
-
-/* ---------- BODY ---------- */
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-               Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-
+/* ---------- BACKGROUND ---------- */
+body{
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  color: var(--text);
   background:
-    radial-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(to bottom, #1c2430, #2a3444);
-
-  background-size: 30px 30px, cover;
-  background-attachment: fixed;
-
-  color: #ffffff;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-
+    radial-gradient(1200px 700px at 50% -10%, rgba(255,255,255,.08), transparent 60%),
+    linear-gradient(to bottom, var(--bg1), var(--bg2));
   min-height: 100vh;
-  padding: 3rem 1rem;
-
-  position: relative;
+  padding: 48px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   overflow-x: hidden;
 }
 
-/* ---------- WATERMARK SHIELD ---------- */
-body::after {
-  content: "";
+/* subtle grid */
+body::before{
+  content:"";
   position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-
-  width: 160px;
-  height: 160px;
-
-  background: url("../assets/notoday-shield.png") no-repeat center;
-  background-size: contain;
-
-  opacity: 0.04;
-  filter: grayscale(100%) blur(2px);
-
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 30px 30px;
   pointer-events: none;
   z-index: 0;
 }
 
-/* ---------- LOGO / HEADER ---------- */
-.logo-container {
-  text-align: center;
-  margin-bottom: 2rem;
+/* watermark */
+body::after{
+  content:"";
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 180px;
+  background: url("/assets/notoday-shield.png") no-repeat center;
+  background-size: contain;
+  opacity: .05;
+  filter: grayscale(100%) blur(1.5px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------- LAYOUT WRAPPER ---------- */
+/* Works whether you have .wrap or not */
+.wrap, .container, main{
+  width: 100%;
+  max-width: 560px;
+  position: relative;
   z-index: 1;
 }
 
-.logo-container img {
+/* ---------- HEADER / HERO CARD ---------- */
+header, .logo-container, .hero{
+  margin-bottom: 18px;
+}
+
+h1, .logo-container h1{
+  font-size: 2rem;
+  letter-spacing: .2px;
+  margin-bottom: 6px;
+}
+
+.subtitle, .logo-container p{
+  color: var(--muted);
+  font-size: .98rem;
+  line-height: 1.4;
+}
+
+/* If you have a logo image */
+.logo-container img, header img, .hero img{
   width: 72px;
   height: 72px;
   border-radius: 16px;
-
-  box-shadow: 0 0 18px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 18px rgba(255,255,255,.25);
+  margin-bottom: 10px;
 }
 
-.logo-container h1 {
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin-top: 0.75rem;
-}
-
-.logo-container p {
-  font-size: 1rem;
-  color: #e0e6ec;
-  opacity: 0.9;
-}
-
-/* ---------- MAIN CARD ---------- */
-.card {
-  width: 100%;
-  max-width: 500px;
-
-  padding: 24px;
-  margin-bottom: 2rem;
-
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
-
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
-
-  position: relative;
-  z-index: 1;
-}
-
-/* ---------- FORM ---------- */
-label {
-  display: block;
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #f4f4f4;
-}
-
-/* INPUT SAFETY — fixes paste / select issues */
-textarea,
-input {
-  width: 100%;
-  padding: 14px;
-
-  background: rgba(0, 0, 0, 0.35);
-  color: #f0f0f0;
-
-  border: none;
-  border-radius: 10px;
-
-  font-family: monospace;
-  font-size: 0.95rem;
-
-  resize: vertical;
-  min-height: 110px;
-
+/* ---------- GLASS CARD ---------- */
+.card, .panel, .box{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 18px;
   margin-bottom: 16px;
-
-  pointer-events: auto;
-  user-select: text;
-  -webkit-user-select: text;
 }
 
-textarea:focus,
-input:focus {
-  outline: 2px solid rgba(255, 255, 255, 0.25);
+/* ---------- LABEL ---------- */
+label, .label{
+  display:block;
+  font-weight: 650;
+  font-size: .95rem;
+  color: rgba(255,255,255,.9);
+  margin: 10px 0 8px;
 }
 
-/* ---------- BUTTON ROW ---------- */
-.button-row {
-  display: flex;
-  gap: 12px;
+/* ---------- INPUT ---------- */
+/* Targets both generic textarea and your likely id */
+textarea, #input, #rawInput{
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  padding: 14px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.28);
+  color: rgba(255,255,255,.92);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: .95rem;
+  line-height: 1.35;
+  outline: none;
+}
+
+textarea:focus, #input:focus, #rawInput:focus{
+  box-shadow: var(--ring);
+  border-color: rgba(120,180,255,.5);
 }
 
 /* ---------- BUTTONS ---------- */
-button {
+.button-row, .buttons, .btn-row{
+  display:flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+button, .btn{
   flex: 1;
-  padding: 12px 0;
-
-  border-radius: 10px;
-  border: none;
-
-  font-size: 1rem;
-  font-weight: 600;
-
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.10);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.98rem;
   cursor: pointer;
-  transition: all 0.25s ease;
-
-  user-select: none;
+  transition: transform .15s ease, background .2s ease, border-color .2s ease;
 }
 
-/* Neutral / Upload / Scan */
-.upload-btn,
-#scanBtn {
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+button:hover, .btn:hover{
+  background: rgba(255,255,255,.16);
+  transform: translateY(-1px);
 }
 
-.upload-btn:hover,
-#scanBtn:hover {
-  background: rgba(255, 255, 255, 0.18);
+button:focus, .btn:focus{
+  outline: none;
+  box-shadow: var(--ring);
 }
 
-/* Action / Check */
-.check-btn,
-#otpBtn {
+button:active, .btn:active{
+  transform: translateY(0);
+}
+
+/* Specific ids if you have them */
+#otpBtn{
   background: linear-gradient(145deg, #ff6b6b, #ff3c3c);
-  color: #ffffff;
-  box-shadow: 0 4px 14px rgba(255, 100, 100, 0.35);
+  border-color: rgba(255,92,92,.45);
+  box-shadow: 0 6px 18px rgba(255, 90, 90, .22);
+}
+#otpBtn:hover{ background: linear-gradient(145deg, #ff7a7a, #ff4a4a); }
+
+#scanBtn{
+  background: rgba(255,255,255,.12);
 }
 
-.check-btn:hover,
-#otpBtn:hover {
-  transform: translateY(-2px);
+/* ---------- OUTPUT / RESULT ---------- */
+pre, #output, #result{
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.26);
+  color: rgba(255,255,255,.92);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: .90rem;
+  line-height: 1.35;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
-/* ---------- MICROCOPY ---------- */
-.privacy-text {
+/* ---------- BAND STATES ---------- */
+/* Add data-band="SAFE|SUSPICIOUS|CRITICAL" on the output container (recommended)
+   Supports both #output and pre blocks.
+*/
+#output[data-band="SAFE"], pre[data-band="SAFE"]{
+  border-color: rgba(57,217,138,.45);
+  box-shadow: 0 0 0 1px rgba(57,217,138,.10), 0 10px 30px rgba(0,0,0,.25);
+}
+#output[data-band="SUSPICIOUS"], pre[data-band="SUSPICIOUS"]{
+  border-color: rgba(255,204,102,.55);
+  box-shadow: 0 0 0 1px rgba(255,204,102,.12), 0 10px 30px rgba(0,0,0,.25);
+}
+#output[data-band="CRITICAL"], pre[data-band="CRITICAL"]{
+  border-color: rgba(255,92,92,.55);
+  box-shadow: 0 0 0 1px rgba(255,92,92,.12), 0 10px 30px rgba(0,0,0,.25);
+}
+
+/* ---------- ANIMATED EMPHASIS (subtle, one-shot friendly) ---------- */
+@keyframes popIn {
+  0%   { transform: translateY(6px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Apply .result-pop to output after scan (recommended) */
+.result-pop{
+  animation: popIn 220ms ease-out both;
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce){
+  .result-pop{ animation: none; }
+  button, .btn{ transition: none; }
+}
+
+/* ---------- FOOTER / MICROCOPY ---------- */
+.footer, .privacy-text{
+  color: var(--muted2);
   text-align: center;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin-top: 1rem;
-}
-
-/* ---------- FOOTER ---------- */
-.footer {
-  margin-top: 2rem;
-  text-align: center;
-
-  font-size: 0.85rem;
+  font-size: .86rem;
   line-height: 1.5;
-
-  color: rgba(255, 255, 255, 0.6);
-  z-index: 1;
+  margin-top: 14px;
 }
 
 /* ---------- RESPONSIVE ---------- */
-@media (max-width: 600px) {
-  body {
-    padding: 2rem 1rem;
-  }
-
-  .card {
-    padding: 20px;
-  }
-
-  .logo-container h1 {
-    font-size: 1.8rem;
-  }
-
-  textarea {
-    font-size: 0.9rem;
-  }
-}
-/* =========================================================
-   NoToday — Result Band System (SAFE / SUSPICIOUS / CRITICAL)
-   + Subtle animations (no dark patterns)
-   + Accessibility contrast & focus pass
-   ========================================================= */
-
-/* --- A11Y: Better default focus ring for keyboard users --- */
-:focus-visible {
-  outline: 3px solid rgba(255, 255, 255, 0.35);
-  outline-offset: 3px;
-}
-
-/* --- A11Y: Respect reduced motion preferences --- */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* --- Result container: works with #result, .result, or any element with [data-band] --- */
-#result,
-.result,
-[data-band] {
-  margin-top: 16px;
-  border-radius: 14px;
-  padding: 14px 14px 12px;
-
-  background: rgba(0, 0, 0, 0.28);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-
-  /* accessibility: keep text readable */
-  color: rgba(255, 255, 255, 0.92);
-
-  /* subtle emphasis */
-  transform: translateZ(0);
-}
-
-/* --- Band badge: optional (if your HTML has a badge span) --- */
-.band-pill,
-.result-pill,
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-
-  padding: 6px 10px;
-  border-radius: 999px;
-
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.95);
-}
-
-/* --- Headings inside result --- */
-#result h2,
-#result h3,
-.result h2,
-.result h3,
-[data-band] h2,
-[data-band] h3 {
-  font-size: 1.05rem;
-  margin-bottom: 8px;
-}
-
-/* --- Lists inside result --- */
-#result ul,
-.result ul,
-[data-band] ul {
-  margin-top: 8px;
-  padding-left: 18px;
-}
-
-#result li,
-.result li,
-[data-band] li {
-  margin: 6px 0;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-/* =========================================================
-   Band Styling (3) — uses either:
-   - classes: .band-safe / .band-suspicious / .band-critical
-   - or: data attribute [data-band="SAFE"] etc.
-   ========================================================= */
-
-/* ---- SAFE ---- */
-.band-safe,
-#result.band-safe,
-.result.band-safe,
-[data-band="SAFE"] {
-  border-color: rgba(120, 255, 190, 0.22);
-  box-shadow: 0 0 0 1px rgba(120, 255, 190, 0.08) inset;
-}
-
-.band-safe .band-pill,
-[data-band="SAFE"] .band-pill,
-.band-safe .badge,
-[data-band="SAFE"] .badge {
-  border-color: rgba(120, 255, 190, 0.28);
-  background: rgba(120, 255, 190, 0.10);
-}
-
-/* ---- SUSPICIOUS ---- */
-.band-suspicious,
-#result.band-suspicious,
-.result.band-suspicious,
-[data-band="SUSPICIOUS"] {
-  border-color: rgba(255, 216, 120, 0.24);
-  box-shadow: 0 0 0 1px rgba(255, 216, 120, 0.09) inset;
-}
-
-.band-suspicious .band-pill,
-[data-band="SUSPICIOUS"] .band-pill,
-.band-suspicious .badge,
-[data-band="SUSPICIOUS"] .badge {
-  border-color: rgba(255, 216, 120, 0.32);
-  background: rgba(255, 216, 120, 0.12);
-}
-
-/* ---- CRITICAL ---- */
-.band-critical,
-#result.band-critical,
-.result.band-critical,
-[data-band="CRITICAL"] {
-  border-color: rgba(255, 110, 110, 0.28);
-  box-shadow: 0 0 0 1px rgba(255, 110, 110, 0.10) inset;
-}
-
-.band-critical .band-pill,
-[data-band="CRITICAL"] .band-pill,
-.band-critical .badge,
-[data-band="CRITICAL"] .badge {
-  border-color: rgba(255, 110, 110, 0.34);
-  background: rgba(255, 110, 110, 0.12);
-}
-
-/* =========================================================
-   Animated emphasis (subtle, not panic-inducing)
-   - SAFE: soft fade-in
-   - SUSPICIOUS: gentle pop-in
-   - CRITICAL: firm snap-in + low-key border glow (not pulsing forever)
-   ========================================================= */
-
-@keyframes nt-fade-in {
-  from { opacity: 0; transform: translateY(4px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes nt-pop-in {
-  0%   { opacity: 0; transform: translateY(8px) scale(0.985); }
-  60%  { opacity: 1; transform: translateY(0) scale(1.01); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes nt-critical-glow {
-  0%   { box-shadow: 0 0 0 1px rgba(255, 110, 110, 0.10) inset, 0 0 0 rgba(255, 110, 110, 0.00); }
-  60%  { box-shadow: 0 0 0 1px rgba(255, 110, 110, 0.12) inset, 0 10px 26px rgba(255, 110, 110, 0.10); }
-  100% { box-shadow: 0 0 0 1px rgba(255, 110, 110, 0.10) inset, 0 6px 18px rgba(0, 0, 0, 0.25); }
-}
-
-/* Apply animations when band is set */
-.band-safe,
-[data-band="SAFE"] {
-  animation: nt-fade-in 220ms ease-out 1;
-}
-
-.band-suspicious,
-[data-band="SUSPICIOUS"] {
-  animation: nt-pop-in 260ms ease-out 1;
-}
-
-.band-critical,
-[data-band="CRITICAL"] {
-  animation: nt-pop-in 240ms ease-out 1, nt-critical-glow 700ms ease-out 1;
-}
-
-/* =========================================================
-   A11Y Contrast improvements for inputs and buttons
-   ========================================================= */
-
-/* textarea already uses dark bg; ensure placeholder readable */
-textarea::placeholder,
-input::placeholder {
-  color: rgba(255, 255, 255, 0.55);
-}
-
-/* Buttons: ensure text contrast and focus */
-button:focus-visible {
-  outline: 3px solid rgba(255, 255, 255, 0.35);
-  outline-offset: 3px;
-}
-
-/* Ensure clickable elements remain clickable under overlays */
-.card,
-.logo-container,
-.footer,
-#result,
-.result,
-[data-band] {
-  position: relative;
-  z-index: 1;
+@media (max-width: 520px){
+  body{ padding: 34px 12px; }
+  .card, .panel, .box{ padding: 16px; }
+  h1{ font-size: 1.7rem; }
+  .button-row, .buttons, .btn-row{ flex-direction: column; }
+  button, .btn{ width: 100%; }
 }
