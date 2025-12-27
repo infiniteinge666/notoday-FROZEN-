@@ -4,29 +4,98 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>NoToday — Proof Build</title>
- <link rel="stylesheet" href="/styles/render-style.css?v=5">
 
-
+  <!-- Render UI skin -->
+  <link rel="stylesheet" href="/styles/render-style.css?v=6">
 </head>
+
 <body>
+  <div class="bg-orbs" aria-hidden="true"></div>
+
   <div class="wrap">
-    <header class="card">
-      <h1>NoToday</h1>
-      <p class="muted">Render proof build — one platform, one reality.</p>
-      <p id="intel" class="muted">Loading intel…</p>
+    <header class="hero">
+      <div class="logo" aria-hidden="true">
+        <img src="/assets/notoday-shield.png" alt="">
+      </div>
+
+      <h1 class="brand">NoToday</h1>
+      <p class="tagline" id="tagline">You’re safe. Let’s check it.</p>
+
+      <p class="intel" id="intel">Loading intel…</p>
     </header>
 
-    <main class="card">
-      <label for="raw"><strong>Paste message / link / email text</strong></label>
-      <textarea id="raw" rows="8" placeholder="Paste content here…"></textarea>
-      <div class="row">
-        <button id="scan">Scan</button>
-        <button id="otp">Test OTP</button>
+    <main class="card" aria-label="Scan content">
+      <div class="card-head">
+        <h2>Paste an email, link, or message</h2>
+        <p class="subtle">We don’t save what you paste. The scan runs and it’s gone.</p>
       </div>
-      <pre id="out" class="out"></pre>
+
+      <div class="input-shell">
+        <textarea
+          id="raw"
+          rows="5"
+          placeholder="e.g. info@something.co.za • https://example.com • “Your parcel is waiting…”"
+          aria-label="Paste content to scan"
+        ></textarea>
+
+        <button id="clearBtn" class="clear-btn" type="button" aria-label="Clear input" title="Clear">
+          ×
+        </button>
+      </div>
+
+      <div class="actions">
+        <button id="uploadBtn" class="btn btn-ghost" type="button" disabled aria-disabled="true" title="Screenshot scanning not enabled in proof build yet">
+          <span class="btn-ic" aria-hidden="true">📷</span>
+          Upload screenshot
+        </button>
+
+        <button id="scanBtn" class="btn btn-primary" type="button">
+          CHECK
+        </button>
+      </div>
+
+      <p class="microcopy">Anonymous. No tracking. No saving. Private. Encrypted. Local-first.</p>
+
+      <!-- Result panel -->
+      <section id="result" class="result" hidden aria-live="polite" aria-atomic="true">
+        <div class="result-top">
+          <div class="pill" id="pill">
+            <span class="dot" aria-hidden="true"></span>
+            <span id="bandLabel">SAFE</span>
+          </div>
+          <div class="score" id="scoreWrap" aria-label="Score">
+            <span class="score-num" id="scoreNum">0</span>
+            <span class="score-den">/100</span>
+          </div>
+        </div>
+
+        <div class="result-body">
+          <h3 id="resultTitle">No high-risk markers detected.</h3>
+
+          <div class="cols">
+            <div>
+              <p class="kicker">Why</p>
+              <ul id="reasons" class="list"></ul>
+            </div>
+            <div>
+              <p class="kicker">What not to do</p>
+              <ul id="dont" class="list"></ul>
+            </div>
+          </div>
+
+          <details class="debug">
+            <summary>Technical details</summary>
+            <pre id="out" class="out"></pre>
+          </details>
+        </div>
+      </section>
+
+      <p class="footer">
+        Built in South Africa. Clear, fast answers. <strong>Your privacy first.</strong>
+      </p>
     </main>
   </div>
 
-  <script src="/app.js"></script>
+  <script src="/app.js?v=6"></script>
 </body>
 </html>
