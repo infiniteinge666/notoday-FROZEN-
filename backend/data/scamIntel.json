@@ -1,5 +1,5 @@
 {
-  "version": "v2",
+  "version": "v3",
   "knownBadDomains": [
     { "value": "capitec-secure.co.za", "category": "knownbaddomain", "weight": 100 },
     { "value": "capitec-verify.co.za", "category": "knownbaddomain", "weight": 100 },
@@ -34,210 +34,80 @@
     { "value": "gov-penalty.co.za", "category": "knownbaddomain", "weight": 100 },
     { "value": "gov-refund.co.za", "category": "knownbaddomain", "weight": 100 },
     { "value": "court-summons.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "legal-notice.co.za", "category": "knownbaddomain", "weight": 100 },
-
-    { "value": "postoffice-tracking.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "sapo-delivery.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "courier-clearance.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "delivery-fee-pay.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "parcel-release.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "tracking-update.co.za", "category": "knownbaddomain", "weight": 100 },
-
-    { "value": "takealot-support.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "takealot-refund.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "makro-clearance.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "loot-secure.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "game-store-clearance.co.za", "category": "knownbaddomain", "weight": 100 },
-
-    { "value": "crypto-yield.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "sa-investment-group.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "fastreturns-invest.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "trading-bonus.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "wealthgrowth-sa.co.za", "category": "knownbaddomain", "weight": 100 },
-
-    { "value": "secure-chat-login.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "private-profile-access.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "verified-contact.co.za", "category": "knownbaddomain", "weight": 100 },
-
-    { "value": "security-alerts.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "device-protection.co.za", "category": "knownbaddomain", "weight": 100 },
-    { "value": "account-risk.co.za", "category": "knownbaddomain", "weight": 100 }
+    { "value": "legal-notice.co.za", "category": "knownbaddomain", "weight": 100 }
   ],
+
   "scamDomainKeywords": [
     { "value": "secure", "category": "domainkeyword", "weight": 30 },
     { "value": "verify", "category": "domainkeyword", "weight": 30 },
-    { "value": "verification", "category": "domainkeyword", "weight": 30 },
     { "value": "login", "category": "domainkeyword", "weight": 30 },
-    { "value": "clearance", "category": "domainkeyword", "weight": 30 },
-    { "value": "online", "category": "domainkeyword", "weight": 25 },
-
     { "value": "refund", "category": "domainkeyword", "weight": 30 },
     { "value": "payout", "category": "domainkeyword", "weight": 30 },
-    { "value": "tax", "category": "domainkeyword", "weight": 25 },
-    { "value": "penalty", "category": "domainkeyword", "weight": 30 },
-    { "value": "court", "category": "domainkeyword", "weight": 25 },
     { "value": "summons", "category": "domainkeyword", "weight": 35 },
-    { "value": "legal", "category": "domainkeyword", "weight": 25 },
-    { "value": "notice", "category": "domainkeyword", "weight": 25 },
-
-    { "value": "tracking", "category": "domainkeyword", "weight": 30 },
     { "value": "delivery", "category": "domainkeyword", "weight": 30 },
-    { "value": "fee", "category": "domainkeyword", "weight": 25 },
-    { "value": "pay", "category": "domainkeyword", "weight": 25 },
     { "value": "parcel", "category": "domainkeyword", "weight": 30 },
-    { "value": "release", "category": "domainkeyword", "weight": 30 },
-    { "value": "update", "category": "domainkeyword", "weight": 25 },
-
-    { "value": "support", "category": "domainkeyword", "weight": 25 },
-
-    { "value": "crypto", "category": "domainkeyword", "weight": 30 },
-    { "value": "yield", "category": "domainkeyword", "weight": 35 },
     { "value": "investment", "category": "domainkeyword", "weight": 30 },
-    { "value": "invest", "category": "domainkeyword", "weight": 25 },
-    { "value": "trading", "category": "domainkeyword", "weight": 30 },
-    { "value": "bonus", "category": "domainkeyword", "weight": 30 },
-    { "value": "returns", "category": "domainkeyword", "weight": 35 },
-    { "value": "wealth", "category": "domainkeyword", "weight": 30 },
-    { "value": "growth", "category": "domainkeyword", "weight": 25 },
-
-    { "value": "chat", "category": "domainkeyword", "weight": 20 },
-    { "value": "profile", "category": "domainkeyword", "weight": 20 },
-    { "value": "access", "category": "domainkeyword", "weight": 25 },
-    { "value": "verified", "category": "domainkeyword", "weight": 25 },
-    { "value": "contact", "category": "domainkeyword", "weight": 20 },
-
-    { "value": "alerts", "category": "domainkeyword", "weight": 25 },
-    { "value": "protection", "category": "domainkeyword", "weight": 25 },
-    { "value": "risk", "category": "domainkeyword", "weight": 25 }
+    { "value": "crypto", "category": "domainkeyword", "weight": 30 }
   ],
+
   "saOfficialDomains": [
     { "value": "capitecbank.co.za", "category": "saofficialdomain", "weight": 0 },
-    { "value": "capitec.com", "category": "saofficialdomain", "weight": 0 },
-    { "value": "capitec.co.za", "category": "saofficialdomain", "weight": 0 },
-
     { "value": "fnb.co.za", "category": "saofficialdomain", "weight": 0 },
-    { "value": "online.fnb.co.za", "category": "saofficialdomain", "weight": 0 },
-    { "value": "www.fnb.co.za", "category": "saofficialdomain", "weight": 0 },
-
     { "value": "absa.co.za", "category": "saofficialdomain", "weight": 0 },
-    { "value": "www.absa.co.za", "category": "saofficialdomain", "weight": 0 },
-
     { "value": "standardbank.co.za", "category": "saofficialdomain", "weight": 0 },
-    { "value": "www.standardbank.co.za", "category": "saofficialdomain", "weight": 0 },
-
     { "value": "nedbank.co.za", "category": "saofficialdomain", "weight": 0 },
-    { "value": "www.nedbank.co.za", "category": "saofficialdomain", "weight": 0 },
-
-    { "value": "discovery.co.za", "category": "saofficialdomain", "weight": 0 },
     { "value": "discoverybank.co.za", "category": "saofficialdomain", "weight": 0 },
-
     { "value": "sars.gov.za", "category": "saofficialdomain", "weight": 0 },
     { "value": "gov.za", "category": "saofficialdomain", "weight": 0 },
-
-    { "value": "sapostoffice.co.za", "category": "saofficialdomain", "weight": 0 },
-
-    { "value": "dhl.co.za", "category": "saofficialdomain", "weight": 0 },
-    { "value": "dhl.com", "category": "saofficialdomain", "weight": 0 },
-    { "value": "fedex.com", "category": "saofficialdomain", "weight": 0 },
-
-    { "value": "takealot.com", "category": "saofficialdomain", "weight": 0 },
-    { "value": "makro.co.za", "category": "saofficialdomain", "weight": 0 },
-    { "value": "game.co.za", "category": "saofficialdomain", "weight": 0 },
-    { "value": "pnp.co.za", "category": "saofficialdomain", "weight": 0 },
-    { "value": "checkers.co.za", "category": "saofficialdomain", "weight": 0 },
-
-    { "value": "eskom.co.za", "category": "saofficialdomain", "weight": 0 },
     { "value": "sassa.gov.za", "category": "saofficialdomain", "weight": 0 }
   ],
+
   "scamPatterns": [
-    { "value": "otp", "category": "credentialrequest", "weight": 100, "absolute": true, "kind": "keyword" },
-    { "value": "one time password", "category": "credentialrequest", "weight": 100, "absolute": true, "kind": "keyword" },
-    { "value": "pin", "category": "credentialrequest", "weight": 100, "absolute": true, "kind": "keyword" },
-    { "value": "cvv", "category": "credentialrequest", "weight": 100, "absolute": true, "kind": "keyword" },
+   
+    { "value": "otp", "category": "credentialrequest", "weight": 100, "absolute": true },
+    { "value": "one time password", "category": "credentialrequest", "weight": 100, "absolute": true },
+    { "value": "pin", "category": "credentialrequest", "weight": 100, "absolute": true },
+    { "value": "cvv", "category": "credentialrequest", "weight": 100, "absolute": true },
+    { "value": "recovery fee", "category": "recoveryscam", "weight": 100, "absolute": true },
+    { "value": "screenshot of your banking app", "category": "processviolation", "weight": 100, "absolute": true },
 
-    { "value": "pay into", "category": "privateaccountpayment", "weight": 100, "absolute": true, "kind": "keyword" },
-    { "value": "deposit into", "category": "privateaccountpayment", "weight": 100, "absolute": true, "kind": "keyword" },
-    { "value": "account holder", "category": "privateaccountpayment", "weight": 100, "absolute": true, "kind": "keyword" },
+    
+    { "value": "final notice", "category": "urgency", "weight": 40 },
+    { "value": "final warning", "category": "urgency", "weight": 40 },
+    { "value": "urgent attention required", "category": "urgency", "weight": 45 },
+    { "value": "respond immediately", "category": "urgency", "weight": 40 },
+    { "value": "immediate action required", "category": "urgency", "weight": 45 },
+    { "value": "do not ignore", "category": "urgency", "weight": 35 },
+    { "value": "expires in 24 hours", "category": "urgency", "weight": 45 },
 
-    { "value": "parcel", "category": "unsolicitedparcelorwinnings", "weight": 100, "absolute": true, "kind": "keyword" },
-    { "value": "delivery fee", "category": "unsolicitedparcelorwinnings", "weight": 100, "absolute": true, "kind": "keyword" },
-    { "value": "customs fee", "category": "unsolicitedparcelorwinnings", "weight": 100, "absolute": true, "kind": "keyword" },
-    { "value": "you have won", "category": "unsolicitedparcelorwinnings", "weight": 100, "absolute": true, "kind": "keyword" },
+    
+    { "value": "your account will be closed", "category": "threatframing", "weight": 55 },
+    { "value": "your account will be blocked", "category": "threatframing", "weight": 55 },
+    { "value": "legal action will be taken", "category": "threatframing", "weight": 55 },
+    { "value": "you will be arrested", "category": "threatframing", "weight": 65 },
+    { "value": "criminal charges", "category": "threatframing", "weight": 60 },
+    { "value": "handed over to legal", "category": "threatframing", "weight": 55 },
 
-    { "value": "final notice", "category": "urgency", "weight": 40, "kind": "keyword" },
-    { "value": "last chance", "category": "urgency", "weight": 40, "kind": "keyword" },
-    { "value": "act now", "category": "urgency", "weight": 35, "kind": "keyword" },
-    { "value": "urgent", "category": "urgency", "weight": 30, "kind": "keyword" },
-    { "value": "immediately", "category": "urgency", "weight": 30, "kind": "keyword" },
+   
+    { "value": "you have won", "category": "rewardframing", "weight": 60 },
+    { "value": "claim your prize", "category": "rewardframing", "weight": 55 },
+    { "value": "guaranteed returns", "category": "investmentscam", "weight": 60 },
+    { "value": "double your money", "category": "investmentscam", "weight": 55 },
+    { "value": "risk free investment", "category": "investmentscam", "weight": 55 },
 
-    { "value": "account blocked", "category": "threatframing", "weight": 55, "kind": "keyword" },
-    { "value": "account suspended", "category": "threatframing", "weight": 55, "kind": "keyword" },
-    { "value": "legal action", "category": "threatframing", "weight": 50, "kind": "keyword" },
-    { "value": "arrest", "category": "threatframing", "weight": 60, "kind": "keyword" },
-    { "value": "fine", "category": "threatframing", "weight": 35, "kind": "keyword" },
-    { "value": "summons", "category": "threatframing", "weight": 50, "kind": "keyword" },
+    
+    { "value": "official notification", "category": "authorityclaim", "weight": 40 },
+    { "value": "this is a formal notice", "category": "authorityclaim", "weight": 45 },
+    { "value": "according to our records", "category": "authorityclaim", "weight": 35 },
+    { "value": "you are required to", "category": "authorityclaim", "weight": 40 },
 
-    { "value": "refund", "category": "rewardframing", "weight": 35, "kind": "keyword" },
-    { "value": "bonus", "category": "rewardframing", "weight": 35, "kind": "keyword" },
-    { "value": "winnings", "category": "rewardframing", "weight": 55, "kind": "keyword" },
-    { "value": "voucher", "category": "rewardframing", "weight": 30, "kind": "keyword" },
+    
+    { "value": "do not tell anyone", "category": "isolationpressure", "weight": 60 },
+    { "value": "keep this confidential", "category": "isolationpressure", "weight": 60 },
+    { "value": "do not contact your bank", "category": "isolationpressure", "weight": 65 },
 
-    { "value": "dear customer", "category": "genericgreeting", "weight": 35, "kind": "keyword" },
-    { "value": "dear user", "category": "genericgreeting", "weight": 35, "kind": "keyword" },
-    { "value": "dear client", "category": "genericgreeting", "weight": 30, "kind": "keyword" },
-
-    { "value": "pay using bitcoin", "category": "cryptopayment", "weight": 60, "kind": "keyword" },
-    { "value": "crypto payment", "category": "cryptopayment", "weight": 50, "kind": "keyword" },
-    { "value": "buy a voucher", "category": "voucherpayment", "weight": 55, "kind": "keyword" },
-    { "value": "send a voucher", "category": "voucherpayment", "weight": 55, "kind": "keyword" },
-    { "value": "gift card", "category": "voucherpayment", "weight": 45, "kind": "keyword" },
-
-    { "value": "test payment", "category": "testpayment", "weight": 55, "kind": "keyword" },
-    { "value": "small payment", "category": "testpayment", "weight": 45, "kind": "keyword" },
-    { "value": "r20", "category": "testpayment", "weight": 35, "kind": "keyword" },
-    { "value": "r50", "category": "testpayment", "weight": 35, "kind": "keyword" },
-
-    { "value": "unlock", "category": "unlockreleaseclear", "weight": 45, "kind": "keyword" },
-    { "value": "release fee", "category": "unlockreleaseclear", "weight": 60, "kind": "keyword" },
-    { "value": "clear funds", "category": "unlockreleaseclear", "weight": 55, "kind": "keyword" },
-    { "value": "clearance fee", "category": "unlockreleaseclear", "weight": 60, "kind": "keyword" },
-    { "value": "withdrawal fee", "category": "unlockreleaseclear", "weight": 60, "kind": "keyword" },
-
-    { "value": "sars", "category": "authorityclaim", "weight": 30, "kind": "keyword" },
-    { "value": "saps", "category": "authorityclaim", "weight": 35, "kind": "keyword" },
-    { "value": "court", "category": "authorityclaim", "weight": 25, "kind": "keyword" },
-
-    { "value": "keep this confidential", "category": "isolationpressure", "weight": 60, "kind": "keyword" },
-    { "value": "do not tell anyone", "category": "isolationpressure", "weight": 60, "kind": "keyword" },
-    { "value": "do not share this", "category": "isolationpressure", "weight": 50, "kind": "keyword" },
-
-    { "value": "speak to my supervisor", "category": "fakeescalation", "weight": 45, "kind": "keyword" },
-    { "value": "escalated to supervisor", "category": "fakeescalation", "weight": 45, "kind": "keyword" },
-
-    { "value": "move to whatsapp", "category": "platformmigration", "weight": 45, "kind": "keyword" },
-    { "value": "move to telegram", "category": "platformmigration", "weight": 50, "kind": "keyword" },
-    { "value": "contact me on telegram", "category": "platformmigration", "weight": 50, "kind": "keyword" },
-
-    { "value": "short link", "category": "urlhiding", "weight": 35, "kind": "keyword" },
-    { "value": "bit.ly", "category": "urlhiding", "weight": 35, "kind": "keyword" },
-    { "value": "tinyurl", "category": "urlhiding", "weight": 35, "kind": "keyword" },
-
-    { "value": "screenshot of your banking app", "category": "processviolation", "weight": 100, "absolute": true, "kind": "keyword" },
-    { "value": "send a screenshot", "category": "processviolation", "weight": 60, "kind": "keyword" },
-    { "value": "send your id", "category": "processviolation", "weight": 60, "kind": "keyword" },
-    { "value": "copy of your id", "category": "processviolation", "weight": 60, "kind": "keyword" },
-
-    { "value": "guaranteed returns", "category": "investmentscam", "weight": 60, "kind": "keyword" },
-    { "value": "high returns", "category": "investmentscam", "weight": 35, "kind": "keyword" },
-    { "value": "low risk", "category": "investmentscam", "weight": 35, "kind": "keyword" },
-    { "value": "daily tasks", "category": "taskscam", "weight": 60, "kind": "keyword" },
-    { "value": "complete tasks", "category": "taskscam", "weight": 45, "kind": "keyword" },
-    { "value": "invite-only", "category": "scarcitypressure", "weight": 45, "kind": "keyword" },
-    { "value": "limited slots", "category": "scarcitypressure", "weight": 45, "kind": "keyword" },
-
-    { "value": "recovery fee", "category": "recoveryscam", "weight": 100, "absolute": true, "kind": "keyword" },
-    { "value": "recover your funds", "category": "recoveryscam", "weight": 60, "kind": "keyword" },
-    { "value": "we can trace your funds", "category": "recoveryscam", "weight": 60, "kind": "keyword" },
-    { "value": "hacker can recover", "category": "recoveryscam", "weight": 60, "kind": "keyword" }
+    
+    { "value": "if you do not", "category": "conditionalpressure", "weight": 45 },
+    { "value": "failure to respond will result in", "category": "conditionalpressure", "weight": 50 }
   ]
 }
