@@ -1,35 +1,54 @@
 'use strict';
 
-function clamp(n, min, max) {
-  return Math.max(min, Math.min(max, n));
-}
-
-function bandFromScore(score) {
-  if (score >= 90) return 'CRITICAL';
-  if (score >= 60) return 'SUSPICIOUS';
-  if (score >= 30) return 'CAUTION';
+// Map score to the 3-band system (requested).
+function bandFromScore(score, isCritical) {
+  if (isCritical) return 'CRITICAL';
+  if (score >= 50) return 'SUSPICIOUS';
   return 'SAFE';
 }
 
-/**
- * Inputs expected from engine:
- * {
- *   absolute: boolean,
- *   knownBadDomain: boolean,
- *   keywordScore: number,     // from domain keywords
- *   patternScore: number      // from text pattern hits
- * }
- */
-function scoreEvidence({ absolute, knownBadDomain, keywordScore, patternScore }) {
-  if (absolute) return { score: 100, band: 'CRITICAL' };
-  if (knownBadDomain) return { score: 100, band: 'CRITICAL' };
-
-  const k = Number(keywordScore || 0);
-  const p = Number(patternScore || 0);
-
-  // Combine (simple, deterministic)
-  const score = clamp(k + p, 0, 85);
-  return { score, band: bandFromScore(score) };
+function clamp0_100(n) {
+  const x = Number(n || 0);
+  return Math.max(0, Math.min(100, x));
 }
 
-module.exports = { scoreEvidence, bandFromScore };
+function scoreEvidence(evidence) {
+  const hits = []
+    .concat(evidence.domainKeywords?.hits || [])
+    .concat(evidence.textPatterns?.hits || []);
+
+  const knownBadHit = evidence.knownBad?.hit === true;
+  const absoluteHit = evidence.textPatterns?.absoluteTriggered === true;
+
+  // CRITICAL hard gate
+  if (knownBadHit || absoluteHit) {
+    return {
+      band: 'CRITICAL',
+      score: 100,
+      hits,
+      reasons: []
+        .concat(knownBadHit ? [`Known bad domain hit: ${evidence.knownBad.value}`] : [])
+        .concat(absoluteHit ? ['Absolute credential indicator hit (OTP/PIN/CVV/password/card details).'] : [])
+    };
+  }
+
+  const raw = (evidence.domainKeywords?.score || 0) + (evidence.textPatterns?.score || 0);
+
+  // Keep mid-zone meaningful but avoid “always 100” inflation.
+  const score = clamp0_100(raw);
+
+  const band = bandFromScore(score, false);
+
+  return {
+    band,
+    score,
+    hits,
+    reasons: []
+      .concat(evidence.domainKeywords?.reasons || [])
+      .concat(evidence.textPatterns?.reasons || [])
+  };
+}
+
+module.exports = {
+  scoreEvidence
+};

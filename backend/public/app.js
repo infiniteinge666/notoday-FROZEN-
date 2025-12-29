@@ -1,6 +1,10 @@
+'use strict';
+
+const $ = (id) => document.getElementById(id);
+
 async function getIntel() {
-  const res = await fetch('/intel', { cache: 'no-store' });
-  return await res.json();
+  const res = await fetch('/intel', { method: 'GET' });
+  return res.json();
 }
 
 async function postCheck(raw) {
@@ -9,63 +13,62 @@ async function postCheck(raw) {
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ raw })
   });
-  return await res.json();
+  return res.json();
 }
-
-const $ = (id) => document.getElementById(id);
 
 function setBandUI(band) {
   const root = document.documentElement;
+  root.dataset.band = band; // used by CSS
 
-  root.classList.remove('band-safe', 'band-suspicious', 'band-critical');
+  $('bandText').textContent = band;
 
-  if (band === 'CRITICAL') root.classList.add('band-critical');
-  else if (band === 'SUSPICIOUS') root.classList.add('band-suspicious');
-  else root.classList.add('band-safe');
-
-  $('bandLabel').textContent = band || 'SAFE';
+  const lead = $('lead');
+  if (band === 'SAFE') lead.textContent = "You're safe. Let's check it.";
+  else if (band === 'SUSPICIOUS') lead.textContent = 'Pause. Risk markers detected.';
+  else lead.textContent = 'Stop. High-risk indicators detected.';
 }
 
-function setTagline(band) {
-  const t = $('tagline');
-  if (!t) return;
-
-  if (band === 'CRITICAL') t.textContent = 'Stop. This looks dangerous.';
-  else if (band === 'SUSPICIOUS') t.textContent = 'Pause. Something feels off.';
-  else t.textContent = 'You’re safe. Let’s check it.';
-}
-
-function renderList(ul, items, emptyFallback) {
+function setList(id, items) {
+  const ul = $(id);
   ul.innerHTML = '';
-  const list = Array.isArray(items) ? items : [];
-  const finalItems = list.length ? list : [emptyFallback];
-
-  for (const s of finalItems) {
+  (items || []).slice(0, 8).forEach((t) => {
     const li = document.createElement('li');
-    li.textContent = String(s);
+    li.textContent = t;
     ul.appendChild(li);
+  });
+}
+
+function showResult(payload) {
+  const result = $('result');
+  result.classList.remove('result-hidden');
+
+  // animation trigger (subtle emphasis)
+  result.classList.remove('pop');
+  void result.offsetWidth; // reflow
+  result.classList.add('pop');
+
+  if (!payload || !payload.success || !payload.data) {
+    setBandUI('SUSPICIOUS');
+    $('scoreNum').textContent = '0';
+    setList('why', ['Scan failed. The system returned an invalid response.']);
+    setList('dont', ['Do not act on unexpected messages.', 'Do not share OTP/PIN/CVV.']);
+    $('tech').textContent = JSON.stringify(payload, null, 2);
+    return;
   }
-}
 
-function emphasizeResult() {
-  const el = $('result');
-  el.classList.remove('pop');
-  // reflow to restart animation
-  void el.offsetWidth;
-  el.classList.add('pop');
-}
+  const d = payload.data;
 
-function setLoading(isLoading) {
-  const btn = $('scanBtn');
-  btn.disabled = isLoading;
-  btn.classList.toggle('loading', isLoading);
-  btn.textContent = isLoading ? 'CHECKING…' : 'CHECK';
-}
+  setBandUI(d.band || 'SUSPICIOUS');
+  $('scoreNum').textContent = String(d.score ?? 0);
 
-function showResult() {
-  const r = $('result');
-  r.hidden = false;
-  r.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  // Nice readable bullets (prefer curated lines, fall back to raw reasons)
+  const why = (d.why && d.why.length) ? d.why : (d.reasons || []);
+  const dont = d.whatNotToDo || [];
+
+  setList('why', why);
+  setList('dont', dont);
+
+  $('tech').textContent = JSON.stringify(payload, null, 2);
 }
 
 (async () => {
@@ -84,91 +87,48 @@ function showResult() {
     $('intel').textContent = 'Intel request error.';
   }
 
-  // Clear button
-  const raw = $('raw');
+  // Clear
   $('clearBtn').onclick = () => {
-    raw.value = '';
-    raw.focus();
+    $('raw').value = '';
+    $('raw').focus();
   };
 
-  // Ctrl/Cmd + Enter to scan
-  raw.addEventListener('keydown', (e) => {
-    const isEnter = e.key === 'Enter';
-    const mod = e.ctrlKey || e.metaKey;
-    if (isEnter && mod) $('scanBtn').click();
+  // Upload (proof build: no OCR yet, so we don’t pretend)
+  $('file').addEventListener('change', (e) => {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    showResult({
+      success: true,
+      data: {
+        band: 'SUSPICIOUS',
+        score: 35,
+        why: [
+          'Screenshot upload is present in the UI, but image OCR is not enabled in this proof build yet.',
+          'For now: paste the message text, link, or email body into the box.'
+        ],
+        whatNotToDo: [
+          'Do not trust screenshots as proof.',
+          'Do not share OTP/PIN/CVV.',
+          'Do not pay into a private individual’s account.'
+        ],
+        reasons: ['Image OCR not enabled in this build.'],
+        intelVersion: 'ui'
+      },
+      message: 'OK'
+    });
+    e.target.value = '';
   });
 
-  // Main scan
+  // Scan
   $('scanBtn').onclick = async () => {
-    const text = (raw.value || '').trim();
+    const raw = $('raw').value || '';
+    showResult({ success: true, data: { band: 'SUSPICIOUS', score: 0, why: ['Scanning…'], whatNotToDo: [] } });
 
-    // No dark patterns: gentle nudge only
-    if (!text) {
-      setBandUI('SAFE');
-      setTagline('SAFE');
-      $('scoreNum').textContent = '0';
-      $('resultTitle').textContent = 'Paste something to scan.';
-      renderList($('reasons'), ['No content provided.'], 'No reasons.');
-      renderList($('dont'), ['Don’t act on messages you haven’t verified.'], 'No guidance.');
-      $('out').textContent = '';
-      showResult();
-      emphasizeResult();
-      return;
-    }
-
-    setLoading(true);
     try {
-      const res = await postCheck(text);
-
-      // Keep debug JSON
-      $('out').textContent = JSON.stringify(res, null, 2);
-
-      const data = res && res.data ? res.data : {};
-      const band = data.band || 'SAFE';
-      const score = Number.isFinite(data.score) ? data.score : 0;
-
-      setBandUI(band);
-      setTagline(band);
-
-      $('scoreNum').textContent = String(score);
-
-      // Title copy
-      if (band === 'CRITICAL') $('resultTitle').textContent = 'High-risk markers detected.';
-      else if (band === 'SUSPICIOUS') $('resultTitle').textContent = 'Some risk markers detected.';
-      else $('resultTitle').textContent = 'No high-risk markers detected.';
-
-      renderList(
-        $('reasons'),
-        data.reasons,
-        'No high-risk markers detected in the provided content.'
-      );
-
-      renderList(
-        $('dont'),
-        data.whatNotToDo,
-        'Still verify the sender before acting on anything.'
-      );
-
-      showResult();
-      emphasizeResult();
+      const r = await postCheck(raw);
+      showResult(r);
     } catch (e) {
-      setBandUI('SUSPICIOUS');
-      setTagline('SUSPICIOUS');
-      $('scoreNum').textContent = '0';
-      $('resultTitle').textContent = 'Scan failed to run.';
-      renderList($('reasons'), ['Request error or server unavailable.'], 'No reasons.');
-      renderList($('dont'), ['Try again later. Don’t act on the message in the meantime.'], 'No guidance.');
-      $('out').textContent = String(e && e.message ? e.message : e);
-      showResult();
-      emphasizeResult();
-    } finally {
-      setLoading(false);
+      showResult({ success: false, error: 'Network error', details: String(e && e.message ? e.message : e) });
     }
-  };
-
-  // OTP test
-  $('otp').onclick = async () => {
-    raw.value = 'Your OTP is 123456. Please share your PIN and CVV immediately.';
-    $('scanBtn').click();
   };
 })();

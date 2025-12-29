@@ -1,114 +1,87 @@
 'use strict';
 
-/**
- * NoToday — match.js (LOCKED BEHAVIOUR)
- * Matches v5 intel schema:
- * - knownBadDomains: [{ value, category, weight }]
- * - scamDomainKeywords: [{ value, category, weight }]
- * - scamPatterns: [{ value, category, weight }]
- *
- * Absolute rule:
- * - known bad domain => CRITICAL
- * - credential category hits => absolute => CRITICAL
- */
+const { normalizeText, extractDomainCandidates } = require('./normalize');
 
-function safeStr(v) {
-  return (v ?? '').toString();
-}
+// Return: { hit, value }
+function findKnownBadDomainHit(raw, intel) {
+  const domains = extractDomainCandidates(raw);
+  const list = (intel.knownBadDomains || []).map(x => String(x.value || '').toLowerCase());
 
-// Must match normalize.js behaviour so phrases line up
-function normalizeForMatch(s) {
-  return safeStr(s)
-    .replace(/[\u2018\u2019\u201A\u201B]/g, "'")
-    .replace(/[\u201C\u201D\u201E\u201F]/g, '"')
-    .replace(/\u00A0/g, ' ')
-    .replace(/\u200B/g, '')
-    .toLowerCase()
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function domainEqualsOrSubdomain(domain, needle) {
-  const d = safeStr(domain).toLowerCase();
-  const n = safeStr(needle).toLowerCase();
-  if (!d || !n) return false;
-  return d === n || d.endsWith('.' + n);
-}
-
-function findKnownBadDomainHit(domains, intel) {
-  const bads = intel.knownBadDomains || [];
-  for (const dom of domains || []) {
-    for (const b of bads) {
-      if (domainEqualsOrSubdomain(dom, b.value)) {
-        return b;
-      }
-    }
+  for (const d of domains) {
+    const dn = String(d || '').toLowerCase();
+    if (list.includes(dn)) return { hit: true, value: dn };
   }
-  return null;
+  return { hit: false, value: null };
 }
 
-function scoreDomainKeywords(domains, intel) {
-  const kws = intel.scamDomainKeywords || [];
+// Return: { score, reasons, hits }
+function scoreDomainKeywords(raw, intel) {
+  const domains = extractDomainCandidates(raw);
+  const kw = intel.scamDomainKeywords || [];
+
   let score = 0;
   const reasons = [];
-
-  for (const dom of domains || []) {
-    const d = safeStr(dom).toLowerCase();
-    if (!d) continue;
-
-    for (const kw of kws) {
-      const v = safeStr(kw.value).toLowerCase();
-      if (!v) continue;
-
-      if (d.includes(v)) {
-        const w = Number(kw.weight || 0);
-        score += w;
-        reasons.push(`Domain contains scam keyword: "${v}" (+${w})`);
-      }
-    }
-  }
-
-  return { score, reasons };
-}
-
-function findPatternHits(text, intel) {
-  const patterns = intel.scamPatterns || [];
   const hits = [];
 
-  // text here should already be normalized by normalize.js, but normalize again
-  // to be robust if something calls this directly.
-  const t = normalizeForMatch(text);
+  for (const d of domains) {
+    const dn = String(d || '').toLowerCase();
 
-  for (const p of patterns) {
-    const v = normalizeForMatch(p.value);
-    if (!v) continue;
+    for (const k of kw) {
+      const token = String(k.value || '').toLowerCase();
+      if (!token) continue;
 
-    if (t.includes(v)) {
-      hits.push(p);
+      if (dn.includes(token)) {
+        const w = Number(k.weight || 0);
+        if (w <= 0) continue;
+
+        score += w;
+        const msg = `Domain keyword "${token}" matched in "${dn}" (+${w})`;
+        reasons.push(msg);
+        hits.push({ type: 'domain_keyword', category: k.category || 'domain_keyword', value: token, weight: w, context: dn });
+      }
     }
   }
 
-  return hits;
+  // conservative clamp
+  score = Math.min(score, 80);
+
+  return { score, reasons, hits };
 }
 
-function scoreTextPatterns(text, intel) {
-  const hits = findPatternHits(text, intel);
-  let absolute = false;
+// Return: { score, reasons, hits, absoluteTriggered }
+function scoreTextPatterns(raw, intel) {
+  const text = normalizeText(raw);
+  const patterns = intel.scamPatterns || [];
+
   let score = 0;
   const reasons = [];
+  const hits = [];
+  let absoluteTriggered = false;
 
-  for (const h of hits) {
-    const cat = safeStr(h.category).toLowerCase();
-    const w = Number(h.weight || 0);
+  for (const p of patterns) {
+    const phrase = String(p.value || '').toLowerCase();
+    if (!phrase) continue;
 
-    // Credential category = absolute indicator
-    if (cat === 'credentials') absolute = true;
+    // Basic contains match (deterministic). Keep it boring and reliable.
+    if (text.includes(phrase)) {
+      const w = Number(p.weight || 0);
+      const cat = String(p.category || 'unknown');
 
-    score += w;
-    reasons.push(`Matched "${safeStr(h.value)}" [${cat}] (+${w})`);
+      // Category "credentials" is treated as absolute by policy in this proof build.
+      if (cat === 'credentials') absoluteTriggered = true;
+
+      score += w;
+
+      const msg = `Matched "${phrase}" [${cat}] (+${w})`;
+      reasons.push(msg);
+      hits.push({ type: 'pattern', category: cat, value: phrase, weight: w });
+    }
   }
 
-  return { absolute, score, reasons, hitsCount: hits.length };
+  // conservative clamp (absolute handled elsewhere)
+  score = Math.min(score, 90);
+
+  return { score, reasons, hits, absoluteTriggered };
 }
 
 module.exports = {
