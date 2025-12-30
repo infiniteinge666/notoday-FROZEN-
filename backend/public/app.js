@@ -1,354 +1,327 @@
-// app.js — NoToday Public Test UI (VPS/Nginx baseline)
-// Rule: UI must call the API origin (not the static UI origin).
+// app.js — NoToday Public Test UI (VPS / Nginx / Same-Origin Safe)
+// Rule: default to SAME ORIGIN to avoid CSP connect-src blocks.
+// If you later want cross-origin API (api.notoday.co.za from notoday.co.za),
+// you must explicitly allow it in CSP connect-src.
 
-'use strict';
+(function () {
+  "use strict";
 
-const DEFAULT_API_BASE = 'https://api.notoday.co.za';
+  const $ = (id) => document.getElementById(id);
 
-const API_BASE =
-  (window.__NOTODAY_API__ && String(window.__NOTODAY_API__)) ||
-  document.querySelector('meta[name="notoday-api"]')?.content ||
-  DEFAULT_API_BASE;
+  function originSafeMetaBase() {
+    const meta = document.querySelector('meta[name="notoday-api"]')?.content?.trim();
+    if (!meta) return null;
 
-const byId = (id) => document.getElementById(id);
-
-function requireEls(ids) {
-  const missing = [];
-  const els = {};
-  for (const id of ids) {
-    const el = byId(id);
-    if (!el) missing.push(id);
-    els[id] = el;
-  }
-  if (missing.length) {
-    // Fail closed: show in console + render a minimal message if possible.
-    console.error('[NoToday UI] Missing required element IDs:', missing);
-  }
-  return { els, missing };
-}
-
-function clamp(n, min, max) {
-  const x = Number(n);
-  if (!Number.isFinite(x)) return min;
-  return Math.max(min, Math.min(max, x));
-}
-
-function safeBand(band) {
-  const v = String(band || '').toUpperCase();
-  return v === 'SAFE' || v === 'SUSPICIOUS' || v === 'CRITICAL' ? v : 'SUSPICIOUS';
-}
-
-function clearChildren(node) {
-  while (node && node.firstChild) node.removeChild(node.firstChild);
-}
-
-function renderList(ul, items, emptyText) {
-  if (!ul) return;
-  clearChildren(ul);
-
-  const arr = Array.isArray(items) ? items : [];
-  if (!arr.length) {
-    const li = document.createElement('li');
-    li.textContent = emptyText || 'No details available.';
-    ul.appendChild(li);
-    return;
+    try {
+      const url = new URL(meta, window.location.href);
+      // Only allow override if it's the same origin (avoids CSP connect-src issues)
+      if (url.origin === window.location.origin) return url.origin;
+      return null;
+    } catch {
+      return null;
+    }
   }
 
-  for (const x of arr) {
-    const li = document.createElement('li');
-    li.textContent = String(x);
-    ul.appendChild(li);
+  // Same-origin API base by default.
+  const API_BASE =
+    (window.__NOTODAY_API__ && String(window.__NOTODAY_API__)) ||
+    originSafeMetaBase() ||
+    window.location.origin;
+
+  function apiUrl(path) {
+    const p = String(path || "").startsWith("/") ? String(path) : `/${path}`;
+    return `${API_BASE}${p}`;
   }
-}
 
-function setText(el, value) {
-  if (!el) return;
-  el.textContent = String(value ?? '');
-}
+  function setBand(band) {
+    const allowed = ["SAFE", "SUSPICIOUS", "CRITICAL"];
+    const b = allowed.includes(String(band).toUpperCase())
+      ? String(band).toUpperCase()
+      : "SUSPICIOUS";
+    document.documentElement.setAttribute("data-band", b);
+    const el = $("bandText");
+    if (el) el.textContent = b;
+  }
 
-function show(el) {
-  if (!el) return;
-  el.classList.remove('result-hidden');
-}
+  function setScore(n) {
+    const num = Number.isFinite(Number(n)) ? Math.max(0, Math.min(100, Number(n))) : 0;
+    const el = $("scoreNum");
+    if (el) el.textContent = String(num);
+  }
 
-function setBusy(btn, isBusy) {
-  if (!btn) return;
-  btn.disabled = !!isBusy;
-  btn.classList.toggle('btn-busy', !!isBusy);
-  btn.textContent = isBusy ? 'CHECKING…' : 'CHECK';
-}
+  function clearList(ul) {
+    while (ul && ul.firstChild) ul.removeChild(ul.firstChild);
+  }
 
-function setBandUI(band, bandTextEl) {
-  const b = safeBand(band);
-  document.documentElement.setAttribute('data-band', b);
-  if (bandTextEl) bandTextEl.textContent = b;
-}
+  function renderList(ulId, items) {
+    const ul = $(ulId);
+    if (!ul) return;
+    clearList(ul);
 
-function setScoreUI(score, scoreNumEl) {
-  if (!scoreNumEl) return;
-  scoreNumEl.textContent = String(clamp(score, 0, 100));
-}
+    const arr = Array.isArray(items) ? items : [];
+    if (!arr.length) {
+      const li = document.createElement("li");
+      li.textContent = "No details available.";
+      ul.appendChild(li);
+      return;
+    }
 
-async function safeJson(res) {
-  const ct = res.headers.get('content-type') || '';
-  const text = await res.text();
+    for (const x of arr) {
+      const li = document.createElement("li");
+      li.textContent = String(x);
+      ul.appendChild(li);
+    }
+  }
 
-  if (!ct.includes('application/json')) {
+  function showResult() {
+    const el = $("result");
+    if (el) el.classList.remove("result-hidden");
+  }
+
+  function setLead(text) {
+    const el = $("lead");
+    if (el) el.textContent = String(text || "");
+  }
+
+  function setTech(obj) {
+    const el = $("tech");
+    if (!el) return;
+    el.textContent = typeof obj === "string" ? obj : JSON.stringify(obj, null, 2);
+  }
+
+  function setBusy(isBusy) {
+    const btn = $("scanBtn");
+    if (!btn) return;
+    btn.disabled = !!isBusy;
+    btn.classList.toggle("btn-busy", !!isBusy);
+    btn.textContent = isBusy ? "CHECKING…" : "CHECK";
+  }
+
+  async function safeJson(res) {
+    const ct = res.headers.get("content-type") || "";
+    const text = await res.text();
+
+    if (!ct.includes("application/json")) {
+      return {
+        success: false,
+        error: "Network error",
+        details: `Expected JSON but got "${ct || "unknown content-type"}". First 140 chars: ${text.slice(0, 140)}`
+      };
+    }
+
+    try {
+      return JSON.parse(text);
+    } catch {
+      return {
+        success: false,
+        error: "Network error",
+        details: `Invalid JSON returned. First 140 chars: ${text.slice(0, 140)}`
+      };
+    }
+  }
+
+  async function getIntel() {
+    const res = await fetch(apiUrl("/intel"), { method: "GET" });
+    return safeJson(res);
+  }
+
+  async function postCheck(raw) {
+    const res = await fetch(apiUrl("/check"), {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        raw: String(raw || "")
+        // deviceTokenHash intentionally omitted in public-test UI baseline
+      })
+    });
+    return safeJson(res);
+  }
+
+  // Normalise /check responses into one UI shape.
+  function normaliseCheckResponse(r) {
+    const ok = !!(r && r.success);
+    const payload = (r && r.data) ? r.data : r;
+
+    const band = payload?.band || payload?.data?.band;
+    const score = payload?.score ?? payload?.data?.score ?? payload?.riskScore ?? 0;
+    const reasons = payload?.reasons || payload?.why || payload?.data?.reasons || [];
+    const whatNotToDo = payload?.whatNotToDo || payload?.dont || payload?.data?.whatNotToDo || [];
+    const intelVersion =
+      payload?.intelVersion ||
+      payload?.data?.intelVersion ||
+      payload?.version ||
+      "unknown";
+
+    if (!ok) {
+      return {
+        ok: false,
+        band: "SUSPICIOUS",
+        score: 0,
+        reasons: ["Scan failed. The system returned an invalid response."],
+        whatNotToDo: ["Do not act on unexpected messages."],
+        intelVersion: "unknown",
+        raw: r
+      };
+    }
+
     return {
-      success: false,
-      error: 'Network error',
-      details: `Expected JSON but got "${ct || 'unknown content-type'}". First 140 chars: ${text.slice(0, 140)}`
-    };
-  }
-
-  try {
-    return JSON.parse(text);
-  } catch {
-    return {
-      success: false,
-      error: 'Network error',
-      details: `Invalid JSON returned. First 140 chars: ${text.slice(0, 140)}`
-    };
-  }
-}
-
-async function getIntel() {
-  const res = await fetch(`${API_BASE}/intel`, { method: 'GET' });
-  return safeJson(res);
-}
-
-async function postCheck(raw) {
-  const res = await fetch(`${API_BASE}/check`, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ raw: String(raw || '') })
-  });
-  return safeJson(res);
-}
-
-// Normalise /check response into one UI shape.
-function normaliseCheckResponse(r) {
-  const ok = !!(r && r.success);
-  const payload = r && r.data ? r.data : r;
-
-  const band = payload?.band ?? payload?.data?.band ?? 'SUSPICIOUS';
-  const score = payload?.score ?? payload?.data?.score ?? payload?.riskScore ?? 0;
-  const reasons = payload?.reasons ?? payload?.why ?? payload?.data?.reasons ?? [];
-  const whatNotToDo = payload?.whatNotToDo ?? payload?.dont ?? payload?.data?.whatNotToDo ?? [];
-  const intelVersion =
-    payload?.intelVersion ??
-    payload?.data?.intelVersion ??
-    payload?.version ??
-    (r && r.data && r.data.version) ??
-    'unknown';
-
-  if (!ok) {
-    return {
-      ok: false,
-      band: 'SUSPICIOUS',
-      score: 0,
-      reasons: ['Scan failed. The system returned an invalid response.'],
-      whatNotToDo: ['Do not act on unexpected messages.'],
-      intelVersion: 'unknown',
+      ok: true,
+      band: band || "SUSPICIOUS",
+      score: Number.isFinite(Number(score)) ? Number(score) : 0,
+      reasons: Array.isArray(reasons) ? reasons : [],
+      whatNotToDo: Array.isArray(whatNotToDo) ? whatNotToDo : [],
+      intelVersion,
       raw: r
     };
   }
 
-  return {
-    ok: true,
-    band: safeBand(band),
-    score: clamp(score, 0, 100),
-    reasons: Array.isArray(reasons) ? reasons : [],
-    whatNotToDo: Array.isArray(whatNotToDo) ? whatNotToDo : [],
-    intelVersion: String(intelVersion || 'unknown'),
-    raw: r
-  };
-}
+  function renderCheckResult(n) {
+    setBand(n.band);
+    setScore(n.score);
 
-function leadForBand(band) {
-  const b = safeBand(band);
-  if (b === 'CRITICAL') return 'Stop. High-risk indicators detected.';
-  if (b === 'SUSPICIOUS') return 'Pause. Risk markers detected.';
-  return 'No strong scam indicators detected.';
-}
+    const b = String(n.band).toUpperCase();
+    if (b === "CRITICAL") setLead("Stop. High-risk indicators detected.");
+    else if (b === "SUSPICIOUS") setLead("Pause. Risk markers detected.");
+    else setLead("No strong scam indicators detected.");
 
-function renderResult(ui, n) {
-  setBandUI(n.band, ui.bandText);
-  setScoreUI(n.score, ui.scoreNum);
-  setText(ui.lead, leadForBand(n.band));
+    renderList("why", n.reasons);
+    renderList("dont", n.whatNotToDo);
+    setTech(n.raw);
 
-  renderList(ui.why, n.reasons, 'No strong indicators found.');
-  renderList(ui.dont, n.whatNotToDo, 'If money is involved, verify via official channels you find yourself.');
-
-  setText(ui.tech, typeof n.raw === 'string' ? n.raw : JSON.stringify(n.raw, null, 2));
-  show(ui.result);
-}
-
-function wireUI(ui) {
-  if (ui.clearBtn && ui.raw) {
-    ui.clearBtn.addEventListener('click', () => {
-      ui.raw.value = '';
-      ui.raw.focus();
-    });
+    showResult();
   }
 
-  if (ui.scanBtn && ui.raw) {
-    ui.scanBtn.addEventListener('click', async () => {
-      const raw = ui.raw.value || '';
+  function bindUI() {
+    const clearBtn = $("clearBtn");
+    const scanBtn = $("scanBtn");
+    const rawEl = $("raw");
+    const fileEl = $("file");
 
-      if (!raw.trim()) {
-        renderResult(ui, {
-          ok: false,
-          band: 'SUSPICIOUS',
-          score: 0,
-          reasons: ['No input provided.'],
-          whatNotToDo: ['Don’t click links or share details until you’ve checked the message.'],
-          intelVersion: 'unknown',
-          raw: { note: 'empty input', apiBase: API_BASE }
-        });
-        return;
-      }
-
-      setBusy(ui.scanBtn, true);
-      setText(ui.lead, 'Checking…');
-      show(ui.result);
-
-      try {
-        const r = await postCheck(raw);
-        const n = normaliseCheckResponse(r);
-        renderResult(ui, n);
-      } catch (e) {
-        renderResult(ui, normaliseCheckResponse({
-          success: false,
-          error: 'Network error',
-          details: String(e && e.message ? e.message : e)
-        }));
-      } finally {
-        setBusy(ui.scanBtn, false);
-      }
-    });
-
-    // Ctrl+Enter
-    ui.raw.addEventListener('keydown', (ev) => {
-      if ((ev.ctrlKey || ev.metaKey) && ev.key === 'Enter') {
-        ev.preventDefault();
-        ui.scanBtn.click();
-      }
-    });
-  }
-
-  if (ui.exampleOtp && ui.raw && ui.scanBtn) {
-    ui.exampleOtp.addEventListener('click', () => {
-      ui.raw.value = 'Your OTP is 123456. Please share your PIN and CVV immediately to keep your account active.';
-      ui.scanBtn.click();
-    });
-  }
-
-  if (ui.exampleSafe && ui.raw && ui.scanBtn) {
-    ui.exampleSafe.addEventListener('click', () => {
-      ui.raw.value = 'Hi, just a reminder that our meeting is tomorrow at 10:00. See you then.';
-      ui.scanBtn.click();
-    });
-  }
-
-  // Screenshot upload: intentionally not wired (text-only baseline)
-  if (ui.file) {
-    ui.file.addEventListener('change', () => {
-      const f = ui.file.files && ui.file.files[0];
-      if (!f) return;
-
-      renderResult(ui, {
-        ok: false,
-        band: 'SUSPICIOUS',
-        score: 0,
-        reasons: [
-          'Screenshot upload is not enabled in this public test build yet.',
-          'Backend is currently expecting text-only JSON.'
-        ],
-        whatNotToDo: [
-          'Don’t trust screenshots as proof.',
-          'Verify via official channels you find yourself (not links in the message).'
-        ],
-        intelVersion: 'unknown',
-        raw: { file: { name: f.name, type: f.type, size: f.size }, apiBase: API_BASE }
-      });
-
-      ui.file.value = '';
-    });
-  }
-}
-
-async function init() {
-  const { els, missing } = requireEls([
-    'intel',
-    'raw',
-    'clearBtn',
-    'scanBtn',
-    'file',
-    'exampleOtp',
-    'exampleSafe',
-    'result',
-    'bandText',
-    'scoreNum',
-    'lead',
-    'why',
-    'dont',
-    'tech'
-  ]);
-
-  const ui = {
-    intel: els.intel,
-    raw: els.raw,
-    clearBtn: els.clearBtn,
-    scanBtn: els.scanBtn,
-    file: els.file,
-    exampleOtp: els.exampleOtp,
-    exampleSafe: els.exampleSafe,
-    result: els.result,
-    bandText: els.bandText,
-    scoreNum: els.scoreNum,
-    lead: els.lead,
-    why: els.why,
-    dont: els.dont,
-    tech: els.tech
-  };
-
-  // Baseline UI state
-  setBandUI('SAFE', ui.bandText);
-  setScoreUI(0, ui.scoreNum);
-  setText(ui.lead, 'Ready.');
-
-  // Intel banner
-  try {
-    const intel = await getIntel();
-    if (intel && intel.success && intel.data) {
-      setText(
-        ui.intel,
-        `Intel: ${intel.data.version} | counts: ${JSON.stringify(intel.data.counts)}${intel.data.degraded ? ' | DEGRADED' : ''}`
-      );
-    } else {
-      setText(ui.intel, 'Intel load failed: ' + (intel?.details || intel?.error || 'unknown'));
+    if (clearBtn && rawEl) {
+      clearBtn.onclick = () => {
+        rawEl.value = "";
+        rawEl.focus();
+      };
     }
-  } catch {
-    setText(ui.intel, 'Intel request error.');
+
+    if (scanBtn && rawEl) {
+      scanBtn.onclick = async () => {
+        const raw = rawEl.value || "";
+        if (!raw.trim()) {
+          setBand("SUSPICIOUS");
+          setScore(0);
+          setLead("Paste something first.");
+          renderList("why", ["No input provided."]);
+          renderList("dont", ["Don’t click links or share details until you’ve checked the message."]);
+          setTech({ note: "empty input", apiBase: API_BASE });
+          showResult();
+          return;
+        }
+
+        try {
+          setBusy(true);
+          setLead("Checking…");
+          showResult();
+
+          const r = await postCheck(raw);
+          const n = normaliseCheckResponse(r);
+          renderCheckResult(n);
+        } catch (e) {
+          const n = normaliseCheckResponse({
+            success: false,
+            error: "Network error",
+            details: String(e && e.message ? e.message : e)
+          });
+          renderCheckResult(n);
+        } finally {
+          setBusy(false);
+        }
+      };
+    }
+
+    if (rawEl) {
+      rawEl.addEventListener("keydown", (ev) => {
+        if ((ev.ctrlKey || ev.metaKey) && ev.key === "Enter") {
+          ev.preventDefault();
+          const btn = $("scanBtn");
+          if (btn) btn.click();
+        }
+      });
+    }
+
+    const exampleOtp = $("exampleOtp");
+    if (exampleOtp && rawEl) {
+      exampleOtp.onclick = () => {
+        rawEl.value = "Your OTP is 123456. Please share your PIN and CVV immediately to keep your account active.";
+        const btn = $("scanBtn");
+        if (btn) btn.click();
+      };
+    }
+
+    const exampleSafe = $("exampleSafe");
+    if (exampleSafe && rawEl) {
+      exampleSafe.onclick = () => {
+        rawEl.value = "Hi, just a reminder that our meeting is tomorrow at 10:00. See you then.";
+        const btn = $("scanBtn");
+        if (btn) btn.click();
+      };
+    }
+
+    // Screenshot upload placeholder (not wired in text-only baseline)
+    if (fileEl) {
+      fileEl.addEventListener("change", () => {
+        const f = fileEl.files && fileEl.files[0];
+        if (!f) return;
+
+        setBand("SUSPICIOUS");
+        setScore(0);
+        setLead("Screenshot upload is not enabled in this public test build yet.");
+        renderList("why", [
+          "This UI can select a file, but the backend is currently expecting text-only JSON.",
+          "To scan screenshots, we need an OCR path wired safely."
+        ]);
+        renderList("dont", [
+          "Don’t trust screenshots as proof.",
+          "If money is involved, verify via official channels you find yourself (not links in the message)."
+        ]);
+        setTech({ file: { name: f.name, type: f.type, size: f.size }, apiBase: API_BASE });
+        showResult();
+
+        // reset so selecting same file again triggers change
+        fileEl.value = "";
+      });
+    }
   }
 
-  // If critical DOM is missing, fail closed (don’t attach broken handlers)
-  if (missing.length) {
-    // Still show result box if possible with a clear message
-    renderResult(ui, {
-      ok: false,
-      band: 'SUSPICIOUS',
-      score: 0,
-      reasons: ['UI wiring error: missing required elements.', `Missing: ${missing.join(', ')}`],
-      whatNotToDo: ['Do not rely on this page until the UI wiring is fixed.'],
-      intelVersion: 'unknown',
-      raw: { missingIds: missing, apiBase: API_BASE }
-    });
-    return;
+  async function init() {
+    setBand("SAFE");
+    setScore(0);
+
+    // Intel banner
+    try {
+      const intel = await getIntel();
+      const intelEl = $("intel");
+      if (!intelEl) return;
+
+      if (intel.success) {
+        intelEl.textContent =
+          `Intel: ${intel.data.version} | counts: ` +
+          JSON.stringify(intel.data.counts) +
+          (intel.data.degraded ? " | DEGRADED" : "");
+      } else {
+        intelEl.textContent = "Intel load failed: " + (intel.details || intel.error || "");
+      }
+    } catch {
+      const intelEl = $("intel");
+      if (intelEl) intelEl.textContent = "Intel request error.";
+    }
+
+    bindUI();
   }
 
-  wireUI(ui);
-}
-
-document.addEventListener('DOMContentLoaded', init);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();

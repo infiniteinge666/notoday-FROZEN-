@@ -1,20 +1,40 @@
-# NoToday — Render Proof Build (Single-Service)
+# NoToday — Public Test Build
 
-This build is designed for **one platform, one reality** (Render Web Service).
+NoToday is a calm, explainable scam-risk checking tool.
 
-## What you get
-- `GET /intel` — returns intel version + counts
-- `POST /check` — scans raw text/link/email/screenshot OCR text and returns `{band, score, reasons}`
-- Static UI served from `/` (very minimal, uses your `styles.css`)
+This repository contains the **public test UI + API service** used at  
+👉 https://notoday.co.za
 
-## Run locally
-```bash
-cd backend
-npm install
-npm start
-```
+The system is intentionally simple:
+- One input
+- One explanation
+- No accounts
+- No tracking
+- No stored user data
 
-## Deploy on Render
-- Build command: `npm install --prefix backend`
-- Start command: `npm start --prefix backend`
-- Environment: Node
+---
+
+## What this build does
+
+### API
+- **GET /intel**  
+  Returns the current intel version and indicator counts.
+
+- **POST /check**  
+  Accepts raw text (email, link, message, or OCR text) and returns:
+  - risk band (`SAFE`, `SUSPICIOUS`, `CRITICAL`)
+  - score (0–100)
+  - reasons
+  - what not to do
+  - intel version
+
+### UI
+- Static HTML/CSS/JS
+- Served independently from the API
+- Always calls the API origin (never the UI origin)
+- Designed for high-stress, low-friction use
+
+---
+
+## Architecture (intentionally boring)
+
