@@ -1,40 +1,34 @@
-# NoToday — Public Test Build
+# NoToday — Public Test Build (Single Service)
 
-NoToday is a calm, explainable scam-risk checking tool.
+NoToday is a calm, explainable scam-risk checker.
 
-This repository contains the **public test UI + API service** used at  
-👉 https://notoday.co.za
+This repository contains:
+- A small public UI (static files)
+- A Node/Express backend API
+- A versioned scam intelligence store (`scamIntel.json`)
 
-The system is intentionally simple:
-- One input
-- One explanation
-- No accounts
-- No tracking
-- No stored user data
+## Endpoints
 
----
+- `GET /intel`
+  - Returns intel version and counts
 
-## What this build does
+- `POST /check`
+  - Accepts `{ "raw": "..." }`
+  - Returns explainable risk output: `{ band, score, reasons, whatNotToDo, intelVersion }`
 
-### API
-- **GET /intel**  
-  Returns the current intel version and indicator counts.
-
-- **POST /check**  
-  Accepts raw text (email, link, message, or OCR text) and returns:
-  - risk band (`SAFE`, `SUSPICIOUS`, `CRITICAL`)
-  - score (0–100)
-  - reasons
-  - what not to do
-  - intel version
-
-### UI
-- Static HTML/CSS/JS
-- Served independently from the API
-- Always calls the API origin (never the UI origin)
-- Designed for high-stress, low-friction use
-
----
-
-## Architecture (intentionally boring)
-
+## Folder layoutbackend/
+server.js
+routes.js
+package.json
+core/
+intel/
+http/handlers/
+data/
+scamIntel.json
+public/
+index.html
+app.js
+styles/
+render-style.css
+assets/
+notoday-shield.png

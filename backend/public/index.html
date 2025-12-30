@@ -8,9 +8,10 @@
 
   <link rel="stylesheet" href="/styles/render-style.css" />
 
-  <!-- API target (same-origin safe by default in app.js).
-       Keep this SAME ORIGIN unless your CSP includes connect-src for api.notoday.co.za. -->
-  <meta name="notoday-api" content="https://notoday.co.za" />
+  <!-- IMPORTANT:
+       This is the UI's API target.
+       Keep it pointing at the API origin (not the static site origin). -->
+  <meta name="notoday-api" content="https://api.notoday.co.za" />
 </head>
 
 <body>
@@ -44,13 +45,7 @@
           autocomplete="off"
         ></textarea>
 
-        <button
-          id="clearBtn"
-          class="clear-btn"
-          type="button"
-          aria-label="Clear text"
-          title="Clear"
-        >
+        <button id="clearBtn" class="clear-btn" type="button" aria-label="Clear text" title="Clear">
           ×
         </button>
       </div>
@@ -118,6 +113,6 @@
     </section>
   </main>
 
-  <script src="/app.js" defer></script>
+  <script src="/app.js"></script>
 </body>
 </html>

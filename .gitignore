@@ -1,0 +1,6 @@
+# Dependencies (never commit)
+node_modules/
+backend/node_modules/
+
+# If package-lock is not part of this repo baseline, ignore it
+backend/package-lock.json
