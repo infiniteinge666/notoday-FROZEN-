@@ -1,118 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="color-scheme" content="dark" />
-  <title>NoToday — Public Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#eaf0ff" />
+  <title>NoToday</title>
 
-<link rel="stylesheet" href="/styles/render-style.css?v=8" />
-
-  <!-- IMPORTANT:
-       This is the UI's API target.
-       Keep it pointing at the API origin (not the static site origin). -->
-  <meta name="notoday-api" content="https://api.notoday.co.za" />
+  <link rel="stylesheet" href="styles/render-style.css?v=11" />
 </head>
 
 <body>
-  <main class="page" role="main">
+  <main class="screen">
+
     <header class="hero" aria-label="NoToday header">
-      <div class="hero-logo" aria-hidden="true">
-        <img src="/assets/notoday-shield.png" alt="" />
+      <div class="brand">
+        <img
+          src="assets/notoday-shield.png"
+          alt="NoToday"
+          class="shield"
+          loading="eager"
+          decoding="async"
+        />
       </div>
 
-      <h1 class="hero-title">NoToday</h1>
-      <p class="hero-subtitle">Pause. Something feels off.</p>
-
-      <p class="intel" id="intel" aria-live="polite">Intel loading…</p>
+      <h1 class="title">NOTODAY</h1>
+      <p class="subtitle">Real-Time Threat Detection</p>
     </header>
 
-    <section class="card" aria-label="Scanner">
-      <div class="card-head">
-        <h2 class="card-title">Paste an email, link, or message</h2>
-        <p class="card-desc">
-          We don’t save what you paste. The scan runs, explains, and it’s gone.
-        </p>
-      </div>
-
-      <div class="input-wrap">
-        <textarea
-          id="raw"
-          class="input"
-          placeholder="e.g. info@something.co.za • https://example.com • “Your parcel is waiting…”"
-          rows="7"
-          spellcheck="false"
-          autocomplete="off"
-        ></textarea>
-
-        <button id="clearBtn" class="clear-btn" type="button" aria-label="Clear text" title="Clear">
-          ×
-        </button>
-      </div>
-
-      <div class="actions" role="group" aria-label="Actions">
-        <div class="upload">
-          <input id="file" type="file" accept="image/*" />
-          <label class="btn btn-ghost" for="file" aria-label="Upload screenshot">
-            <span class="icon" aria-hidden="true">📷</span>
-            Upload screenshot
-          </label>
+    <section class="slab" id="slab" data-band="SAFE" aria-label="Scan input">
+      <div class="result" id="result">
+        <div class="result-left">
+          <div class="band" id="band">SAFE</div>
+          <div class="score" id="score">0 / 100</div>
         </div>
-
-        <button id="scanBtn" class="btn btn-primary" type="button">
-          CHECK
-        </button>
+        <div class="hint" id="hint">No threats detected in this message.</div>
       </div>
 
-      <div class="help-row" role="note" aria-label="Help">
-        <div class="help-chip" id="kbdHint" title="Shortcut">Ctrl + Enter</div>
-        <button class="help-link" id="exampleOtp" type="button">Try OTP example</button>
-        <button class="help-link" id="exampleSafe" type="button">Try SAFE example</button>
-      </div>
-
-      <p class="microcopy">
-        Anonymous. No tracking. No saving. Calm, explainable results.
-      </p>
-
-      <section id="result" class="result result-hidden" aria-live="polite" aria-label="Result">
-        <div class="result-top">
-          <div class="badge" id="badge" aria-label="Risk band">
-            <span class="dot" aria-hidden="true"></span>
-            <span id="bandText">SAFE</span>
-          </div>
-
-          <div class="score" aria-label="Score">
-            <span id="scoreNum">0</span>
-            <span class="score-denom">/100</span>
-          </div>
-        </div>
-
-        <p class="result-lead" id="lead">Ready.</p>
-
-        <div class="result-grid" role="group" aria-label="Explanation and guidance">
-          <div class="result-col">
-            <h3 class="result-h">WHY</h3>
-            <ul class="list" id="why"></ul>
-          </div>
-
-          <div class="result-col">
-            <h3 class="result-h">WHAT NOT TO DO</h3>
-            <ul class="list" id="dont"></ul>
-          </div>
-        </div>
-
-        <details class="details">
-          <summary>Technical details</summary>
-          <pre class="tech" id="tech"></pre>
-        </details>
-      </section>
-
-      <footer class="footnote">
-        Built in South Africa. Clear, fast answers. <strong>Your privacy first.</strong>
-      </footer>
+      <textarea
+        id="input"
+        placeholder="Paste a message, link, or email..."
+        aria-label="Paste content to scan"
+        spellcheck="false"
+      ></textarea>
     </section>
+
+    <div class="action">
+      <button id="scanBtn" type="button" class="scanBtn" aria-label="Scan">
+        <img src="assets/notoday-shield.png" alt="" class="scanBtnIcon" aria-hidden="true" />
+        <span class="scanText">SCAN</span>
+      </button>
+    </div>
+
   </main>
 
-  <script src="/app.js"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>
