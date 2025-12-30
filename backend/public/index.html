@@ -3,9 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>NoToday — Proof Build</title>
+  <meta name="color-scheme" content="dark" />
+  <title>NoToday — Public Test</title>
+
   <link rel="stylesheet" href="/styles/render-style.css" />
-  <meta name="notoday-api" content="https://notoday.onrender.com">
+
+  <!-- IMPORTANT:
+       This is the UI's API target.
+       Keep it pointing at the API origin (not the static site origin). -->
+  <meta name="notoday-api" content="https://api.notoday.co.za" />
 </head>
 
 <body>
@@ -24,7 +30,9 @@
     <section class="card" aria-label="Scanner">
       <div class="card-head">
         <h2 class="card-title">Paste an email, link, or message</h2>
-        <p class="card-desc">We don’t save what you paste. The scan runs and it’s gone.</p>
+        <p class="card-desc">
+          We don’t save what you paste. The scan runs, explains, and it’s gone.
+        </p>
       </div>
 
       <div class="input-wrap">
@@ -32,8 +40,9 @@
           id="raw"
           class="input"
           placeholder="e.g. info@something.co.za • https://example.com • “Your parcel is waiting…”"
-          rows="6"
+          rows="7"
           spellcheck="false"
+          autocomplete="off"
         ></textarea>
 
         <button id="clearBtn" class="clear-btn" type="button" aria-label="Clear text" title="Clear">
@@ -55,8 +64,14 @@
         </button>
       </div>
 
+      <div class="help-row" role="note" aria-label="Help">
+        <div class="help-chip" id="kbdHint" title="Shortcut">Ctrl + Enter</div>
+        <button class="help-link" id="exampleOtp" type="button">Try OTP example</button>
+        <button class="help-link" id="exampleSafe" type="button">Try SAFE example</button>
+      </div>
+
       <p class="microcopy">
-        Anonymous. No tracking. No saving. Private. Encrypted. Local-first.
+        Anonymous. No tracking. No saving. Calm, explainable results.
       </p>
 
       <section id="result" class="result result-hidden" aria-live="polite" aria-label="Result">
