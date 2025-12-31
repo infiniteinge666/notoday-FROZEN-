@@ -18,5 +18,7 @@ function runCheck(raw, intel) {
 }
 
 module.exports = {
-  runCheck
+  runCheck,
+  scan: runCheck
 };
+
