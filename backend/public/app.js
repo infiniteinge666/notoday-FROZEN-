@@ -1,27 +1,19 @@
 (() => {
   'use strict';
 
-  const API_BASE = ""; // same-origin by default
+  // Same-origin by default. If you need remote later, set it here:
+  // const API_BASE = "https://api.notoday.co.za";
+  const API_BASE = "";
 
-  const slab   = document.getElementById("slab");
-  const result = document.getElementById("result");
-  const band   = document.getElementById("band");
-  const score  = document.getElementById("score");
-  const hint   = document.getElementById("hint");
-  const input  = document.getElementById("input");
-  const btn    = document.getElementById("scanBtn");
+  const slab   = document.getElementById('slab');
+  const bandEl = document.getElementById('band');
+  const scoreEl= document.getElementById('score');
+  const hintEl = document.getElementById('hint');
+  const input  = document.getElementById('input');
+  const btn    = document.getElementById('scanBtn');
 
-  function setState(b, s, h) {
-    const B = b || "SUSPICIOUS";
-    slab.dataset.band = B;
-    band.textContent = B;
-    score.textContent = `${Number.isFinite(s) ? s : 0} / 100`;
-    hint.textContent = h || "Scan complete.";
-    result.hidden = false;
-  }
-
-  function normalizeText(t) {
-    return (t ?? "")
+  function normalizeText(t){
+    return (t || "")
       .toString()
       .replace(/\u00A0/g, " ")
       .replace(/[“”]/g, '"')
@@ -29,54 +21,73 @@
       .trim();
   }
 
-  async function safeJson(res) {
-    const ct = (res.headers.get("content-type") || "").toLowerCase();
-    if (!ct.includes("application/json")) {
+  async function safeJson(res){
+    const ct = (res.headers.get('content-type') || '').toLowerCase();
+    if (!ct.includes('application/json')) {
       const text = await res.text();
       throw new Error(`Non-JSON response (${res.status}). First chars: ${text.slice(0, 80)}`);
     }
     return res.json();
   }
 
-  async function runScan() {
+  function setResult(band, score, hint){
+    slab.dataset.band = band;
+    bandEl.textContent = band;
+    scoreEl.textContent = `${score} / 100`;
+    hintEl.textContent = hint || '';
+  }
+
+  function summarize(apiPayload){
+    // Expected (from your backend): { band, reasons, whatNotToDo, intelVersion, score? }
+    // We stay defensive because platforms lie.
+    const band = (apiPayload && apiPayload.band) ? String(apiPayload.band).toUpperCase() : "SUSPICIOUS";
+    const score = (apiPayload && Number.isFinite(apiPayload.score)) ? apiPayload.score : (
+      apiPayload && apiPayload.data && Number.isFinite(apiPayload.data.score) ? apiPayload.data.score : 0
+    );
+
+    const reasons = apiPayload?.reasons || apiPayload?.data?.reasons || [];
+    const hint = Array.isArray(reasons) && reasons.length
+      ? reasons[0]
+      : (band === "SAFE"
+          ? "No threats detected in this message."
+          : "Risk markers detected. Slow down.");
+
+    return { band, score, hint };
+  }
+
+  async function runScan(){
     const raw = normalizeText(input.value);
 
     if (!raw) {
-      setState("SUSPICIOUS", 5, "Paste one message, link, or email first.");
+      setResult("SUSPICIOUS", 5, "Paste one message, link, or email first.");
       return;
     }
 
-    btn.disabled = true;
-    btn.style.opacity = "0.92";
+    // UI should never feel broken: show “working” state instantly.
+    setResult("SUSPICIOUS", 0, "Scanning…");
 
     try {
       const res = await fetch(`${API_BASE}/check`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ raw, deviceTokenHash: "demo" })
       });
 
-      const data = await safeJson(res);
+      const json = await safeJson(res);
+      const payload = json?.data ? json.data : json;
 
-      const b = data.band || data?.data?.band || "SUSPICIOUS";
-      const s = (data.score ?? data?.data?.score ?? 0);
+      const { band, score, hint } = summarize(payload);
+      setResult(band, score, hint);
 
-      let h = "Scan complete.";
-      const reasons = data.reasons || data?.data?.reasons;
-      if (Array.isArray(reasons) && reasons.length) h = reasons[0];
-
-      setState(b, s, h);
     } catch (err) {
-      setState("SUSPICIOUS", 0, "Scan failed. The system returned an invalid response.");
+      setResult("SUSPICIOUS", 0, "Scan failed. Try again.");
+      // console for dev only
       console.error(err);
-    } finally {
-      btn.disabled = false;
-      btn.style.opacity = "1";
     }
   }
 
-  btn.addEventListener("click", runScan);
+  btn.addEventListener('click', runScan);
 
-  // default state
-  setState("SAFE", 0, "No threats detected in this message.");
+  // Default state (mockup-like)
+  setResult("SAFE", 0, "No threats detected in this message.");
 })();

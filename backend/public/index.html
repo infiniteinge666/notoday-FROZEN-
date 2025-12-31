@@ -1,33 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#eaf0ff" />
   <title>NoToday</title>
 
-  <link rel="stylesheet" href="styles/render-style.css?v=11" />
+  <link rel="stylesheet" href="styles/render-style.css" />
 </head>
 
 <body>
   <main class="screen">
-
+    <!-- Brand stack -->
     <header class="hero" aria-label="NoToday header">
-      <div class="brand">
-        <img
-          src="assets/notoday-shield.png"
-          alt="NoToday"
-          class="shield"
-          loading="eager"
-          decoding="async"
-        />
-      </div>
+      <img
+        src="assets/notoday-shield.png"
+        alt="NoToday shield"
+        class="shield"
+        draggable="false"
+      />
 
       <h1 class="title">NOTODAY</h1>
       <p class="subtitle">Real-Time Threat Detection</p>
     </header>
 
+    <!-- Slab -->
     <section class="slab" id="slab" data-band="SAFE" aria-label="Scan input">
+      <!-- Result bar (always visible like mockup) -->
       <div class="result" id="result">
         <div class="result-left">
           <div class="band" id="band">SAFE</div>
@@ -36,23 +34,33 @@
         <div class="hint" id="hint">No threats detected in this message.</div>
       </div>
 
-      <textarea
-        id="input"
-        placeholder="Paste a message, link, or email..."
-        aria-label="Paste content to scan"
-        spellcheck="false"
-      ></textarea>
+      <!-- Inner input panel -->
+      <div class="panel">
+        <textarea
+          id="input"
+          placeholder="Paste a message, link, or email..."
+          aria-label="Paste a message, link, or email"
+          spellcheck="false"
+        ></textarea>
+      </div>
+
+      <!-- warm glow like mockup base line -->
+      <div class="slab-glow" aria-hidden="true"></div>
     </section>
 
+    <!-- Primary action -->
     <div class="action">
-      <button id="scanBtn" type="button" class="scanBtn" aria-label="Scan">
-        <img src="assets/notoday-shield.png" alt="" class="scanBtnIcon" aria-hidden="true" />
-        <span class="scanText">SCAN</span>
+      <button id="scanBtn" class="scan-btn" type="button" aria-label="Scan">
+        <span class="scan-icon" aria-hidden="true"></span>
+        <span class="scan-text">SCAN</span>
       </button>
+      <div class="btn-glow" aria-hidden="true"></div>
     </div>
 
+    <!-- Tiny footer (optional, invisible-ish) -->
+    <footer class="foot" aria-hidden="true"></footer>
   </main>
 
-  <script src="app.js?v=10"></script>
+  <script src="app.js"></script>
 </body>
 </html>
