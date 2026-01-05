@@ -1,5 +1,5 @@
 {
-  "version": "v11",
+  "version": "v12",
   "knownBadDomains": [
     {
       "value": "absa-secure-login.co.za",
@@ -2831,7 +2831,7 @@
     }
   ],
   "_regen": {
-    "at": "2026-01-05T13:44:24.190Z",
+    "at": "2026-01-05T13:48:04.574Z",
     "added_patterns": 22,
     "added_domain_keywords": 2
   }
