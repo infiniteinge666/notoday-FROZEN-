@@ -2400,6 +2400,41 @@
   ],
   "scamPatterns": [
     {
+      "value": "otp",
+      "category": "credentials",
+      "weight": 100
+    },
+    {
+      "value": "one-time password",
+      "category": "credentials",
+      "weight": 100
+    },
+    {
+      "value": "one time password",
+      "category": "credentials",
+      "weight": 100
+    },
+    {
+      "value": "verification code",
+      "category": "credentials",
+      "weight": 100
+    },
+    {
+      "value": "pin",
+      "category": "credentials",
+      "weight": 100
+    },
+    {
+      "value": "cvv",
+      "category": "credentials",
+      "weight": 100
+    },
+    {
+      "value": "password",
+      "category": "credentials",
+      "weight": 100
+    },
+    {
       "value": "\\botp\\b",
       "category": "credentials",
       "weight": 100
@@ -2829,9 +2864,5 @@
       "category": "platform_threat",
       "weight": 95
     }
-  ],
-  "_regen": {
-    "at": "2026-01-05T00:00:00Z",
-    "note": "INTEL_DELTA Jan week-1 patterns + regex-compatible matching fix release"
-  }
+  ]
 }
