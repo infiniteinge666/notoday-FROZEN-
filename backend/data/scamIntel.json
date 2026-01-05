@@ -1,5 +1,5 @@
 {
-  "version": "v12",
+  "version": "v13",
   "knownBadDomains": [
     {
       "value": "absa-secure-login.co.za",
@@ -2831,8 +2831,7 @@
     }
   ],
   "_regen": {
-    "at": "2026-01-05T13:48:04.574Z",
-    "added_patterns": 22,
-    "added_domain_keywords": 2
+    "at": "2026-01-05T00:00:00Z",
+    "note": "INTEL_DELTA Jan week-1 patterns + regex-compatible matching fix release"
   }
 }

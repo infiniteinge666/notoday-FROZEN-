@@ -2,10 +2,20 @@
 
 const { normalizeText, extractDomainCandidates } = require('./normalize');
 
+// Deterministic pattern match:
+// - If a pattern looks like a regex (contains common regex meta / escapes), use RegExp.test()
+// - Otherwise, use a plain substring contains match.
+// This fixes the current intel reality where many scamPatterns are stored as regex strings.
+function looksLikeRegex(s) {
+  if (!s) return false;
+  // common regex markers used in our intel
+  return /\\[bdsw]|[\(\)\|\[\]\?\+\*\^\$]/.test(s);
+}
+
 // Return: { hit, value }
 function findKnownBadDomainHit(raw, intel) {
   const domains = extractDomainCandidates(raw);
-  const list = (intel.knownBadDomains || []).map(x => String(x.value || '').toLowerCase());
+  const list = (intel.knownBadDomains || []).map(x => String(x.value || x || '').toLowerCase());
 
   for (const d of domains) {
     const dn = String(d || '').toLowerCase();
@@ -59,23 +69,46 @@ function scoreTextPatterns(raw, intel) {
   let absoluteTriggered = false;
 
   for (const p of patterns) {
-    const phrase = String(p.value || '').toLowerCase();
-    if (!phrase) continue;
+    const patternRaw = String(p.value || '');
+    if (!patternRaw) continue;
 
-    // Basic contains match (deterministic). Keep it boring and reliable.
-    if (text.includes(phrase)) {
-      const w = Number(p.weight || 0);
-      const cat = String(p.category || 'unknown');
+    const w = Number(p.weight || 0);
+    const cat = String(p.category || 'unknown');
 
-      // Category "credentials" is treated as absolute by policy in this proof build.
-      if (cat === 'credentials') absoluteTriggered = true;
+    let matched = false;
 
-      score += w;
-
-      const msg = `Matched "${phrase}" [${cat}] (+${w})`;
-      reasons.push(msg);
-      hits.push({ type: 'pattern', category: cat, value: phrase, weight: w });
+    if (looksLikeRegex(patternRaw)) {
+      // Regex path (deterministic). Guard against invalid regex strings.
+      try {
+        const re = new RegExp(patternRaw, 'i');
+        matched = re.test(text);
+      } catch (e) {
+        // Fall back to literal contains on a de-escaped version (best-effort, still deterministic).
+        const literal = patternRaw
+          .replace(/\\b/g, '')
+          .replace(/\\s\+/g, ' ')
+          .replace(/\\s\*/g, ' ')
+          .replace(/\\s/g, ' ')
+          .toLowerCase();
+        matched = text.includes(literal.trim());
+      }
+    } else {
+      // Plain contains path
+      matched = text.includes(patternRaw.toLowerCase());
     }
+
+    if (!matched) continue;
+
+    // Absolute credential gate:
+    // - category "credentials" is absolute by policy
+    // - also treat "credential_request" as absolute (same meaning, avoids category drift)
+    if (cat === 'credentials' || cat === 'credential_request') absoluteTriggered = true;
+
+    if (w > 0) score += w;
+
+    const msg = `Matched "${patternRaw}" [${cat}] (+${w})`;
+    reasons.push(msg);
+    hits.push({ type: 'pattern', category: cat, value: patternRaw, weight: w });
   }
 
   // conservative clamp (absolute handled elsewhere)
