@@ -1,5 +1,5 @@
 {
-  "version": "v10",
+  "version": "v11",
   "knownBadDomains": [
     {
       "value": "absa-secure-login.co.za",
@@ -115,2557 +115,2054 @@
   "scamDomainKeywords": [
     {
       "value": "secure",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "verify",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "verification",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "login",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "clearance",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "refund",
-      "category": "domain_keyword",
       "weight": 18
     },
     {
       "value": "payout",
-      "category": "domain_keyword",
       "weight": 18
     },
     {
       "value": "claim",
-      "category": "domain_keyword",
       "weight": 18
     },
     {
       "value": "reward",
-      "category": "domain_keyword",
       "weight": 18
     },
     {
       "value": "offer",
-      "category": "domain_keyword",
       "weight": 16
     },
     {
       "value": "parcel",
-      "category": "domain_keyword",
       "weight": 18
     },
     {
       "value": "tracking",
-      "category": "domain_keyword",
       "weight": 18
     },
     {
       "value": "delivery",
-      "category": "domain_keyword",
       "weight": 18
     },
     {
       "value": "otp",
-      "category": "domain_keyword",
       "weight": 22
     },
     {
       "value": "pin",
-      "category": "domain_keyword",
       "weight": 22
     },
     {
       "value": "cvv",
-      "category": "domain_keyword",
       "weight": 22
     },
     {
       "value": "temu",
-      "category": "domain_keyword",
       "weight": 12
     },
     {
       "value": "takealot",
-      "category": "domain_keyword",
       "weight": 14
     },
     {
       "value": "dhl",
-      "category": "domain_keyword",
       "weight": 14
     },
     {
       "value": "fincen",
-      "category": "domain_keyword",
       "weight": 22
     },
     {
       "value": "meta",
-      "category": "domain_keyword",
       "weight": 16
     },
     {
       "value": "facebook",
-      "category": "domain_keyword",
       "weight": 16
     },
     {
       "value": "instagram",
-      "category": "domain_keyword",
       "weight": 14
     },
     {
       "value": "business",
-      "category": "domain_keyword",
       "weight": 12
     },
     {
       "value": "ads",
-      "category": "domain_keyword",
       "weight": 12
     },
     {
       "value": "urgent",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "immediately",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "action",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "verify-now",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "confirm-now",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "update-now",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "unlock",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "blocked",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "suspend",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "suspended",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "locked",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "security-alert",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "fee",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "payment",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "paynow",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "pay-now",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "invoice",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "billing",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "voucher",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "coupon",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "track",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "customs",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "clear",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "duties",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "sars",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "efiling",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "tax",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "audit",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "assessment",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "bank",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "account",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "support",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "helpdesk",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "service",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "customer",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "takeal0t",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "discov3ry",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": "vodac0m",
-      "category": "domain_keyword",
       "weight": 20
     },
     {
       "value": ",absa",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",africanbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",aramex",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",bidvestbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",capitec",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",capitecbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",cellc",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",checkers",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",claim",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",clearance",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",courierv",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",dawnwing",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",delivery",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",dha",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",dhl",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",discovery",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",facebook",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",fincen",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",fnb",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",gov",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",instagram",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",investec",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",login",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",makro",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",meta",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",mrp",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",mtn",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",natis",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",nedbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",offer",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",onedayonly",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",payment",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",payout",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",picknpay",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",refund",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",release",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",reward",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",sapost",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",saps",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",sars",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",sassa",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",secure",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",services",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",shoprite",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",standardbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",takealot",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",telkom",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",temu",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",thecourierguy",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",tracking",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",tymebank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",tymedigital",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",verification",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",verify",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",vodacom",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ",woolworths",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-absa",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-africanbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-aramex",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-bidvestbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-capitec",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-capitecbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-cellc",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-checkers",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-claim",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-clearance",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-courierv",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-dawnwing",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-delivery",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-dha",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-dhl",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-discovery",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-facebook",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-fincen",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-fnb",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-gov",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-instagram",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-investec",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-login",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-makro",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-meta",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-mrp",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-mtn",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-natis",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-nedbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-offer",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-onedayonly",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-payment",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-payout",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-picknpay",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-refund",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-release",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-reward",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-sapost",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-saps",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-sars",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-sassa",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-secure",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-services",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-shoprite",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-standardbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-takealot",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-telkom",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-temu",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-thecourierguy",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-tracking",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-tymebank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-tymedigital",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-verification",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-verify",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-vodacom",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "-woolworths",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".absa",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".africanbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".aramex",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".bidvestbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".capitec",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".capitecbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".cellc",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".checkers",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".claim",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".clearance",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".courierv",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".dawnwing",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".delivery",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".dha",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".dhl",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".discovery",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".facebook",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".fincen",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".fnb",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".gov",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".instagram",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".investec",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".login",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".makro",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".meta",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".mrp",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".mtn",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".natis",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".nedbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".offer",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".onedayonly",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".payment",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".payout",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".picknpay",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".refund",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".release",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".reward",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".sapost",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".saps",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".sars",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".sassa",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".secure",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".services",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".shoprite",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".standardbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".takealot",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".telkom",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".temu",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".thecourierguy",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".tracking",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".tymebank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".tymedigital",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".verification",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".verify",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".vodacom",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": ".woolworths",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_absa",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_africanbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_aramex",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_bidvestbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_capitec",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_capitecbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_cellc",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_checkers",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_claim",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_clearance",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_courierv",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_dawnwing",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_delivery",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_dha",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_dhl",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_discovery",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_facebook",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_fincen",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_fnb",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_gov",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_instagram",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_investec",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_login",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_makro",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_meta",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_mrp",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_mtn",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_natis",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_nedbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_offer",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_onedayonly",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_payment",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_payout",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_picknpay",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_refund",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_release",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_reward",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_sapost",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_saps",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_sars",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_sassa",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_secure",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_services",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_shoprite",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_standardbank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_takealot",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_telkom",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_temu",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_thecourierguy",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_tracking",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_tymebank",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_tymedigital",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_verification",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_verify",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_vodacom",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "_woolworths",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "absa,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "absa-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "absa.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "absa_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "africanbank,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "africanbank-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "africanbank.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "africanbank_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "aramex,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "aramex-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "aramex.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "aramex_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "bidvestbank,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "bidvestbank-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "bidvestbank.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "bidvestbank_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "capitec,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "capitec-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "capitec.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "capitec_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "capitecbank,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "capitecbank-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "capitecbank.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "capitecbank_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "cellc,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "cellc-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "cellc.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "cellc_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "checkers,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "checkers-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "checkers.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "checkers_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "claim,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "claim-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "claim.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "claim_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "clearance,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "clearance-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "clearance.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "clearance_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "courierv,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "courierv-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "courierv.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "courierv_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "dawnwing,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "dawnwing-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "dawnwing.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "dawnwing_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "delivery,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "delivery-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "delivery.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "delivery_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "dha,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "dha-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "dha.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "dha_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "dhl,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "dhl-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "dhl.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "dhl_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "discovery,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "discovery-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "discovery.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "discovery_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "facebook,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "facebook-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "facebook.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "facebook_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "fincen,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "fincen-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "fincen.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "fincen_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "fnb,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "fnb-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "fnb.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "fnb_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "gov,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "gov-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "gov.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "gov_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "instagram,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "instagram-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "instagram.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "instagram_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "investec,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "investec-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "investec.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "investec_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "login,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "login-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "login.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "login_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "makro,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "makro-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "makro.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "makro_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "meta,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "meta-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "meta.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "meta_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "mrp,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "mrp-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "mrp.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "mrp_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "mtn,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "mtn-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "mtn.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "mtn_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "natis,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "natis-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "natis.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "natis_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "nedbank,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "nedbank-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "nedbank.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "nedbank_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "offer,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "offer-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "offer.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "offer_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "onedayonly,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "onedayonly-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "onedayonly.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "onedayonly_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "payment,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "payment-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "payment.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "payment_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "payout,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "payout-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "payout.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "payout_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "picknpay,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "picknpay-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "picknpay.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "picknpay_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "refund,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "refund-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "refund.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "refund_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "release,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "release-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "release.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "release_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "reward,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "reward-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "reward.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "reward_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "sapost,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "sapost-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "sapost.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "sapost_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "saps,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "saps-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "saps.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "saps_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "sars,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "sars-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "sars.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "sars_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "sassa,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "sassa-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "sassa.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "sassa_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "secure,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "secure-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "secure.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "secure_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "services,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "services-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "services.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "services_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "shoprite,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "shoprite-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "shoprite.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "shoprite_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "standardbank,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "standardbank-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "standardbank.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "standardbank_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "takealot,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "takealot-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "takealot.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "takealot_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "telkom,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "telkom-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "telkom.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "telkom_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "temu,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "temu-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "temu.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "temu_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "thecourierguy,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "thecourierguy-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "thecourierguy.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "thecourierguy_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "tracking,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "tracking-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "tracking.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "tracking_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "tymebank,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "tymebank-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "tymebank.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "tymebank_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "tymedigital,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "tymedigital-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "tymedigital.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "tymedigital_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "verification,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "verification-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "verification.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "verification_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "verify,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "verify-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "verify.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "verify_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "vodacom,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "vodacom-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "vodacom.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "vodacom_",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "woolworths,",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "woolworths-",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "woolworths.",
-      "category": "brand_amendment",
       "weight": 80
     },
     {
       "value": "woolworths_",
-      "category": "brand_amendment",
+      "weight": 80
+    },
+    {
+      "value": "verify-account",
+      "weight": 80
+    },
+    {
+      "value": "secure-login",
       "weight": 80
     }
   ],
@@ -3221,6 +2718,121 @@
       "value": "(?:final\\s+notice|last\\s+chance|24\\s*hours|within\\s+\\d+\\s*hours)",
       "category": "urgency",
       "weight": 20
+    },
+    {
+      "value": "your email was found among their files",
+      "category": "authority_impersonation",
+      "weight": 95
+    },
+    {
+      "value": "you are entitled to compensation",
+      "category": "free_money",
+      "weight": 100
+    },
+    {
+      "value": "recovered funds have been deposited",
+      "category": "bank_impersonation",
+      "weight": 95
+    },
+    {
+      "value": "provide the following information",
+      "category": "credential_request",
+      "weight": 100
+    },
+    {
+      "value": "in collaboration with the fbi",
+      "category": "authority_impersonation",
+      "weight": 90
+    },
+    {
+      "value": "international criminal court",
+      "category": "authority_impersonation",
+      "weight": 90
+    },
+    {
+      "value": "united nations association",
+      "category": "authority_impersonation",
+      "weight": 85
+    },
+    {
+      "value": "contact our attorney",
+      "category": "handoff_isolation",
+      "weight": 90
+    },
+    {
+      "value": "whatsapp number",
+      "category": "private_channel_handoff",
+      "weight": 95
+    },
+    {
+      "value": "only contact the attorney",
+      "category": "isolation_instruction",
+      "weight": 100
+    },
+    {
+      "value": "@greenmail.net",
+      "category": "free_email_authority",
+      "weight": 100
+    },
+    {
+      "value": "official paying bank",
+      "category": "bank_impersonation",
+      "weight": 85
+    },
+    {
+      "value": "partial restriction applied",
+      "category": "bank_threat",
+      "weight": 95
+    },
+    {
+      "value": "auto-assessment has been reversed",
+      "category": "government_impersonation",
+      "weight": 95
+    },
+    {
+      "value": "confirm your tax details",
+      "category": "credential_request",
+      "weight": 100
+    },
+    {
+      "value": "address correction fee",
+      "category": "micro_payment_trap",
+      "weight": 95
+    },
+    {
+      "value": "missed delivery",
+      "category": "ecommerce_impersonation",
+      "weight": 85
+    },
+    {
+      "value": "i sent my whatsapp code to you by mistake",
+      "category": "account_takeover",
+      "weight": 100
+    },
+    {
+      "value": "complete simple tasks",
+      "category": "job_scam",
+      "weight": 85
+    },
+    {
+      "value": "upgrade your account to earn more",
+      "category": "pyramid_escalation",
+      "weight": 95
+    },
+    {
+      "value": "benefits will be suspended",
+      "category": "service_threat",
+      "weight": 95
+    },
+    {
+      "value": "page will be unpublished",
+      "category": "platform_threat",
+      "weight": 95
     }
-  ]
+  ],
+  "_regen": {
+    "at": "2026-01-05T13:44:24.190Z",
+    "added_patterns": 22,
+    "added_domain_keywords": 2
+  }
 }
