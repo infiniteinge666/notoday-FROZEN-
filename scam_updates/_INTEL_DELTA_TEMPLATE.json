@@ -1,0 +1,30 @@
+{
+  "knownBadDomains": [
+    {
+      "value": "",
+      "category": "knownbaddomain",
+      "weight": 100
+    }
+  ],
+  "scamDomainKeywords": [
+    {
+      "value": "",
+      "category": "keyword",
+      "weight": 0
+    }
+  ],
+  "saOfficialDomains": [
+    {
+      "value": "",
+      "category": "official",
+      "weight": 0
+    }
+  ],
+  "scamPatterns": [
+    {
+      "value": "",
+      "category": "",
+      "weight": 0
+    }
+  ]
+}

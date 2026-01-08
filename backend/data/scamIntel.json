@@ -1,5 +1,5 @@
 {
-  "version": "v14",
+  "version": "v16",
   "knownBadDomains": [
     {
       "value": "absa-secure-login.co.za",
@@ -8,6 +8,11 @@
     },
     {
       "value": "absa-verify.co.za",
+      "category": "knownbaddomain",
+      "weight": 100
+    },
+    {
+      "value": "banking-verify.co.za",
       "category": "knownbaddomain",
       "weight": 100
     },
@@ -67,7 +72,17 @@
       "weight": 100
     },
     {
+      "value": "instant-eft.co.za",
+      "category": "knownbaddomain",
+      "weight": 100
+    },
+    {
       "value": "nedbank-secure.co.za",
+      "category": "knownbaddomain",
+      "weight": 100
+    },
+    {
+      "value": "pay-id.co.za",
       "category": "knownbaddomain",
       "weight": 100
     },
@@ -82,7 +97,17 @@
       "weight": 100
     },
     {
+      "value": "sars-refund-coza.com",
+      "category": "knownbaddomain",
+      "weight": 100
+    },
+    {
       "value": "sars-refund.co.za",
+      "category": "knownbaddomain",
+      "weight": 100
+    },
+    {
+      "value": "secure-easy-eft.co.za",
       "category": "knownbaddomain",
       "weight": 100
     },
@@ -115,6 +140,11 @@
       "value": "wjdil.buzz",
       "category": "knownbaddomain",
       "weight": 100
+    },
+    {
+      "value": "zawadiweddingfilms.co.ke",
+      "category": "knownbaddomain",
+      "weight": 100
     }
   ],
   "scamDomainKeywords": [
@@ -129,14 +159,44 @@
       "weight": 20
     },
     {
+      "value": "act-fast",
+      "category": "urgency",
+      "weight": 70
+    },
+    {
       "value": "action",
       "category": "domain_keyword",
       "weight": 20
     },
     {
+      "value": "activation-fee",
+      "category": "money_drain",
+      "weight": 80
+    },
+    {
+      "value": "admin-fee",
+      "category": "money_drain",
+      "weight": 75
+    },
+    {
       "value": "ads",
       "category": "domain_keyword",
       "weight": 12
+    },
+    {
+      "value": "airdrop",
+      "category": "crypto_airdrop",
+      "weight": 80
+    },
+    {
+      "value": "apk",
+      "category": "sideloading",
+      "weight": 85
+    },
+    {
+      "value": "app-update",
+      "category": "sideloading",
+      "weight": 75
     },
     {
       "value": "assessment",
@@ -152,6 +212,11 @@
       "value": "bank",
       "category": "domain_keyword",
       "weight": 20
+    },
+    {
+      "value": "banking-update",
+      "category": "banking_abuse",
+      "weight": 80
     },
     {
       "value": "billing",
@@ -174,6 +239,11 @@
       "weight": 18
     },
     {
+      "value": "claim-now",
+      "category": "crypto_airdrop",
+      "weight": 75
+    },
+    {
       "value": "clear",
       "category": "domain_keyword",
       "weight": 20
@@ -182,6 +252,11 @@
       "value": "clearance",
       "category": "domain_keyword",
       "weight": 20
+    },
+    {
+      "value": "clearance-fee",
+      "category": "money_drain",
+      "weight": 85
     },
     {
       "value": "confirm-now",
@@ -199,6 +274,16 @@
       "weight": 60
     },
     {
+      "value": "crypto-reward",
+      "category": "crypto_airdrop",
+      "weight": 80
+    },
+    {
+      "value": "crypto-rewards",
+      "category": "crypto_airdrop",
+      "weight": 80
+    },
+    {
       "value": "customer",
       "category": "domain_keyword",
       "weight": 20
@@ -212,6 +297,11 @@
       "value": "cvv",
       "category": "domain_keyword",
       "weight": 22
+    },
+    {
+      "value": "deadline",
+      "category": "urgency",
+      "weight": 65
     },
     {
       "value": "delivery",
@@ -249,6 +339,11 @@
       "weight": 25
     },
     {
+      "value": "exclusive",
+      "category": "social_engineering",
+      "weight": 60
+    },
+    {
       "value": "facebook",
       "category": "domain_keyword",
       "weight": 16
@@ -284,9 +379,34 @@
       "weight": 14
     },
     {
+      "value": "instant",
+      "category": "social_engineering",
+      "weight": 55
+    },
+    {
+      "value": "instant-eft",
+      "category": "payment_redirect",
+      "weight": 80
+    },
+    {
+      "value": "instantpay",
+      "category": "payment_redirect",
+      "weight": 70
+    },
+    {
       "value": "invoice",
       "category": "domain_keyword",
       "weight": 20
+    },
+    {
+      "value": "invoice-online",
+      "category": "payment_redirect",
+      "weight": 65
+    },
+    {
+      "value": "limited-time",
+      "category": "urgency",
+      "weight": 70
     },
     {
       "value": "link.simpu.io",
@@ -314,6 +434,11 @@
       "weight": 25
     },
     {
+      "value": "no-verification",
+      "category": "social_engineering",
+      "weight": 70
+    },
+    {
       "value": "offer",
       "category": "domain_keyword",
       "weight": 16
@@ -327,6 +452,16 @@
       "value": "parcel",
       "category": "domain_keyword",
       "weight": 18
+    },
+    {
+      "value": "pay-id",
+      "category": "payment_redirect",
+      "weight": 80
+    },
+    {
+      "value": "pay-link",
+      "category": "payment_redirect",
+      "weight": 65
     },
     {
       "value": "pay-now",
@@ -349,9 +484,19 @@
       "weight": 40
     },
     {
+      "value": "payid",
+      "category": "payment_redirect",
+      "weight": 80
+    },
+    {
       "value": "payment",
       "category": "domain_keyword",
       "weight": 20
+    },
+    {
+      "value": "payment-link",
+      "category": "payment_redirect",
+      "weight": 65
     },
     {
       "value": "paynow",
@@ -369,14 +514,39 @@
       "weight": 22
     },
     {
+      "value": "pop",
+      "category": "payment_redirect",
+      "weight": 50
+    },
+    {
+      "value": "processing-fee",
+      "category": "money_drain",
+      "weight": 75
+    },
+    {
+      "value": "proof-of-payment",
+      "category": "payment_redirect",
+      "weight": 80
+    },
+    {
       "value": "pycts",
       "category": "domain_keyword",
       "weight": 35
     },
     {
+      "value": "quickpay",
+      "category": "payment_redirect",
+      "weight": 70
+    },
+    {
       "value": "refund",
       "category": "domain_keyword",
       "weight": 18
+    },
+    {
+      "value": "release-fee",
+      "category": "money_drain",
+      "weight": 85
     },
     {
       "value": "reward",
@@ -404,9 +574,19 @@
       "weight": 80
     },
     {
+      "value": "securepay",
+      "category": "payment_redirect",
+      "weight": 70
+    },
+    {
       "value": "security-alert",
       "category": "domain_keyword",
       "weight": 20
+    },
+    {
+      "value": "selected",
+      "category": "social_engineering",
+      "weight": 60
     },
     {
       "value": "service",
@@ -422,6 +602,11 @@
       "value": "settle-payment",
       "category": "domain_keyword",
       "weight": 25
+    },
+    {
+      "value": "sideload",
+      "category": "sideloading",
+      "weight": 90
     },
     {
       "value": "simpu",
@@ -464,6 +649,11 @@
       "weight": 12
     },
     {
+      "value": "tessmua",
+      "category": "crypto_airdrop",
+      "weight": 90
+    },
+    {
       "value": "track",
       "category": "domain_keyword",
       "weight": 20
@@ -472,6 +662,16 @@
       "value": "tracking",
       "category": "domain_keyword",
       "weight": 18
+    },
+    {
+      "value": "unblock",
+      "category": "banking_abuse",
+      "weight": 70
+    },
+    {
+      "value": "unknown-sources",
+      "category": "sideloading",
+      "weight": 95
     },
     {
       "value": "unlock",
@@ -489,6 +689,11 @@
       "weight": 20
     },
     {
+      "value": "usdc",
+      "category": "crypto_airdrop",
+      "weight": 55
+    },
+    {
       "value": "verification",
       "category": "domain_keyword",
       "weight": 20
@@ -501,6 +706,11 @@
     {
       "value": "verify-account",
       "category": "domain_keyword",
+      "weight": 80
+    },
+    {
+      "value": "verify-login",
+      "category": "banking_abuse",
       "weight": 80
     },
     {
@@ -671,7 +881,22 @@
       "weight": 0
     },
     {
+      "value": "ozow.com",
+      "category": "official",
+      "weight": 0
+    },
+    {
       "value": "paycity.co.za",
+      "category": "official",
+      "weight": 0
+    },
+    {
+      "value": "payfast.io",
+      "category": "official",
+      "weight": 0
+    },
+    {
+      "value": "peachpayments.com",
       "category": "official",
       "weight": 0
     },
@@ -763,44 +988,34 @@
   ],
   "scamPatterns": [
     {
-      "value": "i sent my whatsapp code to you by mistake",
-      "category": "account_takeover",
-      "weight": 100
-    },
-    {
-      "value": "demerit\\s+points\\s+have\\s+been\\s+allocated",
-      "category": "authority_impersonation",
-      "weight": 80
-    },
-    {
-      "value": "enforcement\\s+order\\s+issued",
-      "category": "authority_impersonation",
-      "weight": 90
-    },
-    {
-      "value": "in collaboration with the fbi",
-      "category": "authority_impersonation",
-      "weight": 90
-    },
-    {
-      "value": "international criminal court",
-      "category": "authority_impersonation",
-      "weight": 90
-    },
-    {
-      "value": "road\\s+traffic\\s+infringement\\s+agency|\\brtia\\b",
-      "category": "authority_impersonation",
+      "value": "(?:^|[^a-z0-9])(absa|africanbank|bidvestbank|capitec|capitecbank|fnb|nedbank|standardbank|tymebank|tymedigital|discovery|sars|sassa|saps|natis|takealot|temu|vodacom|mtn|telkom|facebook|instagram|meta|dhl|aramex|dawnwing|thecourierguy)(?:[-_\\.,])",
+      "category": "domain_lookalike",
       "weight": 85
     },
     {
-      "value": "united nations association",
-      "category": "authority_impersonation",
-      "weight": 85
+      "value": "(?:black\\s*friday|mega\\s*sale|flash\\s*sale).{0,40}(?:limited|today only|ends tonight)",
+      "category": "fake_store",
+      "weight": 20
     },
     {
-      "value": "your email was found among their files",
-      "category": "authority_impersonation",
-      "weight": 95
+      "value": "(?:chargeback|asset\\s+recovery|hacker).{0,40}(?:fee|deposit|upfront)",
+      "category": "recovery",
+      "weight": 30
+    },
+    {
+      "value": "(?:claim).{0,30}(?:prize|reward).{0,30}(?:fee|payment)",
+      "category": "prize",
+      "weight": 25
+    },
+    {
+      "value": "(?:confirm|verify|update).{0,30}(?:bank|account).{0,30}(?:details|info|information)",
+      "category": "bank_impersonation",
+      "weight": 20
+    },
+    {
+      "value": "(?:crypto|bitcoin|usdt|ethereum).{0,40}(?:deposit|wallet|address)",
+      "category": "investment",
+      "weight": 20
     },
     {
       "value": "(?:delayed\\s*)?refund.{0,40}(?:fica|documents|verify|verification)",
@@ -808,23 +1023,23 @@
       "weight": 25
     },
     {
-      "value": "(?:outstanding\\s+amount|amount\\s+outstanding).{0,40}\\bsars\\b",
-      "category": "authority_tax",
+      "value": "(?:dhl|the courier guy|aramex|dawn wing|post office).{0,40}(?:fee|payment|held|customs)",
+      "category": "delivery_fee",
       "weight": 25
     },
     {
-      "value": "(?:tax\\s*refund).{0,40}(?:audit|review|investigation)",
-      "category": "authority_tax",
-      "weight": 25
-    },
-    {
-      "value": "\\bsars\\b.{0,40}(?:refund|payout|rebate|audit|assessment|outstanding)",
-      "category": "authority_tax",
+      "value": "(?:double|triple).{0,20}(?:your\\s+money|investment)",
+      "category": "investment",
       "weight": 30
     },
     {
-      "value": "(?:confirm|verify|update).{0,30}(?:bank|account).{0,30}(?:details|info|information)",
-      "category": "bank_impersonation",
+      "value": "(?:emergency|crisis).{0,40}(?:need\\s+money|send\\s+money|help\\s+me)",
+      "category": "romance_isolation",
+      "weight": 20
+    },
+    {
+      "value": "(?:final\\s+notice|last\\s+chance|24\\s*hours|within\\s+\\d+\\s*hours)",
+      "category": "urgency",
       "weight": 20
     },
     {
@@ -833,9 +1048,89 @@
       "weight": 30
     },
     {
+      "value": "(?:guaranteed|risk[-\\s]*free).{0,30}(?:returns?|profit)",
+      "category": "investment",
+      "weight": 25
+    },
+    {
+      "value": "(?:keep\\s+this\\s+between\\s+us|don't\\s+tell\\s+anyone|secret)",
+      "category": "romance_isolation",
+      "weight": 25
+    },
+    {
+      "value": "(?:natis)\\s+services\\s+(?:are\\s+)?blocked|blocked\\s+your\\s+access\\s+to\\s+natis",
+      "category": "service_threat",
+      "weight": 95
+    },
+    {
+      "value": "(?:only\\s*R)\\s*\\d{1,4}(?:\\.\\d{2})?\\s*(?:today|limited)",
+      "category": "fake_store",
+      "weight": 15
+    },
+    {
+      "value": "(?:outstanding\\s+amount|amount\\s+outstanding).{0,40}\\bsars\\b",
+      "category": "authority_tax",
+      "weight": 25
+    },
+    {
+      "value": "(?:parcel|package).{0,40}(?:waiting|pending|held|on hold)",
+      "category": "delivery_fee",
+      "weight": 20
+    },
+    {
+      "value": "(?:pay|fee).{0,30}(?:release|unlock).{0,30}(?:funds|wallet)",
+      "category": "recovery",
+      "weight": 25
+    },
+    {
+      "value": "(?:pay|settle).{0,20}(?:delivery|customs|clearance|handling)\\s*(?:fee|charge)",
+      "category": "delivery_fee",
+      "weight": 25
+    },
+    {
+      "value": "(?:recover|recovery).{0,40}(?:funds|money|crypto|bitcoin)",
+      "category": "recovery",
+      "weight": 30
+    },
+    {
+      "value": "(?:shorturl|bit\\.ly|tinyurl|t\\.co|is\\.gd|rebrand\\.ly)\\/[a-z0-9]+",
+      "category": "link_shortener",
+      "weight": 20
+    },
+    {
+      "value": "(?:summons|warrant|court|arrest).{0,40}(?:pay|fine|settle)",
+      "category": "threat",
+      "weight": 30
+    },
+    {
+      "value": "(?:task|rating|like\\s+and\\s+earn|work\\s+from\\s+home).{0,40}(?:earn|profit|commission)",
+      "category": "task_scam",
+      "weight": 25
+    },
+    {
+      "value": "(?:tax\\s*refund).{0,40}(?:audit|review|investigation)",
+      "category": "authority_tax",
+      "weight": 25
+    },
+    {
+      "value": "(?:track(?:ing)?\\s*(?:code|number)|waybill)\\s*[:#]?\\s*[a-z0-9\\-]{6,}",
+      "category": "delivery_fee",
+      "weight": 15
+    },
+    {
+      "value": "(?:unbelievable|crazy|insane)\\s+(?:discount|deal|price)",
+      "category": "fake_store",
+      "weight": 15
+    },
+    {
       "value": "(?:we\\s+detected|unusual|suspicious).{0,30}(?:transaction|activity)",
       "category": "bank_impersonation",
       "weight": 20
+    },
+    {
+      "value": "(?:won|winner|selected).{0,30}(?:prize|lottery|draw|giveaway)",
+      "category": "prize",
+      "weight": 25
     },
     {
       "value": "(?:your\\s+)?(?:account|profile).{0,30}(?:locked|blocked|suspended)",
@@ -843,44 +1138,34 @@
       "weight": 25
     },
     {
-      "value": "official paying bank",
-      "category": "bank_impersonation",
-      "weight": 85
+      "value": "@greenmail.net",
+      "category": "free_email_authority",
+      "weight": 100
     },
     {
-      "value": "recovered funds have been deposited",
-      "category": "bank_impersonation",
-      "weight": 95
+      "value": "\\b(\\$|usd)\\s*\\d{1,3}(,\\d{3})*(\\.\\d{2})?\\b",
+      "category": "money",
+      "weight": 15
     },
     {
-      "value": "approve\\s+the\\s+notification|tap\\s+approve|push\\s+notification\\s+approval",
-      "category": "bank_takeover",
+      "value": "\\b75\\s*million\\b",
+      "category": "money",
+      "weight": 40
+    },
+    {
+      "value": "\\bapk\\b|android\\s+package",
+      "category": "sideload_app",
       "weight": 90
-    },
-    {
-      "value": "open\\s+your\\s+banking\\s+app|log\\s+in\\s+to\\s+your\\s+bank\\s+now",
-      "category": "bank_takeover",
-      "weight": 95
-    },
-    {
-      "value": "partial restriction applied",
-      "category": "bank_threat",
-      "weight": 95
-    },
-    {
-      "value": "confirm your tax details",
-      "category": "credential_request",
-      "weight": 100
-    },
-    {
-      "value": "provide the following information",
-      "category": "credential_request",
-      "weight": 100
     },
     {
       "value": "\\bcvv\\b",
       "category": "credentials",
       "weight": 100
+    },
+    {
+      "value": "\\bfincen\\b",
+      "category": "impersonation",
+      "weight": 40
     },
     {
       "value": "\\botp\\b",
@@ -893,9 +1178,179 @@
       "weight": 100
     },
     {
+      "value": "\\bsars\\b.{0,40}(?:refund|payout|rebate|audit|assessment|outstanding)",
+      "category": "authority_tax",
+      "weight": 30
+    },
+    {
+      "value": "\\btemu\\b",
+      "category": "impersonation",
+      "weight": 18
+    },
+    {
+      "value": "30\\s+days\\s+left\\s+to\\s+claim",
+      "category": "urgency",
+      "weight": 45
+    },
+    {
+      "value": "accept\\s+your\\s+r\\s*\\d{2,6}\\s+offer",
+      "category": "money",
+      "weight": 40
+    },
+    {
+      "value": "account will be suspended",
+      "category": "urgency",
+      "weight": 65
+    },
+    {
       "value": "account\\s+number|company\\s+registration\\s+number|trust\\s+registration\\s+number",
       "category": "credentials",
       "weight": 40
+    },
+    {
+      "value": "act fast",
+      "category": "urgency",
+      "weight": 75
+    },
+    {
+      "value": "act\\s+now|urgent\\b|immediately\\b|final\\s+notice",
+      "category": "urgency",
+      "weight": 25
+    },
+    {
+      "value": "activation fee required",
+      "category": "money_drain",
+      "weight": 85
+    },
+    {
+      "value": "address correction fee",
+      "category": "micro_payment_trap",
+      "weight": 95
+    },
+    {
+      "value": "admin fee required",
+      "category": "money_drain",
+      "weight": 80
+    },
+    {
+      "value": "anydesk|teamviewer|remote\\s+access|screen\\s+share|quick\\s+support",
+      "category": "remote_takeover",
+      "weight": 100
+    },
+    {
+      "value": "approve\\s+the\\s+notification|tap\\s+approve|push\\s+notification\\s+approval",
+      "category": "bank_takeover",
+      "weight": 90
+    },
+    {
+      "value": "assistant\\s+director",
+      "category": "impersonation",
+      "weight": 25
+    },
+    {
+      "value": "attached\\s+is\\s+your\\s+.*statement",
+      "category": "impersonation",
+      "weight": 25
+    },
+    {
+      "value": "auto-assessment has been reversed",
+      "category": "government_impersonation",
+      "weight": 95
+    },
+    {
+      "value": "available for a limited time",
+      "category": "urgency",
+      "weight": 75
+    },
+    {
+      "value": "banking profile update required",
+      "category": "banking_abuse",
+      "weight": 85
+    },
+    {
+      "value": "benefits will be suspended",
+      "category": "service_threat",
+      "weight": 95
+    },
+    {
+      "value": "card\\s+verification|small\\s+test\\s+charge|\\br\\s*1\\b\\s*(?:verification|fee)|\\br\\s*0\\b\\s*(?:verification|fee)",
+      "category": "micro_payment_trap",
+      "weight": 90
+    },
+    {
+      "value": "case\\s+reference\\s*[:#]?\\s*[a-z0-9\\-]{4,}",
+      "category": "impersonation",
+      "weight": 25
+    },
+    {
+      "value": "check\\s+it\\s+asap",
+      "category": "urgency",
+      "weight": 35
+    },
+    {
+      "value": "claim my 1000 usdc",
+      "category": "crypto_airdrop",
+      "weight": 95
+    },
+    {
+      "value": "claim your 1000 usdc",
+      "category": "crypto_airdrop",
+      "weight": 95
+    },
+    {
+      "value": "claim your reward within 7 days",
+      "category": "urgency",
+      "weight": 85
+    },
+    {
+      "value": "claim your usdc airdrop",
+      "category": "crypto_airdrop",
+      "weight": 95
+    },
+    {
+      "value": "claim\\s+your\\s+funds",
+      "category": "cta",
+      "weight": 40
+    },
+    {
+      "value": "clearance fee",
+      "category": "money_drain",
+      "weight": 90
+    },
+    {
+      "value": "complete simple tasks",
+      "category": "job_scam",
+      "weight": 85
+    },
+    {
+      "value": "confirm your login",
+      "category": "banking_abuse",
+      "weight": 80
+    },
+    {
+      "value": "confirm your payment to avoid cancellation",
+      "category": "payment_redirect",
+      "weight": 80
+    },
+    {
+      "value": "confirm your tax details",
+      "category": "credential_request",
+      "weight": 100
+    },
+    {
+      "value": "contact our attorney",
+      "category": "handoff_isolation",
+      "weight": 90
+    },
+    {
+      "value": "credited instantly",
+      "category": "social_engineering",
+      "weight": 70
+    },
+    {
+      "value": "crickbuddy\\.com\\/pycts",
+      "category": "redirect_laundering",
+      "weight": 95
     },
     {
       "value": "cvv",
@@ -903,9 +1358,134 @@
       "weight": 100
     },
     {
+      "value": "debit\\s+order|stop\\s+order|mandate\\s+reference",
+      "category": "debit_order_fraud",
+      "weight": 85
+    },
+    {
+      "value": "demerit\\s+points\\s+have\\s+been\\s+allocated",
+      "category": "authority_impersonation",
+      "weight": 80
+    },
+    {
+      "value": "do not tell anyone",
+      "category": "secrecy",
+      "weight": 85
+    },
+    {
       "value": "do\\s+not\\s+share\\s+(your\\s+)?(otp|pin|cvv|code)",
       "category": "credentials",
       "weight": 80
+    },
+    {
+      "value": "download the apk",
+      "category": "sideloading",
+      "weight": 95
+    },
+    {
+      "value": "download\\s+adobe\\s+reader\\s+for\\s+free",
+      "category": "cta",
+      "weight": 25
+    },
+    {
+      "value": "enable unknown sources",
+      "category": "sideloading",
+      "weight": 100
+    },
+    {
+      "value": "enforcement\\s+order\\s+issued",
+      "category": "authority_impersonation",
+      "weight": 90
+    },
+    {
+      "value": "exclusive opportunity",
+      "category": "social_engineering",
+      "weight": 70
+    },
+    {
+      "value": "final notice before cancellation",
+      "category": "urgency",
+      "weight": 65
+    },
+    {
+      "value": "financial\\s+crimes\\s+enforcement\\s+network",
+      "category": "impersonation",
+      "weight": 45
+    },
+    {
+      "value": "get\\.adobe\\.com\\/reader",
+      "category": "cta",
+      "weight": 15
+    },
+    {
+      "value": "hello\\s+infinite\\s+ideas",
+      "category": "impersonation",
+      "weight": 20
+    },
+    {
+      "value": "i sent my whatsapp code to you by mistake",
+      "category": "account_takeover",
+      "weight": 100
+    },
+    {
+      "value": "in collaboration with the fbi",
+      "category": "authority_impersonation",
+      "weight": 90
+    },
+    {
+      "value": "install anydesk",
+      "category": "remote_access",
+      "weight": 95
+    },
+    {
+      "value": "install teamviewer",
+      "category": "remote_access",
+      "weight": 95
+    },
+    {
+      "value": "install this app to verify",
+      "category": "sideloading",
+      "weight": 95
+    },
+    {
+      "value": "install\\s+(?:our\\s+)?app|download\\s+the\\s+app\\s+to\\s+pay",
+      "category": "sideload_app",
+      "weight": 90
+    },
+    {
+      "value": "instant eft required",
+      "category": "payment_redirect",
+      "weight": 80
+    },
+    {
+      "value": "international criminal court",
+      "category": "authority_impersonation",
+      "weight": 90
+    },
+    {
+      "value": "link\\.simpu\\.io",
+      "category": "redirect_laundering",
+      "weight": 85
+    },
+    {
+      "value": "meta\\s+policy\\s+categories",
+      "category": "impersonation",
+      "weight": 30
+    },
+    {
+      "value": "missed delivery",
+      "category": "ecommerce_impersonation",
+      "weight": 85
+    },
+    {
+      "value": "no additional verification is required",
+      "category": "social_engineering",
+      "weight": 80
+    },
+    {
+      "value": "official paying bank",
+      "category": "bank_impersonation",
+      "weight": 85
     },
     {
       "value": "one time password",
@@ -923,9 +1503,29 @@
       "weight": 100
     },
     {
+      "value": "only contact the attorney",
+      "category": "isolation_instruction",
+      "weight": 100
+    },
+    {
+      "value": "open\\s+your\\s+banking\\s+app|log\\s+in\\s+to\\s+your\\s+bank\\s+now",
+      "category": "bank_takeover",
+      "weight": 95
+    },
+    {
       "value": "otp",
       "category": "credentials",
       "weight": 100
+    },
+    {
+      "value": "page will be unpublished",
+      "category": "platform_threat",
+      "weight": 95
+    },
+    {
+      "value": "partial restriction applied",
+      "category": "bank_threat",
+      "weight": 95
     },
     {
       "value": "password",
@@ -933,9 +1533,119 @@
       "weight": 100
     },
     {
+      "value": "pay a small fee to receive",
+      "category": "money_drain",
+      "weight": 90
+    },
+    {
+      "value": "pay to release",
+      "category": "money_drain",
+      "weight": 90
+    },
+    {
+      "value": "pay via instant eft",
+      "category": "payment_redirect",
+      "weight": 80
+    },
+    {
+      "value": "pay\\s+into\\s+a\\s+private\\s+individual",
+      "category": "money",
+      "weight": 45
+    },
+    {
+      "value": "payment must clear first",
+      "category": "payment_redirect",
+      "weight": 70
+    },
+    {
+      "value": "payment\\s+plan\\s+.*aarto\\s*0?4|\\baarto\\s*0?4\\b",
+      "category": "payment_redirect",
+      "weight": 75
+    },
+    {
+      "value": "permanent\\s+(closing|deactivation|disable|disabled|closure)",
+      "category": "urgency",
+      "weight": 40
+    },
+    {
       "value": "pin",
       "category": "credentials",
       "weight": 100
+    },
+    {
+      "value": "policy\\s+review\\s+notification",
+      "category": "impersonation",
+      "weight": 35
+    },
+    {
+      "value": "processing fee required",
+      "category": "money_drain",
+      "weight": 80
+    },
+    {
+      "value": "proof of payment required",
+      "category": "payment_redirect",
+      "weight": 85
+    },
+    {
+      "value": "provide the following information",
+      "category": "credential_request",
+      "weight": 100
+    },
+    {
+      "value": "recovered funds have been deposited",
+      "category": "bank_impersonation",
+      "weight": 95
+    },
+    {
+      "value": "refundable fee",
+      "category": "money_drain",
+      "weight": 85
+    },
+    {
+      "value": "release fee",
+      "category": "money_drain",
+      "weight": 90
+    },
+    {
+      "value": "release\\s+of\\s+your\\s+verified\\s+funds",
+      "category": "impersonation",
+      "weight": 45
+    },
+    {
+      "value": "remote access required",
+      "category": "remote_access",
+      "weight": 95
+    },
+    {
+      "value": "road\\s+traffic\\s+infringement\\s+agency|\\brtia\\b",
+      "category": "authority_impersonation",
+      "weight": 85
+    },
+    {
+      "value": "selected participants only",
+      "category": "social_engineering",
+      "weight": 75
+    },
+    {
+      "value": "send pop",
+      "category": "payment_redirect",
+      "weight": 70
+    },
+    {
+      "value": "send proof of payment",
+      "category": "payment_redirect",
+      "weight": 85
+    },
+    {
+      "value": "settle\\s+payment|pay\\s+in\\s+full|immediate\\s+payment\\s+is\\s+required",
+      "category": "payment_redirect",
+      "weight": 95
+    },
+    {
+      "value": "sim\\s+swap|rica\\s+update|number\\s+porting|port\\s+your\\s+number",
+      "category": "sim_swap",
+      "weight": 90
     },
     {
       "value": "south\\s+african\\s+id\\s+number|passport\\s+number",
@@ -943,34 +1653,64 @@
       "weight": 45
     },
     {
-      "value": "verification code",
-      "category": "credentials",
-      "weight": 100
-    },
-    {
-      "value": "your\\s+password\\s+is",
-      "category": "credentials",
-      "weight": 35
-    },
-    {
-      "value": "claim\\s+your\\s+funds",
-      "category": "cta",
-      "weight": 40
-    },
-    {
-      "value": "download\\s+adobe\\s+reader\\s+for\\s+free",
-      "category": "cta",
-      "weight": 25
-    },
-    {
-      "value": "get\\.adobe\\.com\\/reader",
-      "category": "cta",
-      "weight": 15
+      "value": "subscription\\s+will\\s+start|free\\s+trial\\s+ends|recurring\\s+payment|monthly\\s+billing",
+      "category": "subscription_trap",
+      "weight": 80
     },
     {
       "value": "to\\s+open\\s+your\\s+statement",
       "category": "cta",
       "weight": 20
+    },
+    {
+      "value": "turn off play protect",
+      "category": "sideloading",
+      "weight": 100
+    },
+    {
+      "value": "unable\\s+to\\s+renew\\s+(?:your\\s+)?(driving\\s+license|vehicle\\s+license\\s+disc|professional\\s+driving\\s+permit)",
+      "category": "service_threat",
+      "weight": 90
+    },
+    {
+      "value": "united nations association",
+      "category": "authority_impersonation",
+      "weight": 85
+    },
+    {
+      "value": "unknown\\s+sources|allow\\s+from\\s+this\\s+source",
+      "category": "sideload_app",
+      "weight": 95
+    },
+    {
+      "value": "unpaid\\s+(toll|fine)|summons\\s+issued",
+      "category": "impersonation",
+      "weight": 35
+    },
+    {
+      "value": "upgrade your account to earn more",
+      "category": "pyramid_escalation",
+      "weight": 95
+    },
+    {
+      "value": "urgent payment required",
+      "category": "money_drain",
+      "weight": 70
+    },
+    {
+      "value": "use instant eft",
+      "category": "payment_redirect",
+      "weight": 75
+    },
+    {
+      "value": "verification code",
+      "category": "credentials",
+      "weight": 100
+    },
+    {
+      "value": "verify your banking details",
+      "category": "banking_abuse",
+      "weight": 85
     },
     {
       "value": "verify\\s+your\\s+account",
@@ -983,59 +1723,14 @@
       "weight": 10
     },
     {
-      "value": "debit\\s+order|stop\\s+order|mandate\\s+reference",
-      "category": "debit_order_fraud",
-      "weight": 85
+      "value": "we will guide you step by step",
+      "category": "social_engineering",
+      "weight": 60
     },
     {
-      "value": "(?:dhl|the courier guy|aramex|dawn wing|post office).{0,40}(?:fee|payment|held|customs)",
-      "category": "delivery_fee",
-      "weight": 25
-    },
-    {
-      "value": "(?:parcel|package).{0,40}(?:waiting|pending|held|on hold)",
-      "category": "delivery_fee",
-      "weight": 20
-    },
-    {
-      "value": "(?:pay|settle).{0,20}(?:delivery|customs|clearance|handling)\\s*(?:fee|charge)",
-      "category": "delivery_fee",
-      "weight": 25
-    },
-    {
-      "value": "(?:track(?:ing)?\\s*(?:code|number)|waybill)\\s*[:#]?\\s*[a-z0-9\\-]{6,}",
-      "category": "delivery_fee",
-      "weight": 15
-    },
-    {
-      "value": "(?:^|[^a-z0-9])(absa|africanbank|bidvestbank|capitec|capitecbank|fnb|nedbank|standardbank|tymebank|tymedigital|discovery|sars|sassa|saps|natis|takealot|temu|vodacom|mtn|telkom|facebook|instagram|meta|dhl|aramex|dawnwing|thecourierguy)(?:[-_\\.,])",
-      "category": "domain_lookalike",
-      "weight": 85
-    },
-    {
-      "value": "missed delivery",
-      "category": "ecommerce_impersonation",
-      "weight": 85
-    },
-    {
-      "value": "(?:black\\s*friday|mega\\s*sale|flash\\s*sale).{0,40}(?:limited|today only|ends tonight)",
-      "category": "fake_store",
-      "weight": 20
-    },
-    {
-      "value": "(?:only\\s*R)\\s*\\d{1,4}(?:\\.\\d{2})?\\s*(?:today|limited)",
-      "category": "fake_store",
-      "weight": 15
-    },
-    {
-      "value": "(?:unbelievable|crazy|insane)\\s+(?:discount|deal|price)",
-      "category": "fake_store",
-      "weight": 15
-    },
-    {
-      "value": "@greenmail.net",
-      "category": "free_email_authority",
-      "weight": 100
+      "value": "whatsapp number",
+      "category": "private_channel_handoff",
+      "weight": 95
     },
     {
       "value": "you are entitled to compensation",
@@ -1043,68 +1738,33 @@
       "weight": 100
     },
     {
-      "value": "auto-assessment has been reversed",
-      "category": "government_impersonation",
+      "value": "you've been selected",
+      "category": "social_engineering",
+      "weight": 75
+    },
+    {
+      "value": "your bank account is on hold",
+      "category": "banking_abuse",
+      "weight": 80
+    },
+    {
+      "value": "your crypto reward awaits",
+      "category": "crypto_airdrop",
+      "weight": 85
+    },
+    {
+      "value": "your email was found among their files",
+      "category": "authority_impersonation",
       "weight": 95
     },
     {
-      "value": "contact our attorney",
-      "category": "handoff_isolation",
-      "weight": 90
-    },
-    {
-      "value": "\\bfincen\\b",
-      "category": "impersonation",
-      "weight": 40
-    },
-    {
-      "value": "\\btemu\\b",
-      "category": "impersonation",
-      "weight": 18
-    },
-    {
-      "value": "assistant\\s+director",
-      "category": "impersonation",
-      "weight": 25
-    },
-    {
-      "value": "attached\\s+is\\s+your\\s+.*statement",
-      "category": "impersonation",
-      "weight": 25
-    },
-    {
-      "value": "case\\s+reference\\s*[:#]?\\s*[a-z0-9\\-]{4,}",
-      "category": "impersonation",
-      "weight": 25
-    },
-    {
-      "value": "financial\\s+crimes\\s+enforcement\\s+network",
-      "category": "impersonation",
-      "weight": 45
-    },
-    {
-      "value": "hello\\s+infinite\\s+ideas",
-      "category": "impersonation",
-      "weight": 20
-    },
-    {
-      "value": "meta\\s+policy\\s+categories",
-      "category": "impersonation",
-      "weight": 30
-    },
-    {
-      "value": "policy\\s+review\\s+notification",
-      "category": "impersonation",
+      "value": "your\\s+account\\s+is\\s+(restricted|limited|suspended|blocked)",
+      "category": "urgency",
       "weight": 35
     },
     {
-      "value": "release\\s+of\\s+your\\s+verified\\s+funds",
-      "category": "impersonation",
-      "weight": 45
-    },
-    {
-      "value": "unpaid\\s+(toll|fine)|summons\\s+issued",
-      "category": "impersonation",
+      "value": "your\\s+password\\s+is",
+      "category": "credentials",
       "weight": 35
     },
     {
@@ -1113,219 +1773,9 @@
       "weight": 40
     },
     {
-      "value": "(?:crypto|bitcoin|usdt|ethereum).{0,40}(?:deposit|wallet|address)",
-      "category": "investment",
-      "weight": 20
-    },
-    {
-      "value": "(?:double|triple).{0,20}(?:your\\s+money|investment)",
-      "category": "investment",
-      "weight": 30
-    },
-    {
-      "value": "(?:guaranteed|risk[-\\s]*free).{0,30}(?:returns?|profit)",
-      "category": "investment",
-      "weight": 25
-    },
-    {
-      "value": "only contact the attorney",
-      "category": "isolation_instruction",
+      "value": "zawadiweddingfilms.co.ke/tessmua",
+      "category": "crypto_airdrop",
       "weight": 100
-    },
-    {
-      "value": "complete simple tasks",
-      "category": "job_scam",
-      "weight": 85
-    },
-    {
-      "value": "(?:shorturl|bit\\.ly|tinyurl|t\\.co|is\\.gd|rebrand\\.ly)\\/[a-z0-9]+",
-      "category": "link_shortener",
-      "weight": 20
-    },
-    {
-      "value": "address correction fee",
-      "category": "micro_payment_trap",
-      "weight": 95
-    },
-    {
-      "value": "card\\s+verification|small\\s+test\\s+charge|\\br\\s*1\\b\\s*(?:verification|fee)|\\br\\s*0\\b\\s*(?:verification|fee)",
-      "category": "micro_payment_trap",
-      "weight": 90
-    },
-    {
-      "value": "\\b(\\$|usd)\\s*\\d{1,3}(,\\d{3})*(\\.\\d{2})?\\b",
-      "category": "money",
-      "weight": 15
-    },
-    {
-      "value": "\\b75\\s*million\\b",
-      "category": "money",
-      "weight": 40
-    },
-    {
-      "value": "accept\\s+your\\s+r\\s*\\d{2,6}\\s+offer",
-      "category": "money",
-      "weight": 40
-    },
-    {
-      "value": "pay\\s+into\\s+a\\s+private\\s+individual",
-      "category": "money",
-      "weight": 45
-    },
-    {
-      "value": "payment\\s+plan\\s+.*aarto\\s*0?4|\\baarto\\s*0?4\\b",
-      "category": "payment_redirect",
-      "weight": 75
-    },
-    {
-      "value": "settle\\s+payment|pay\\s+in\\s+full|immediate\\s+payment\\s+is\\s+required",
-      "category": "payment_redirect",
-      "weight": 95
-    },
-    {
-      "value": "page will be unpublished",
-      "category": "platform_threat",
-      "weight": 95
-    },
-    {
-      "value": "whatsapp number",
-      "category": "private_channel_handoff",
-      "weight": 95
-    },
-    {
-      "value": "(?:claim).{0,30}(?:prize|reward).{0,30}(?:fee|payment)",
-      "category": "prize",
-      "weight": 25
-    },
-    {
-      "value": "(?:won|winner|selected).{0,30}(?:prize|lottery|draw|giveaway)",
-      "category": "prize",
-      "weight": 25
-    },
-    {
-      "value": "upgrade your account to earn more",
-      "category": "pyramid_escalation",
-      "weight": 95
-    },
-    {
-      "value": "(?:chargeback|asset\\s+recovery|hacker).{0,40}(?:fee|deposit|upfront)",
-      "category": "recovery",
-      "weight": 30
-    },
-    {
-      "value": "(?:pay|fee).{0,30}(?:release|unlock).{0,30}(?:funds|wallet)",
-      "category": "recovery",
-      "weight": 25
-    },
-    {
-      "value": "(?:recover|recovery).{0,40}(?:funds|money|crypto|bitcoin)",
-      "category": "recovery",
-      "weight": 30
-    },
-    {
-      "value": "crickbuddy\\.com\\/pycts",
-      "category": "redirect_laundering",
-      "weight": 95
-    },
-    {
-      "value": "link\\.simpu\\.io",
-      "category": "redirect_laundering",
-      "weight": 85
-    },
-    {
-      "value": "anydesk|teamviewer|remote\\s+access|screen\\s+share|quick\\s+support",
-      "category": "remote_takeover",
-      "weight": 100
-    },
-    {
-      "value": "(?:emergency|crisis).{0,40}(?:need\\s+money|send\\s+money|help\\s+me)",
-      "category": "romance_isolation",
-      "weight": 20
-    },
-    {
-      "value": "(?:keep\\s+this\\s+between\\s+us|don't\\s+tell\\s+anyone|secret)",
-      "category": "romance_isolation",
-      "weight": 25
-    },
-    {
-      "value": "(?:natis)\\s+services\\s+(?:are\\s+)?blocked|blocked\\s+your\\s+access\\s+to\\s+natis",
-      "category": "service_threat",
-      "weight": 95
-    },
-    {
-      "value": "benefits will be suspended",
-      "category": "service_threat",
-      "weight": 95
-    },
-    {
-      "value": "unable\\s+to\\s+renew\\s+(?:your\\s+)?(driving\\s+license|vehicle\\s+license\\s+disc|professional\\s+driving\\s+permit)",
-      "category": "service_threat",
-      "weight": 90
-    },
-    {
-      "value": "\\bapk\\b|android\\s+package",
-      "category": "sideload_app",
-      "weight": 90
-    },
-    {
-      "value": "install\\s+(?:our\\s+)?app|download\\s+the\\s+app\\s+to\\s+pay",
-      "category": "sideload_app",
-      "weight": 90
-    },
-    {
-      "value": "unknown\\s+sources|allow\\s+from\\s+this\\s+source",
-      "category": "sideload_app",
-      "weight": 95
-    },
-    {
-      "value": "sim\\s+swap|rica\\s+update|number\\s+porting|port\\s+your\\s+number",
-      "category": "sim_swap",
-      "weight": 90
-    },
-    {
-      "value": "subscription\\s+will\\s+start|free\\s+trial\\s+ends|recurring\\s+payment|monthly\\s+billing",
-      "category": "subscription_trap",
-      "weight": 80
-    },
-    {
-      "value": "(?:task|rating|like\\s+and\\s+earn|work\\s+from\\s+home).{0,40}(?:earn|profit|commission)",
-      "category": "task_scam",
-      "weight": 25
-    },
-    {
-      "value": "(?:summons|warrant|court|arrest).{0,40}(?:pay|fine|settle)",
-      "category": "threat",
-      "weight": 30
-    },
-    {
-      "value": "(?:final\\s+notice|last\\s+chance|24\\s*hours|within\\s+\\d+\\s*hours)",
-      "category": "urgency",
-      "weight": 20
-    },
-    {
-      "value": "30\\s+days\\s+left\\s+to\\s+claim",
-      "category": "urgency",
-      "weight": 45
-    },
-    {
-      "value": "act\\s+now|urgent\\b|immediately\\b|final\\s+notice",
-      "category": "urgency",
-      "weight": 25
-    },
-    {
-      "value": "check\\s+it\\s+asap",
-      "category": "urgency",
-      "weight": 35
-    },
-    {
-      "value": "permanent\\s+(closing|deactivation|disable|disabled|closure)",
-      "category": "urgency",
-      "weight": 40
-    },
-    {
-      "value": "your\\s+account\\s+is\\s+(restricted|limited|suspended|blocked)",
-      "category": "urgency",
-      "weight": 35
     }
   ]
 }
