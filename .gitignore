@@ -4,3 +4,15 @@ backend/node_modules/
 
 # If package-lock is not part of this repo baseline, ignore it
 backend/package-lock.json
+# Intel build leftovers / backups
+backend/data/scamIntel.json.bak
+backend/data/*.bak
+backend/data/*.tmp
+
+# Tool output logs
+tools/*.log
+tools/*.tmp
+
+# Optional: OS junk
+.DS_Store
+Thumbs.db
