@@ -1,8 +1,6 @@
 'use strict';
 
-// Map score to the 3-band system (requested).
-function bandFromScore(score, isCritical) {
-  if (isCritical) return 'CRITICAL';
+function bandFromScore(score) {
   if (score >= 50) return 'SUSPICIOUS';
   return 'SAFE';
 }
@@ -18,26 +16,32 @@ function scoreEvidence(evidence) {
     .concat(evidence.textPatterns?.hits || []);
 
   const knownBadHit = evidence.knownBad?.hit === true;
-  const absoluteHit = evidence.textPatterns?.absoluteTriggered === true;
 
-  // CRITICAL hard gate
-  if (knownBadHit || absoluteHit) {
+  // Authoritative absolute credential hit from intel semantics (category + weight)
+  const absoluteCredentialHit =
+    Array.isArray(evidence.textPatterns?.hits) &&
+    evidence.textPatterns.hits.some(h =>
+      String(h.category || '').toLowerCase() === 'credentials' && Number(h.weight || 0) >= 100
+    );
+
+  // HARD GATE
+  if (knownBadHit || absoluteCredentialHit) {
     return {
       band: 'CRITICAL',
       score: 100,
       hits,
       reasons: []
         .concat(knownBadHit ? [`Known bad domain hit: ${evidence.knownBad.value}`] : [])
-        .concat(absoluteHit ? ['Absolute credential indicator hit (OTP/PIN/CVV/password/card details).'] : [])
+        .concat(absoluteCredentialHit ? ['Credential request detected (OTP / PIN / CVV / password).'] : [])
     };
   }
 
-  const raw = (evidence.domainKeywords?.score || 0) + (evidence.textPatterns?.score || 0);
+  const rawScore =
+    (evidence.domainKeywords?.score || 0) +
+    (evidence.textPatterns?.score || 0);
 
-  // Keep mid-zone meaningful but avoid “always 100” inflation.
-  const score = clamp0_100(raw);
-
-  const band = bandFromScore(score, false);
+  const score = clamp0_100(rawScore);
+  const band = bandFromScore(score);
 
   return {
     band,
@@ -49,6 +53,4 @@ function scoreEvidence(evidence) {
   };
 }
 
-module.exports = {
-  scoreEvidence
-};
+module.exports = { scoreEvidence };

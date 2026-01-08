@@ -1,15 +1,27 @@
-/**
- * NoToday Backend — routes.js (LOCKED SURFACE)
- * - Declares only the allowed public routes
- * - Delegates immediately to handlers
- * - Contains no business logic
- */
 'use strict';
 
-const httpCheckHandler = require('./http/handlers/httpCheckHandler');
-const httpIntelHandler = require('./http/handlers/httpIntelHandler');
+const express = require('express');
+const { httpCheckHandler } = require('./http/handlers/httpCheckHandler');
+const { httpIntelHandler } = require('./http/handlers/httpIntelHandler');
 
-module.exports = function registerRoutes(app) {
-  app.post('/check', httpCheckHandler);
-  app.get('/intel', httpIntelHandler);
-};
+const router = express.Router();
+
+// Locked routes
+router.get('/intel', httpIntelHandler);
+router.post('/check', httpCheckHandler);
+
+// Unknown routes must fail closed and return bounded JSON (never HTML)
+router.use((req, res) => {
+  res.status(200).json({
+    success: true,
+    data: {
+      band: 'SUSPICIOUS',
+      score: 50,
+      reasons: ['Unknown route (fail-closed).'],
+      degraded: true
+    },
+    message: 'OK'
+  });
+});
+
+module.exports = router;

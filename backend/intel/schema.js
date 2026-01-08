@@ -4,29 +4,50 @@ function isNonEmptyString(x) {
   return typeof x === 'string' && x.trim().length > 0;
 }
 
-function validateArrayOfEntries(arr, name) {
-  if (!Array.isArray(arr)) throw new Error(`${name}: must be an array`);
-  for (let i = 0; i < arr.length; i++) {
-    const e = arr[i];
-    if (typeof e !== 'object' || e === null) throw new Error(`${name}: entry must be object @${i}`);
-    if (!isNonEmptyString(e.value)) throw new Error(`${name}: entry.value required @${i}`);
-    if (!isNonEmptyString(e.category)) throw new Error(`${name}: entry.category required @${i}`);
-    if (e.weight !== undefined && typeof e.weight !== 'number') throw new Error(`${name}: entry.weight must be number @${i}`);
-    if (e.absolute !== undefined && typeof e.absolute !== 'boolean') throw new Error(`${name}: entry.absolute must be boolean @${i}`);
-    if (e.kind !== undefined && typeof e.kind !== 'string') throw new Error(`${name}: entry.kind must be string @${i}`);
-  }
+function isObj(x) {
+  return x && typeof x === 'object' && !Array.isArray(x);
 }
 
 function validateIntel(intel) {
-  if (typeof intel !== 'object' || intel === null) throw new Error('intel: must be object');
-  if (!isNonEmptyString(intel.version)) throw new Error('intel.version: required');
+  const errors = [];
 
-  validateArrayOfEntries(intel.knownBadDomains || [], 'knownBadDomains');
-  validateArrayOfEntries(intel.scamDomainKeywords || [], 'scamDomainKeywords');
-  validateArrayOfEntries(intel.saOfficialDomains || [], 'saOfficialDomains');
-  validateArrayOfEntries(intel.scamPatterns || [], 'scamPatterns');
+  if (!isObj(intel)) return { ok: false, errors: ['intel root must be an object'] };
+  if (!isNonEmptyString(intel.version)) errors.push('version must be a non-empty string');
 
-  return true;
+  const requiredArrays = ['knownBadDomains', 'scamDomainKeywords', 'saOfficialDomains', 'scamPatterns'];
+  for (const k of requiredArrays) {
+    if (!Array.isArray(intel[k])) errors.push(`${k} must be an array`);
+  }
+
+  for (const d of (intel.knownBadDomains || [])) {
+    if (!isNonEmptyString(d)) { errors.push('knownBadDomains contains invalid entry'); break; }
+  }
+
+  for (const k of (intel.scamDomainKeywords || [])) {
+    if (isNonEmptyString(k)) continue;
+    if (isObj(k) && isNonEmptyString(k.value)) continue;
+    errors.push('scamDomainKeywords contains invalid entry');
+    break;
+  }
+
+  for (const b of (intel.saOfficialDomains || [])) {
+    if (!isObj(b) || !isNonEmptyString(b.brand) || !Array.isArray(b.domains)) {
+      errors.push('saOfficialDomains contains invalid entry');
+      break;
+    }
+    for (const d of b.domains) {
+      if (!isNonEmptyString(d)) { errors.push('saOfficialDomains contains invalid domain'); break; }
+    }
+  }
+
+  for (const p of (intel.scamPatterns || [])) {
+    if (isNonEmptyString(p)) continue;
+    if (isObj(p) && isNonEmptyString(p.value)) continue;
+    errors.push('scamPatterns contains invalid entry');
+    break;
+  }
+
+  return { ok: errors.length === 0, errors };
 }
 
 module.exports = { validateIntel };

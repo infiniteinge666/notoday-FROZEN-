@@ -1,385 +1,256 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap');
 
-/* =========================
-   NoToday — Light Glass UI
-   Mockup-aligned slab + glow
-   ========================= */
-
-/* ---------- Reset ---------- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { height: 100%; }
-body {
-  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
-  text-rendering: geometricPrecision;
   overflow-x: hidden;
+  color: rgba(8,16,48,0.92);
 }
 
-/* ---------- Tokens ---------- */
 :root{
-  --ink: rgba(9, 18, 45, 0.92);
-  --muted: rgba(9, 18, 45, 0.55);
-  --faint: rgba(9, 18, 45, 0.38);
+  --bgA:#eaf0ff;
+  --bgB:#dfe6f9;
 
-  --glass: rgba(255,255,255,0.26);
-  --glass2: rgba(255,255,255,0.18);
-  --glass3: rgba(255,255,255,0.12);
+  --glassA: rgba(255,255,255,0.34);
+  --glassB: rgba(255,255,255,0.18);
+  --stroke: rgba(255,255,255,0.28);
 
-  --stroke: rgba(255,255,255,0.38);
-  --stroke2: rgba(255,255,255,0.22);
+  --shadowA: rgba(8,12,30,0.18);
+  --shadowB: rgba(8,12,30,0.10);
 
-  --shadowA: rgba(10, 14, 35, 0.12);
-  --shadowB: rgba(10, 14, 35, 0.18);
-  --shadowC: rgba(10, 14, 35, 0.26);
+  --sunA: rgba(255,200,95,0.70);
+  --sunB: rgba(255,200,95,0.34);
 
-  --iceTop: #eef3ff;
-  --iceMid: #dde6fb;
-  --iceBot: #d3dcf2;
-
-  --amber: rgba(255, 205, 120, 0.75);
-  --amber2: rgba(255, 205, 120, 0.35);
-
-  --radius-xl: 28px;
-  --radius-lg: 20px;
+  --safe: rgba(85,214,160,0.32);
+  --sus: rgba(255,200,95,0.34);
+  --crit: rgba(255,92,108,0.30);
 }
 
-/* ---------- Background / Screen ---------- */
 .screen{
   min-height: 100dvh;
   width: 100%;
   padding:
-    calc(env(safe-area-inset-top, 0px) + 22px)
-    clamp(16px, 4.6vw, 28px)
-    calc(env(safe-area-inset-bottom, 0px) + 22px);
-
+    calc(env(safe-area-inset-top, 12px) + 18px)
+    18px
+    calc(env(safe-area-inset-bottom, 12px) + 18px);
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  /* centered by design (fix your “not in the middle” issue) */
-  justify-content: flex-start;
-
+  gap: 14px;
   background:
-    radial-gradient(900px 520px at 50% -12%, rgba(255,255,255,0.78), transparent 62%),
-    radial-gradient(920px 680px at 50% 110%, rgba(120, 180, 255, 0.14), transparent 64%),
-    radial-gradient(820px 620px at 50% 118%, rgba(255, 205, 120, 0.10), transparent 66%),
-    linear-gradient(180deg, var(--iceTop), var(--iceMid) 52%, var(--iceBot));
-  position: relative;
+    radial-gradient(900px 520px at 50% -14%, rgba(255,255,255,0.85), transparent 60%),
+    radial-gradient(920px 620px at 50% 108%, rgba(120,180,255,0.16), transparent 62%),
+    radial-gradient(820px 540px at 50% 116%, rgba(255, 200, 95, 0.10), transparent 64%),
+    linear-gradient(180deg, var(--bgA), var(--bgB));
 }
 
-/* soft sparkle dust (subtle) */
-.screen::before{
-  content:"";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(2px 2px at 18% 22%, rgba(255,255,255,0.35), transparent 55%),
-    radial-gradient(1.5px 1.5px at 62% 18%, rgba(255,255,255,0.30), transparent 55%),
-    radial-gradient(2px 2px at 76% 34%, rgba(255,255,255,0.26), transparent 55%),
-    radial-gradient(1.5px 1.5px at 36% 62%, rgba(255,255,255,0.22), transparent 55%),
-    radial-gradient(2px 2px at 68% 74%, rgba(255,255,255,0.18), transparent 55%),
-    radial-gradient(1.5px 1.5px at 24% 84%, rgba(255,255,255,0.16), transparent 55%);
-  opacity: 0.65;
-  filter: blur(0.2px);
-}
-
-/* ---------- Hero ---------- */
-.hero{
+.brand{
   width: 100%;
-  max-width: 520px;
+  max-width: 460px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
   text-align: center;
-
-  margin-bottom: 18px;
 }
 
 .shield{
-  width: 74px;
-  height: 74px;
+  width: 96px;
+  height: 96px;
   object-fit: contain;
-  user-select: none;
-
-  /* make it “prominent” */
   filter:
-    drop-shadow(0 12px 26px rgba(20, 28, 60, 0.22))
-    drop-shadow(0 0 40px rgba(255,255,255,0.75));
-  margin-bottom: 10px;
+    drop-shadow(0 16px 32px rgba(0,0,0,0.18))
+    drop-shadow(0 0 56px rgba(255,255,255,0.78));
 }
 
 .title{
-  font-size: clamp(26px, 5.2vw, 34px);
+  font-size: 24px;
   font-weight: 800;
-  letter-spacing: 0.8px;
-  color: rgba(14, 24, 60, 0.92);
-  margin-bottom: 6px;
+  letter-spacing: 1.2px;
 }
 
 .subtitle{
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(14, 24, 60, 0.48);
-  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 650;
+  color: rgba(8,16,48,0.55);
 }
 
-/* ---------- Slab ---------- */
 .slab{
-  width: min(92vw, 430px);
-  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 460px;
+  flex: 1 1 auto;
+
   padding: 16px;
+  border-radius: 28px;
+
   position: relative;
 
-  background: linear-gradient(180deg, rgba(255,255,255,0.34), rgba(255,255,255,0.14));
-  border: 1px solid rgba(255,255,255,0.40);
-
+  background: linear-gradient(180deg, var(--glassA), var(--glassB));
+  border: 1px solid var(--stroke);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 
   box-shadow:
-    0 20px 52px rgba(10, 14, 35, 0.18),
-    0 6px 18px rgba(10, 14, 35, 0.10),
-    inset 0 1px 1px rgba(255,255,255,0.62),
-    inset 0 -1px 0 rgba(255,255,255,0.18);
+    0 22px 58px var(--shadowA),
+    0 6px 18px var(--shadowB),
+    inset 0 1px 1px rgba(255,255,255,0.58),
+    inset 0 -2px 7px rgba(8,12,30,0.10);
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-/* rim glow like mockup */
 .slab::before{
   content:"";
-  position: absolute;
-  inset: -10px;
-  border-radius: calc(var(--radius-xl) + 12px);
+  position:absolute;
+  inset:-16px;
+  border-radius:36px;
   background:
-    radial-gradient(520px 260px at 50% 8%, rgba(255,255,255,0.55), transparent 62%),
-    radial-gradient(540px 320px at 50% 96%, rgba(255, 205, 120, 0.14), transparent 68%);
-  filter: blur(10px);
-  opacity: 0.55;
-  pointer-events: none;
-  z-index: 0;
+    radial-gradient(520px 280px at 50% 8%, rgba(255,255,255,0.26), transparent 62%),
+    radial-gradient(540px 320px at 50% 92%, rgba(120,180,255,0.18), transparent 64%);
+  filter: blur(12px);
+  opacity: 0.6;
+  pointer-events:none;
+  z-index:0;
 }
 
-/* ---------- Result bar ---------- */
+.slab[data-band="SAFE"]{ box-shadow: 0 22px 58px var(--shadowA), 0 6px 18px var(--shadowB), 0 0 0 1px var(--safe), inset 0 1px 1px rgba(255,255,255,0.58), inset 0 -2px 7px rgba(8,12,30,0.10); }
+.slab[data-band="SUSPICIOUS"]{ box-shadow: 0 22px 58px var(--shadowA), 0 6px 18px var(--shadowB), 0 0 0 1px var(--sus), inset 0 1px 1px rgba(255,255,255,0.58), inset 0 -2px 7px rgba(8,12,30,0.10); }
+.slab[data-band="CRITICAL"]{ box-shadow: 0 22px 58px var(--shadowA), 0 6px 18px var(--shadowB), 0 0 0 1px var(--crit), inset 0 1px 1px rgba(255,255,255,0.58), inset 0 -2px 7px rgba(8,12,30,0.10); }
+
 .result{
   position: relative;
   z-index: 1;
-
-  width: 100%;
-  border-radius: 18px;
-  padding: 14px 16px;
-
-  display: flex;
-  align-items: center;
+  display:flex;
+  align-items:center;
   justify-content: space-between;
   gap: 14px;
-
-  background: rgba(255,255,255,0.36);
-  border: 1px solid rgba(255,255,255,0.42);
-
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.22);
+  border: 1px solid rgba(255,255,255,0.26);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-
-  box-shadow:
-    0 10px 24px rgba(10, 14, 35, 0.12),
-    inset 0 1px 1px rgba(255,255,255,0.62);
+  box-shadow: 0 10px 22px rgba(8,12,30,0.10), inset 0 1px 1px rgba(255,255,255,0.55);
 }
 
 .result-left{
-  min-width: 108px;
+  min-width: 110px;
   text-align: left;
+  display:flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.band{
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: 0.7px;
-  color: rgba(14, 24, 60, 0.88);
-}
-
-.score{
-  margin-top: 2px;
-  font-size: 12px;
-  font-weight: 700;
-  color: rgba(14, 24, 60, 0.50);
-}
-
-.hint{
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.25;
-  color: rgba(14, 24, 60, 0.52);
-  text-align: right;
-  max-width: 210px;
-}
-
-/* ---------- Inner panel + textarea ---------- */
-.panel{
-  position: relative;
-  z-index: 1;
-
-  margin-top: 16px;
-  border-radius: 22px;
-
-  background: rgba(255,255,255,0.22);
-  border: 1px solid rgba(255,255,255,0.30);
-
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,0.52),
-    0 10px 24px rgba(10, 14, 35, 0.10);
-
-  overflow: hidden;
-}
-
-.panel::after{
-  content:"";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(520px 220px at 50% 0%, rgba(255,255,255,0.38), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.04));
-  opacity: 0.9;
-}
+.band{ font-size: 12px; font-weight: 800; letter-spacing: .8px; color: rgba(8,16,48,0.90); }
+.score{ font-size: 12px; font-weight: 700; color: rgba(8,16,48,0.55); }
+.hint{ font-size: 13px; font-weight: 650; color: rgba(8,16,48,0.70); text-align: right; line-height: 1.15; }
 
 textarea{
   position: relative;
   z-index: 1;
-
   width: 100%;
-  min-height: min(34dvh, 290px);
-  padding: 18px 18px 20px;
-
-  border: 0;
+  flex: 1 1 auto;
+  min-height: 180px;
+  max-height: 46dvh;
+  padding: 14px 14px 12px;
+  border: 1px solid rgba(255,255,255,0.26);
+  border-radius: 22px;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.60), 0 3px 10px rgba(8,12,30,0.06);
   outline: none;
   resize: none;
-
-  background: transparent;
-  color: rgba(14, 24, 60, 0.78);
-
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.55;
-
-  caret-color: rgba(28, 60, 140, 0.85);
+  color: rgba(8,16,48,0.90);
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.5;
 }
 
 textarea::placeholder{
-  color: rgba(14, 24, 60, 0.34);
+  color: rgba(8,16,48,0.45);
   font-weight: 600;
 }
 
-/* ---------- Slab warm base line glow ---------- */
-.slab-glow{
-  position: absolute;
-  left: 10%;
-  right: 10%;
-  bottom: 10px;
-  height: 14px;
-  border-radius: 999px;
-  background: radial-gradient(60% 160% at 50% 50%, var(--amber), transparent 70%);
-  filter: blur(8px);
-  opacity: 0.55;
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* ---------- Action / Button ---------- */
-.action{
-  width: min(92vw, 430px);
+.slab-foot{
   position: relative;
-  margin-top: 18px;
-  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 2px);
+  z-index: 1;
+  display:flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.scan-btn{
+.notice{
+  font-size: 12px;
+  font-weight: 650;
+  color: rgba(8,16,48,0.70);
+}
+.notice.soft{ color: rgba(8,16,48,0.55); }
+.notice strong{ font-weight: 800; }
+
+.action{
   width: 100%;
-  height: 62px;
-  border-radius: 22px;
-
-  border: 1px solid rgba(255,255,255,0.46);
-  background: rgba(255,255,255,0.26);
-
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  max-width: 460px;
+  display:flex;
+  flex-direction: column;
   gap: 10px;
+}
 
-  color: rgba(14, 24, 60, 0.70);
-  font-weight: 800;
-  letter-spacing: 2px;
+.scan{
+  width: 100%;
+  height: 60px;
+  border: 0;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.20);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: rgba(8,16,48,0.95);
+  font-weight: 900;
+  letter-spacing: 1.4px;
   font-size: 15px;
-
   box-shadow:
-    0 22px 44px rgba(10, 14, 35, 0.18),
-    inset 0 1px 1px rgba(255,255,255,0.70);
-
-  cursor: pointer;
-  transition: transform 0.12s ease, filter 0.12s ease;
+    0 0 42px var(--sunB),
+    0 18px 42px rgba(255, 200, 95, 0.42),
+    0 10px 24px rgba(8,12,30,0.18),
+    inset 0 1px 1px rgba(255,255,255,0.62);
+  transition: transform 0.14s ease, filter 0.14s ease;
 }
 
-.scan-btn:active{
-  transform: scale(0.988);
-  filter: brightness(0.985);
+.scan:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+.scan:active{ transform: scale(0.985); filter: brightness(0.98); }
+.scan:disabled{ opacity: 0.65; cursor: not-allowed; transform: none; }
+
+.tiny-row{
+  display:flex;
+  gap: 10px;
+  justify-content: space-between;
 }
 
-/* little icon circle (keeps your “shield-in-button” vibe without needing SVG) */
-.scan-icon{
-  width: 18px;
-  height: 18px;
-  border-radius: 6px;
-  background: rgba(14, 24, 60, 0.12);
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,0.6),
-    0 6px 14px rgba(10, 14, 35, 0.10);
+.ghost{
+  flex: 1 1 auto;
+  height: 44px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.30);
+  background: rgba(255,255,255,0.16);
+  color: rgba(8,16,48,0.70);
+  font-weight: 800;
+  font-size: 13px;
+  text-decoration: none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 18px rgba(8,12,30,0.08), inset 0 1px 1px rgba(255,255,255,0.60);
 }
 
-/* Yellow underglow like mockup */
-.btn-glow{
-  position: absolute;
-  left: 18%;
-  right: 18%;
-  bottom: -10px;
-  height: 18px;
-  border-radius: 999px;
-  background: radial-gradient(70% 200% at 50% 50%, rgba(255, 205, 120, 0.85), transparent 72%);
-  filter: blur(10px);
-  opacity: 0.75;
-  pointer-events: none;
-}
-
-/* ---------- Band styling (subtle, not neon) ---------- */
-.slab[data-band="SAFE"] .band{ color: rgba(18, 86, 58, 0.85); }
-.slab[data-band="SUSPICIOUS"] .band{ color: rgba(145, 92, 12, 0.86); }
-.slab[data-band="CRITICAL"] .band{ color: rgba(140, 20, 36, 0.86); }
-
-.slab[data-band="SAFE"]{
-  box-shadow:
-    0 20px 52px rgba(10, 14, 35, 0.18),
-    0 0 0 1px rgba(115, 241, 184, 0.12),
-    inset 0 1px 1px rgba(255,255,255,0.62),
-    inset 0 -1px 0 rgba(255,255,255,0.18);
-}
-.slab[data-band="SUSPICIOUS"]{
-  box-shadow:
-    0 20px 52px rgba(10, 14, 35, 0.18),
-    0 0 0 1px rgba(255, 209, 102, 0.16),
-    inset 0 1px 1px rgba(255,255,255,0.62),
-    inset 0 -1px 0 rgba(255,255,255,0.18);
-}
-.slab[data-band="CRITICAL"]{
-  box-shadow:
-    0 20px 52px rgba(10, 14, 35, 0.18),
-    0 0 0 1px rgba(255, 93, 108, 0.16),
-    inset 0 1px 1px rgba(255,255,255,0.62),
-    inset 0 -1px 0 rgba(255,255,255,0.18);
-}
-
-/* ---------- Small screens ---------- */
-@media (max-height: 740px){
-  .hero{ margin-bottom: 14px; }
-  textarea{ min-height: min(30dvh, 240px); }
-  .scan-btn{ height: 58px; }
+@media (max-height: 720px){
+  .shield{ width: 84px; height: 84px; }
+  textarea{ min-height: 160px; max-height: 44dvh; }
+  .scan{ height: 56px; }
 }
