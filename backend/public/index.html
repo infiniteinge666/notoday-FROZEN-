@@ -1,52 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
   <title>NoToday</title>
-  <link rel="stylesheet" href="/styles/render-style.css?v=1" />
+
+  <link rel="icon" href="/assets/notoday-shield.png" />
+  <link rel="stylesheet" href="/styles/render-style.css" />
 </head>
 
 <body>
   <main class="screen">
-
-    <header class="brand">
-      <img src="/assets/notoday-shield.png" alt="NoToday" class="shield" />
-      <h1 class="title">NOTODAY</h1>
-      <p class="subtitle">Risk check. Plain language. No storage.</p>
+    <header class="brand" aria-label="NoToday">
+      <img class="shield" src="/assets/notoday-shield.png" alt="NoToday Shield" />
+      <div class="title">NOTODAY</div>
+      <div class="subtitle">Real-Time Threat Detection</div>
     </header>
 
-    <section class="slab" id="slab" data-band="IDLE">
-      <div class="result" id="result" hidden>
+    <section id="slab" class="slab" data-band="SAFE" aria-label="Scanner">
+      <div class="result" role="status" aria-live="polite">
         <div class="result-left">
-          <div class="band" id="band">SAFE</div>
-          <div class="score" id="score">0 / 100</div>
+          <div id="band" class="band">SAFE</div>
+          <div id="threats" class="score">0 Threats</div>
         </div>
-        <div class="hint" id="hint">No risk markers detected.</div>
+
+        <div id="hint" class="hint">No threats detected in this message.</div>
       </div>
 
       <textarea
         id="input"
-        placeholder="Paste a message, link, or email…"
+        placeholder="Paste a message, link, or email..."
+        autocapitalize="off"
+        autocomplete="off"
         spellcheck="false"
       ></textarea>
 
       <div class="slab-foot">
-        <div class="notice"><strong>Privacy:</strong> Nothing you paste is stored.</div>
-        <div class="notice soft"><strong>Never paste</strong> OTPs / PINs / CVV.</div>
+        <div class="notice">
+          <strong>Privacy:</strong> Nothing you paste is stored.
+        </div>
+        <div class="notice soft">
+          Never paste <strong>OTPs</strong> / <strong>PINs</strong> / <strong>CVV</strong>.
+        </div>
       </div>
     </section>
 
     <footer class="action">
-      <button id="scanBtn" class="scan" type="button">SCAN</button>
-      <div class="tiny-row">
-        <button id="clearBtn" class="ghost" type="button">Clear</button>
-        <a class="ghost" href="/intel" target="_blank" rel="noopener">Intel</a>
-      </div>
-    </footer>
+  <button id="scanBtn" class="scan" type="button">
+    <span class="scan-icon" aria-hidden="true"></span>
+    <span class="scan-label">SCAN</span>
+  </button>
 
+  <div class="tiny-row">
+    <button id="clearBtn" class="ghost" type="button">Clear</button>
+    <a id="intelBtn" class="ghost" href="/intel" target="_blank" rel="noopener">Intel</a>
+  </div>
+</footer>
   </main>
 
-  <script src="/app.js?v=1"></script>
+  <script src="/app.js" defer></script>
 </body>
 </html>
