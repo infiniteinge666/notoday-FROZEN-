@@ -1,0 +1,32 @@
+name: Deploy NoToday to VPS
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy (pull + pm2 reload)
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          ssh -o StrictHostKeyChecking=yes ${VPS_USER}@${VPS_HOST} << 'EOF'
+            set -e
+            cd /opt/notoday/notoday_render_proof
+            git pull origin main
+            pm2 reload all
+            pm2 save
+            echo "✅ Deployed: $(date)"
+          EOF
