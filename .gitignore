@@ -16,3 +16,4 @@ tools/*.tmp
 # Optional: OS junk
 .DS_Store
 Thumbs.db
+deploy.ps1
