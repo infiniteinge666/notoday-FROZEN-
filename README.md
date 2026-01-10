@@ -32,3 +32,4 @@ styles/
 render-style.css
 assets/
 notoday-shield.png
+<!-- CI deploy test -->
