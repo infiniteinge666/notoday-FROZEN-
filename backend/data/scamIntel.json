@@ -1,5 +1,5 @@
 {
-  "version": "v16",
+  "version": "v17",
   "knownBadDomains": [
     {
       "value": "absa-secure-login.co.za",
@@ -145,9 +145,26 @@
       "value": "zawadiweddingfilms.co.ke",
       "category": "knownbaddomain",
       "weight": 100
+    },
+    { 
+      "value": "doctorgoilan.ro",
+        "category": "knownbaddomain",
+        "weight": 100 
+    },
+    { 
+      "value": "hostico.ro",
+      "category": "knownbaddomain",
+      "weight": 100 
+    },
+    { 
+      "value": "glc49.hostico.ro",
+      "category": "knownbaddomain",
+      "weight": 100
     }
-  ],
-  "scamDomainKeywords": [
+    
+],
+
+  "scamDomainKeywords":  [
     {
       "value": "aarto",
       "category": "domain_keyword",
@@ -727,6 +744,44 @@
       "value": "voucher",
       "category": "domain_keyword",
       "weight": 20
+    },
+    { 
+      "value": "statement-download",
+      "category": "payment_redirect",
+      "weight": 80 
+    },
+    { 
+      "value": "bol-statement", 
+      "category": "banking_abuse", 
+      "weight": 80 
+    },
+    { 
+      "value": "businessonline-statement", 
+      "category": "banking_abuse", 
+      "weight": 75 
+    },
+    { 
+      "value": "secure-statement", 
+      "category": "banking_abuse", 
+      "weight": 75 
+    },
+    { 
+      "value": "account-statement", 
+      "category": "banking_abuse", 
+      "weight": 65 
+    },
+    { 
+      "value": "view-statement", 
+      "category": "banking_abuse", 
+      "weight": 60 
+    },
+    { 
+      "value": "html-attachment", 
+      "category": "redirect_laundering", 
+      "weight": 85 },
+    { "value": "meta-refresh", 
+      "category": "redirect_laundering", 
+      "weight": 85
     }
   ],
   "saOfficialDomains": [
@@ -1776,6 +1831,71 @@
       "value": "zawadiweddingfilms.co.ke/tessmua",
       "category": "crypto_airdrop",
       "weight": 100
-    }
+    },
+     {
+    "value": "meta\\s+http-equiv\\s*=\\s*\"?refresh\"?",
+    "category": "redirect_laundering",
+    "weight": 95
+  },
+  {
+    "value": "http-equiv\\s*=\\s*refresh",
+    "category": "redirect_laundering",
+    "weight": 95
+  },
+  {
+    "value": "content\\s*=\\s*\"?0\\s*;\\s*url\\s*=",
+    "category": "redirect_laundering",
+    "weight": 95
+  },
+  {
+    "value": "\\.html\\b",
+    "category": "attachment_html",
+    "weight": 65
+  },
+  {
+    "value": "open\\s+the\\s+attached\\s+html",
+    "category": "attachment_html",
+    "weight": 95
+  },
+  {
+    "value": "html\\s+attachment",
+    "category": "attachment_html",
+    "weight": 90
+  },
+  {
+    "value": "to\\s+open\\s+the\\s+statement",
+    "category": "impersonation",
+    "weight": 65
+  },
+  {
+    "value": "(?:business\\s*online|bol)\\s+current\\s+account\\s+statement",
+    "category": "bank_impersonation",
+    "weight": 85
+  },
+  {
+    "value": "password\\s+to\\s+open\\s+the\\s+attachment",
+    "category": "credentials",
+    "weight": 100
+  },
+  {
+    "value": "use\\s+your\\s+email\\s+password\\s+to\\s+open",
+    "category": "credentials",
+    "weight": 100
+  },
+  {
+    "value": "enter\\s+your\\s+email\\s+password",
+    "category": "credentials",
+    "weight": 100
+  },
+  {
+    "value": "adobe\\s+reader\\s+required",
+    "category": "cta",
+    "weight": 80
+  },
+  {
+    "value": "document\\s+is\\s+protected",
+    "category": "cta",
+    "weight": 75
+  }
   ]
 }
