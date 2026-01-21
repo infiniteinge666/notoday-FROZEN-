@@ -1,789 +1,495 @@
 {
-  "version": "v17",
+  "version": "v19",
   "knownBadDomains": [
-    {
-      "value": "absa-secure-login.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "absa-verify.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "banking-verify.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "capitec-clearance.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "capitec-secure.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "capitec-verification.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "capitec-verify.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "courierv.top",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "dhl-tracking-za.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "fincen-gov-payment.com",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "fincen-payment-release.com",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "fnb-login.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "fnb-secure.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "fnb-verification.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "instant-eft.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "nedbank-secure.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "pay-id.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "sars-gov.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "sars-payout.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "sars-refund-coza.com",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "sars-refund.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "secure-easy-eft.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "standardbank-login.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "standardbank-secure.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "takealot-delivery.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "temu-claim-reward.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "temu-offer-za.co.za",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "wjdil.buzz",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    {
-      "value": "zawadiweddingfilms.co.ke",
-      "category": "knownbaddomain",
-      "weight": 100
-    },
-    { 
-      "value": "doctorgoilan.ro",
-        "category": "knownbaddomain",
-        "weight": 100 
-    },
-    { 
-      "value": "hostico.ro",
-      "category": "knownbaddomain",
-      "weight": 100 
-    },
-    { 
-      "value": "glc49.hostico.ro",
-      "category": "knownbaddomain",
-      "weight": 100
-    }
-    
-],
-
-  "scamDomainKeywords":  [
-    {
-      "value": "aarto",
-      "category": "domain_keyword",
-      "weight": 25
-    },
-    {
-      "value": "account",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "act-fast",
-      "category": "urgency",
-      "weight": 70
-    },
-    {
-      "value": "action",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "activation-fee",
-      "category": "money_drain",
-      "weight": 80
-    },
-    {
-      "value": "admin-fee",
-      "category": "money_drain",
-      "weight": 75
-    },
-    {
-      "value": "ads",
-      "category": "domain_keyword",
-      "weight": 12
-    },
-    {
-      "value": "airdrop",
-      "category": "crypto_airdrop",
-      "weight": 80
-    },
-    {
-      "value": "apk",
-      "category": "sideloading",
-      "weight": 85
-    },
-    {
-      "value": "app-update",
-      "category": "sideloading",
-      "weight": 75
-    },
-    {
-      "value": "assessment",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "audit",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "bank",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "banking-update",
-      "category": "banking_abuse",
-      "weight": 80
-    },
-    {
-      "value": "billing",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "blocked",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "business",
-      "category": "domain_keyword",
-      "weight": 12
-    },
-    {
-      "value": "claim",
-      "category": "domain_keyword",
-      "weight": 18
-    },
-    {
-      "value": "claim-now",
-      "category": "crypto_airdrop",
-      "weight": 75
-    },
-    {
-      "value": "clear",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "clearance",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "clearance-fee",
-      "category": "money_drain",
-      "weight": 85
-    },
-    {
-      "value": "confirm-now",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "coupon",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "crickbuddy",
-      "category": "domain_keyword",
-      "weight": 60
-    },
-    {
-      "value": "crypto-reward",
-      "category": "crypto_airdrop",
-      "weight": 80
-    },
-    {
-      "value": "crypto-rewards",
-      "category": "crypto_airdrop",
-      "weight": 80
-    },
-    {
-      "value": "customer",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "customs",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "cvv",
-      "category": "domain_keyword",
-      "weight": 22
-    },
-    {
-      "value": "deadline",
-      "category": "urgency",
-      "weight": 65
-    },
-    {
-      "value": "delivery",
-      "category": "domain_keyword",
-      "weight": 18
-    },
-    {
-      "value": "demerit",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "dhl",
-      "category": "domain_keyword",
-      "weight": 14
-    },
-    {
-      "value": "discov3ry",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "duties",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "efiling",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "enforcement",
-      "category": "domain_keyword",
-      "weight": 25
-    },
-    {
-      "value": "exclusive",
-      "category": "social_engineering",
-      "weight": 60
-    },
-    {
-      "value": "facebook",
-      "category": "domain_keyword",
-      "weight": 16
-    },
-    {
-      "value": "fee",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "fincen",
-      "category": "domain_keyword",
-      "weight": 22
-    },
-    {
-      "value": "fines",
-      "category": "domain_keyword",
-      "weight": 18
-    },
-    {
-      "value": "helpdesk",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "immediately",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "instagram",
-      "category": "domain_keyword",
-      "weight": 14
-    },
-    {
-      "value": "instant",
-      "category": "social_engineering",
-      "weight": 55
-    },
-    {
-      "value": "instant-eft",
-      "category": "payment_redirect",
-      "weight": 80
-    },
-    {
-      "value": "instantpay",
-      "category": "payment_redirect",
-      "weight": 70
-    },
-    {
-      "value": "invoice",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "invoice-online",
-      "category": "payment_redirect",
-      "weight": 65
-    },
-    {
-      "value": "limited-time",
-      "category": "urgency",
-      "weight": 70
-    },
-    {
-      "value": "link.simpu.io",
-      "category": "domain_keyword",
-      "weight": 25
-    },
-    {
-      "value": "locked",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "login",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "meta",
-      "category": "domain_keyword",
-      "weight": 16
-    },
-    {
-      "value": "natis",
-      "category": "domain_keyword",
-      "weight": 25
-    },
-    {
-      "value": "no-verification",
-      "category": "social_engineering",
-      "weight": 70
-    },
-    {
-      "value": "offer",
-      "category": "domain_keyword",
-      "weight": 16
-    },
-    {
-      "value": "otp",
-      "category": "domain_keyword",
-      "weight": 22
-    },
-    {
-      "value": "parcel",
-      "category": "domain_keyword",
-      "weight": 18
-    },
-    {
-      "value": "pay-id",
-      "category": "payment_redirect",
-      "weight": 80
-    },
-    {
-      "value": "pay-link",
-      "category": "payment_redirect",
-      "weight": 65
-    },
-    {
-      "value": "pay-now",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "paycity",
-      "category": "domain_keyword",
-      "weight": 25
-    },
-    {
-      "value": "paycity-fines",
-      "category": "domain_keyword",
-      "weight": 40
-    },
-    {
-      "value": "paycityfines",
-      "category": "domain_keyword",
-      "weight": 40
-    },
-    {
-      "value": "payid",
-      "category": "payment_redirect",
-      "weight": 80
-    },
-    {
-      "value": "payment",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "payment-link",
-      "category": "payment_redirect",
-      "weight": 65
-    },
-    {
-      "value": "paynow",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "payout",
-      "category": "domain_keyword",
-      "weight": 18
-    },
-    {
-      "value": "pin",
-      "category": "domain_keyword",
-      "weight": 22
-    },
-    {
-      "value": "pop",
-      "category": "payment_redirect",
-      "weight": 50
-    },
-    {
-      "value": "processing-fee",
-      "category": "money_drain",
-      "weight": 75
-    },
-    {
-      "value": "proof-of-payment",
-      "category": "payment_redirect",
-      "weight": 80
-    },
-    {
-      "value": "pycts",
-      "category": "domain_keyword",
-      "weight": 35
-    },
-    {
-      "value": "quickpay",
-      "category": "payment_redirect",
-      "weight": 70
-    },
-    {
-      "value": "refund",
-      "category": "domain_keyword",
-      "weight": 18
-    },
-    {
-      "value": "release-fee",
-      "category": "money_drain",
-      "weight": 85
-    },
-    {
-      "value": "reward",
-      "category": "domain_keyword",
-      "weight": 18
-    },
-    {
-      "value": "rtia",
-      "category": "domain_keyword",
-      "weight": 25
-    },
-    {
-      "value": "sars",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "secure",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "secure-login",
-      "category": "domain_keyword",
-      "weight": 80
-    },
-    {
-      "value": "securepay",
-      "category": "payment_redirect",
-      "weight": 70
-    },
-    {
-      "value": "security-alert",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "selected",
-      "category": "social_engineering",
-      "weight": 60
-    },
-    {
-      "value": "service",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "settle",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "settle-payment",
-      "category": "domain_keyword",
-      "weight": 25
-    },
-    {
-      "value": "sideload",
-      "category": "sideloading",
-      "weight": 90
-    },
-    {
-      "value": "simpu",
-      "category": "domain_keyword",
-      "weight": 18
-    },
-    {
-      "value": "support",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "suspend",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "suspended",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "takeal0t",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "takealot",
-      "category": "domain_keyword",
-      "weight": 14
-    },
-    {
-      "value": "tax",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "temu",
-      "category": "domain_keyword",
-      "weight": 12
-    },
-    {
-      "value": "tessmua",
-      "category": "crypto_airdrop",
-      "weight": 90
-    },
-    {
-      "value": "track",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "tracking",
-      "category": "domain_keyword",
-      "weight": 18
-    },
-    {
-      "value": "unblock",
-      "category": "banking_abuse",
-      "weight": 70
-    },
-    {
-      "value": "unknown-sources",
-      "category": "sideloading",
-      "weight": 95
-    },
-    {
-      "value": "unlock",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "update-now",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "urgent",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "usdc",
-      "category": "crypto_airdrop",
-      "weight": 55
-    },
-    {
-      "value": "verification",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "verify",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "verify-account",
-      "category": "domain_keyword",
-      "weight": 80
-    },
-    {
-      "value": "verify-login",
-      "category": "banking_abuse",
-      "weight": 80
-    },
-    {
-      "value": "verify-now",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "vodac0m",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    {
-      "value": "voucher",
-      "category": "domain_keyword",
-      "weight": 20
-    },
-    { 
-      "value": "statement-download",
-      "category": "payment_redirect",
-      "weight": 80 
-    },
-    { 
-      "value": "bol-statement", 
-      "category": "banking_abuse", 
-      "weight": 80 
-    },
-    { 
-      "value": "businessonline-statement", 
-      "category": "banking_abuse", 
-      "weight": 75 
-    },
-    { 
-      "value": "secure-statement", 
-      "category": "banking_abuse", 
-      "weight": 75 
-    },
-    { 
-      "value": "account-statement", 
-      "category": "banking_abuse", 
-      "weight": 65 
-    },
-    { 
-      "value": "view-statement", 
-      "category": "banking_abuse", 
-      "weight": 60 
-    },
-    { 
-      "value": "html-attachment", 
-      "category": "redirect_laundering", 
-      "weight": 85 },
-    { "value": "meta-refresh", 
-      "category": "redirect_laundering", 
-      "weight": 85
-    }
+  {
+    "value": "absa-secure-login.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "absa-verify.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "banking-verify.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "capitec-clearance.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "capitec-secure.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "capitec-verification.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "capitec-verify.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "courierv.top",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "dhl-tracking-za.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "fincen-gov-payment.com",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "fincen-payment-release.com",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "fnb-login.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "fnb-secure.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "fnb-verification.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "instant-eft.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "nedbank-secure.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "pay-id.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "sars-gov.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "sars-payout.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "sars-refund-coza.com",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "sars-refund.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "secure-easy-eft.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "standardbank-login.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "standardbank-secure.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "takealot-delivery.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "temu-claim-reward.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "temu-offer-za.co.za",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "wjdil.buzz",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "zawadiweddingfilms.co.ke",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "doctorgoilan.ro",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "hostico.ro",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "glc49.hostico.ro",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "audoune.com",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "temperedwall.com",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "rnd2546.com",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "rnd1059.com",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "za.aarotrtria.cc",
+    "category": "knownbaddomain",
+    "weight": 100
+  },
+  {
+    "value": "aarotrtria.cc",
+    "category": "knownbaddomain",
+    "weight": 100
+  }
   ],
+
+  "scamDomainKeywords": [
+  {
+    "value": "aarto",
+    "category": "domain_keyword",
+    "weight": 25
+  },
+  {
+    "value": "aarot",
+    "category": "domain_keyword",
+    "weight": 80
+  },
+  {
+    "value": "aarotr",
+    "category": "domain_keyword",
+    "weight": 80
+  },
+  {
+    "value": "aarotrtria",
+    "category": "domain_keyword",
+    "weight": 90
+  },
+  {
+    "value": "account",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "act-fast",
+    "category": "urgency",
+    "weight": 70
+  },
+  {
+    "value": "action",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "activation-fee",
+    "category": "money_drain",
+    "weight": 80
+  },
+  {
+    "value": "admin-fee",
+    "category": "money_drain",
+    "weight": 75
+  },
+  {
+    "value": "airdrop",
+    "category": "crypto_airdrop",
+    "weight": 80
+  },
+  {
+    "value": "apk",
+    "category": "sideloading",
+    "weight": 85
+  },
+  {
+    "value": "app-update",
+    "category": "sideloading",
+    "weight": 75
+  },
+  {
+    "value": "bank",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "banking-update",
+    "category": "banking_abuse",
+    "weight": 80
+  },
+  {
+    "value": "blocked",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "claim",
+    "category": "domain_keyword",
+    "weight": 18
+  },
+  {
+    "value": "clearance-fee",
+    "category": "money_drain",
+    "weight": 85
+  },
+  {
+    "value": "crypto-reward",
+    "category": "crypto_airdrop",
+    "weight": 80
+  },
+  {
+    "value": "cvv",
+    "category": "domain_keyword",
+    "weight": 22
+  },
+  {
+    "value": "deadline",
+    "category": "urgency",
+    "weight": 65
+  },
+  {
+    "value": "delivery",
+    "category": "domain_keyword",
+    "weight": 18
+  },
+  {
+    "value": "demerit",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "dhl",
+    "category": "domain_keyword",
+    "weight": 14
+  },
+  {
+    "value": "efiling",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "enforcement",
+    "category": "domain_keyword",
+    "weight": 25
+  },
+  {
+    "value": "exclusive",
+    "category": "social_engineering",
+    "weight": 60
+  },
+  {
+    "value": "fee",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "fines",
+    "category": "domain_keyword",
+    "weight": 18
+  },
+  {
+    "value": "html-attachment",
+    "category": "redirect_laundering",
+    "weight": 85
+  },
+  {
+    "value": "immediately",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "instant-eft",
+    "category": "payment_redirect",
+    "weight": 80
+  },
+  {
+    "value": "invoice",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "limited-time",
+    "category": "urgency",
+    "weight": 70
+  },
+  {
+    "value": "locked",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "login",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "meta-refresh",
+    "category": "redirect_laundering",
+    "weight": 85
+  },
+  {
+    "value": "natis",
+    "category": "domain_keyword",
+    "weight": 25
+  },
+  {
+    "value": "no-verification",
+    "category": "social_engineering",
+    "weight": 70
+  },
+  {
+    "value": "otp",
+    "category": "domain_keyword",
+    "weight": 22
+  },
+  {
+    "value": "parcel",
+    "category": "domain_keyword",
+    "weight": 18
+  },
+  {
+    "value": "pay-id",
+    "category": "payment_redirect",
+    "weight": 80
+  },
+  {
+    "value": "payment",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "pin",
+    "category": "domain_keyword",
+    "weight": 22
+  },
+  {
+    "value": "proof-of-payment",
+    "category": "payment_redirect",
+    "weight": 80
+  },
+  {
+    "value": "refund",
+    "category": "domain_keyword",
+    "weight": 18
+  },
+  {
+    "value": "release-fee",
+    "category": "money_drain",
+    "weight": 85
+  },
+  {
+    "value": "rtia",
+    "category": "domain_keyword",
+    "weight": 25
+  },
+  {
+    "value": "sars",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "secure-login",
+    "category": "domain_keyword",
+    "weight": 80
+  },
+  {
+    "value": "selected",
+    "category": "social_engineering",
+    "weight": 60
+  },
+  {
+    "value": "settle",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "statement-download",
+    "category": "payment_redirect",
+    "weight": 80
+  },
+  {
+    "value": "bol-statement",
+    "category": "banking_abuse",
+    "weight": 80
+  },
+  {
+    "value": "businessonline-statement",
+    "category": "banking_abuse",
+    "weight": 75
+  },
+  {
+    "value": "secure-statement",
+    "category": "banking_abuse",
+    "weight": 75
+  },
+  {
+    "value": "account-statement",
+    "category": "banking_abuse",
+    "weight": 65
+  },
+  {
+    "value": "view-statement",
+    "category": "banking_abuse",
+    "weight": 60
+  },
+  {
+    "value": "traffic-fine",
+    "category": "authority_impersonation",
+    "weight": 70
+  },
+  {
+    "value": "speeding-ticket",
+    "category": "authority_impersonation",
+    "weight": 70
+  }
+],
   "saOfficialDomains": [
     {
       "value": "absa.co.za",
@@ -1896,6 +1602,301 @@
     "value": "document\\s+is\\s+protected",
     "category": "cta",
     "weight": 75
+  },
+  {
+    "value": "aarto",
+    "category": "domain_keyword",
+    "weight": 25
+  },
+  {
+    "value": "aarot",
+    "category": "domain_keyword",
+    "weight": 80
+  },
+  {
+    "value": "aarotr",
+    "category": "domain_keyword",
+    "weight": 80
+  },
+  {
+    "value": "aarotrtria",
+    "category": "domain_keyword",
+    "weight": 90
+  },
+  {
+    "value": "account",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "act-fast",
+    "category": "urgency",
+    "weight": 70
+  },
+  {
+    "value": "action",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "activation-fee",
+    "category": "money_drain",
+    "weight": 80
+  },
+  {
+    "value": "admin-fee",
+    "category": "money_drain",
+    "weight": 75
+  },
+  {
+    "value": "airdrop",
+    "category": "crypto_airdrop",
+    "weight": 80
+  },
+  {
+    "value": "apk",
+    "category": "sideloading",
+    "weight": 85
+  },
+  {
+    "value": "app-update",
+    "category": "sideloading",
+    "weight": 75
+  },
+  {
+    "value": "bank",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "banking-update",
+    "category": "banking_abuse",
+    "weight": 80
+  },
+  {
+    "value": "blocked",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "claim",
+    "category": "domain_keyword",
+    "weight": 18
+  },
+  {
+    "value": "clearance-fee",
+    "category": "money_drain",
+    "weight": 85
+  },
+  {
+    "value": "crypto-reward",
+    "category": "crypto_airdrop",
+    "weight": 80
+  },
+  {
+    "value": "cvv",
+    "category": "domain_keyword",
+    "weight": 22
+  },
+  {
+    "value": "deadline",
+    "category": "urgency",
+    "weight": 65
+  },
+  {
+    "value": "delivery",
+    "category": "domain_keyword",
+    "weight": 18
+  },
+  {
+    "value": "demerit",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "dhl",
+    "category": "domain_keyword",
+    "weight": 14
+  },
+  {
+    "value": "efiling",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "enforcement",
+    "category": "domain_keyword",
+    "weight": 25
+  },
+  {
+    "value": "exclusive",
+    "category": "social_engineering",
+    "weight": 60
+  },
+  {
+    "value": "fee",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "fines",
+    "category": "domain_keyword",
+    "weight": 18
+  },
+  {
+    "value": "html-attachment",
+    "category": "redirect_laundering",
+    "weight": 85
+  },
+  {
+    "value": "immediately",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "instant-eft",
+    "category": "payment_redirect",
+    "weight": 80
+  },
+  {
+    "value": "invoice",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "limited-time",
+    "category": "urgency",
+    "weight": 70
+  },
+  {
+    "value": "locked",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "login",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "meta-refresh",
+    "category": "redirect_laundering",
+    "weight": 85
+  },
+  {
+    "value": "natis",
+    "category": "domain_keyword",
+    "weight": 25
+  },
+  {
+    "value": "no-verification",
+    "category": "social_engineering",
+    "weight": 70
+  },
+  {
+    "value": "otp",
+    "category": "domain_keyword",
+    "weight": 22
+  },
+  {
+    "value": "parcel",
+    "category": "domain_keyword",
+    "weight": 18
+  },
+  {
+    "value": "pay-id",
+    "category": "payment_redirect",
+    "weight": 80
+  },
+  {
+    "value": "payment",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "pin",
+    "category": "domain_keyword",
+    "weight": 22
+  },
+  {
+    "value": "proof-of-payment",
+    "category": "payment_redirect",
+    "weight": 80
+  },
+  {
+    "value": "refund",
+    "category": "domain_keyword",
+    "weight": 18
+  },
+  {
+    "value": "release-fee",
+    "category": "money_drain",
+    "weight": 85
+  },
+  {
+    "value": "rtia",
+    "category": "domain_keyword",
+    "weight": 25
+  },
+  {
+    "value": "sars",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "secure-login",
+    "category": "domain_keyword",
+    "weight": 80
+  },
+  {
+    "value": "selected",
+    "category": "social_engineering",
+    "weight": 60
+  },
+  {
+    "value": "settle",
+    "category": "domain_keyword",
+    "weight": 20
+  },
+  {
+    "value": "statement-download",
+    "category": "payment_redirect",
+    "weight": 80
+  },
+  {
+    "value": "bol-statement",
+    "category": "banking_abuse",
+    "weight": 80
+  },
+  {
+    "value": "businessonline-statement",
+    "category": "banking_abuse",
+    "weight": 75
+  },
+  {
+    "value": "secure-statement",
+    "category": "banking_abuse",
+    "weight": 75
+  },
+  {
+    "value": "account-statement",
+    "category": "banking_abuse",
+    "weight": 65
+  },
+  {
+    "value": "view-statement",
+    "category": "banking_abuse",
+    "weight": 60
+  },
+  {
+    "value": "traffic-fine",
+    "category": "authority_impersonation",
+    "weight": 70
+  },
+  {
+    "value": "speeding-ticket",
+    "category": "authority_impersonation",
+    "weight": 70
   }
   ]
 }
