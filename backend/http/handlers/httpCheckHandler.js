@@ -4,18 +4,32 @@ const { runCheck } = require('../../core/engine');
 const { runOCR } = require('../../core/ocr');
 
 function decodeBase64Image(dataUrl) {
-  const match = String(dataUrl || '').match(/^data:(image\/(png|jpeg|jpg|webp));base64,(.+)$/i);
-  if (!match) return null;
+  const s = String(dataUrl || '').trim();
 
-  const buffer = Buffer.from(match[3], 'base64');
-  if (buffer.length > 2 * 1024 * 1024) return null; // 2MB limit (hard)
+  // data URL path
+  const match = s.match(/^data:(image\/(png|jpeg|jpg|webp));base64,(.+)$/i);
+  if (match) {
+    try {
+      const buffer = Buffer.from(match[3], 'base64');
+      if (buffer.length > 4 * 1024 * 1024) return null; // 4MB hard limit
+      return buffer;
+    } catch {
+      return null;
+    }
+  }
 
-  return buffer;
+  // raw base64 fallback
+  try {
+    const buffer = Buffer.from(s, 'base64');
+    if (!buffer.length || buffer.length > 4 * 1024 * 1024) return null;
+    return buffer;
+  } catch {
+    return null;
+  }
 }
 
 module.exports = async function httpCheckHandler(req, res) {
   try {
-    // Intel is loaded ONCE at boot in server.js and stored here
     const intelState = req.app.locals.intelState || {};
     const intel = intelState.intel || null;
     const degraded = !!intelState.degraded;
@@ -24,10 +38,15 @@ module.exports = async function httpCheckHandler(req, res) {
     let ingressType = 'TEXT';
     let ocrMeta = null;
 
-    // IMAGE path (base64 data URL)
-    if (req.body && req.body.imageBase64) {
+    const imagePayload =
+      req.body?.imageBase64 ||
+      req.body?.image ||
+      null;
+
+    if (imagePayload) {
       ingressType = 'IMAGE';
-      const imageBuffer = decodeBase64Image(req.body.imageBase64);
+
+      const imageBuffer = decodeBase64Image(imagePayload);
 
       if (!imageBuffer) {
         return res.status(200).json({
@@ -41,7 +60,7 @@ module.exports = async function httpCheckHandler(req, res) {
             reasons: ['Image could not be processed safely (invalid/too large).'],
             explanation: [
               'The image could not be processed safely.',
-              'Try uploading a clearer screenshot or paste the text instead.'
+              'Try uploading or pasting a clearer screenshot, or paste the text instead.'
             ]
           },
           message: 'OK'
@@ -58,7 +77,10 @@ module.exports = async function httpCheckHandler(req, res) {
             score: 50,
             ingressType,
             degraded: true,
-            ocr: { success: false },
+            ocr: {
+              success: false,
+              ...(ocrResult?.error ? { error: ocrResult.error } : {})
+            },
             reasons: ['OCR could not reliably extract text.'],
             explanation: [
               'We could not reliably read text from this image.',
@@ -76,12 +98,10 @@ module.exports = async function httpCheckHandler(req, res) {
         excerpt: rawText.slice(0, 200)
       };
     } else {
-      // TEXT path
       rawText = (req.body && req.body.raw) ? String(req.body.raw) : '';
       rawText = rawText.trim();
     }
 
-    // Empty input -> bounded safe response (no scan)
     if (!rawText) {
       return res.status(200).json({
         success: true,
@@ -91,7 +111,7 @@ module.exports = async function httpCheckHandler(req, res) {
           ingressType,
           degraded: false,
           reasons: ['No input provided.'],
-          why: ['Paste a message, link, or email to scan.'],
+          why: ['Paste a message, link, email, or screenshot to scan.'],
           whatNotToDo: ['Never paste OTPs / PINs / CVV.'],
           intelVersion: intel?.version || 'unknown'
         },
@@ -99,7 +119,6 @@ module.exports = async function httpCheckHandler(req, res) {
       });
     }
 
-    // Fail-closed if intel is unavailable or degraded
     if (!intel || degraded) {
       return res.status(200).json({
         success: true,
@@ -119,7 +138,6 @@ module.exports = async function httpCheckHandler(req, res) {
       });
     }
 
-    // Run scan
     const result = runCheck(rawText, intel);
 
     return res.status(200).json({
@@ -134,7 +152,6 @@ module.exports = async function httpCheckHandler(req, res) {
     });
 
   } catch (err) {
-    // Bounded failure response (never HTML)
     return res.status(200).json({
       success: true,
       data: {

@@ -28,13 +28,22 @@
         <div id="hint" class="hint">No threats detected in this message.</div>
       </div>
 
-      <textarea
-        id="input"
-        placeholder="Paste a message, link, or email..."
-        autocapitalize="off"
-        autocomplete="off"
-        spellcheck="false"
-      ></textarea>
+      <div id="inputShell" class="input-shell">
+        <textarea
+          id="input"
+          placeholder="Paste a message, link, email, or screenshot..."
+          autocapitalize="off"
+          autocomplete="off"
+          spellcheck="false"
+        ></textarea>
+
+        <div class="paste-row">
+          <div id="pasteHint" class="paste-hint">
+            Paste text or press Ctrl+V with a screenshot copied.
+          </div>
+          <div id="ocrStatus" class="ocr-status" aria-live="polite"></div>
+        </div>
+      </div>
 
       <div class="slab-foot">
         <div class="notice">
@@ -47,16 +56,24 @@
     </section>
 
     <footer class="action">
-  <button id="scanBtn" class="scan" type="button">
-    <span class="scan-icon" aria-hidden="true"></span>
-    <span class="scan-label">SCAN</span>
-  </button>
+      <button id="scanBtn" class="scan" type="button">
+        <span class="scan-icon" aria-hidden="true"></span>
+        <span class="scan-label">SCAN</span>
+      </button>
 
-  <div class="tiny-row">
-    <button id="clearBtn" class="ghost" type="button">Clear</button>
-    <a id="intelBtn" class="ghost" href="/intel" target="_blank" rel="noopener">Intel</a>
-  </div>
-</footer>
+      <div class="tiny-row">
+        <button id="clearBtn" class="ghost" type="button">Clear</button>
+        <button id="uploadBtn" class="ghost" type="button">Screenshot</button>
+        <a id="intelBtn" class="ghost" href="/intel" target="_blank" rel="noopener">Intel</a>
+      </div>
+
+      <input
+        id="imageInput"
+        type="file"
+        accept="image/png,image/jpeg,image/jpg,image/webp"
+        hidden
+      />
+    </footer>
   </main>
 
   <script src="/app.js" defer></script>

@@ -26,7 +26,6 @@ html, body {
   --sunA: rgba(255,210,120,0.80);
   --sunB: rgba(255,210,120,0.26);
 
-  /* Secondary button tuning */
   --ghostBg: rgba(255,255,255,0.14);
   --ghostBgHover: rgba(255,255,255,0.18);
   --ghostBorder: rgba(255,255,255,0.34);
@@ -44,8 +43,6 @@ html, body {
   flex-direction: column;
   align-items: center;
   gap: 18px;
-
-  /* Exact background target (provided image) */
   background:
     url('/assets/ui-bg.png') center top / cover no-repeat fixed;
 }
@@ -90,12 +87,10 @@ html, body {
   padding: 18px;
   border-radius: 34px;
   position: relative;
-
   background: linear-gradient(180deg, var(--glassA), var(--glassB));
   border: 1px solid var(--stroke);
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
-
   box-shadow:
     0 0 0 1px rgba(255,255,255,0.18),
     0 28px 70px var(--shadowA),
@@ -103,7 +98,6 @@ html, body {
     0 0 58px rgba(255,210,120,0.22),
     inset 0 1px 1px rgba(255,255,255,0.64),
     inset 0 -2px 10px rgba(10,14,30,0.10);
-
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -129,17 +123,15 @@ html, body {
   z-index: 1;
   width: 100%;
   display: grid;
-  grid-template-columns: 160px 1px 1fr;
+  grid-template-columns: 160px 1fr;
   gap: 14px;
   align-items: center;
   padding: 16px 18px;
   border-radius: 22px;
-
   background: rgba(255,255,255,0.20);
   border: 1px solid var(--strokeSoft);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-
   box-shadow:
     0 12px 24px rgba(10,14,30,0.10),
     inset 0 1px 1px rgba(255,255,255,0.62);
@@ -158,17 +150,10 @@ html, body {
   color: rgba(16,24,56,0.92);
 }
 
-.threats{
+.score{
   font-size: 18px;
   font-weight: 600;
   color: rgba(16,24,56,0.55);
-}
-
-.divider{
-  width: 1px;
-  height: 100%;
-  background: rgba(255,255,255,0.34);
-  box-shadow: 0 0 12px rgba(255,255,255,0.26);
 }
 
 .hint{
@@ -190,6 +175,16 @@ html, body {
     inset 0 1px 1px rgba(255,255,255,0.66),
     0 8px 18px rgba(10,14,30,0.06);
   padding: 12px;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+.input-shell.dragover,
+.input-shell.has-image{
+  border-color: rgba(120,180,255,0.50);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.70),
+    0 8px 18px rgba(10,14,30,0.08),
+    0 0 0 3px rgba(120,180,255,0.12);
 }
 
 textarea{
@@ -202,7 +197,6 @@ textarea{
   background: rgba(255,255,255,0.10);
   outline: none;
   resize: none;
-
   color: rgba(16,24,56,0.80);
   font-size: 22px;
   font-weight: 600;
@@ -214,10 +208,48 @@ textarea::placeholder{
   font-weight: 600;
 }
 
-/* === Action area (SCAN + secondary buttons) === */
+.paste-row{
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+  padding: 0 4px;
+  flex-wrap: wrap;
+}
+
+.paste-hint,
+.ocr-status{
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(16,24,56,0.55);
+  line-height: 1.35;
+}
+
+.ocr-status{
+  color: rgba(16,24,56,0.72);
+}
+
+.slab-foot{
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notice{
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(16,24,56,0.72);
+}
+
+.notice.soft{
+  color: rgba(16,24,56,0.60);
+}
+
 .action{
   width: 100%;
-  max-width: 520px;
+  max-width: 620px;
   display:flex;
   flex-direction: column;
   align-items: center;
@@ -231,21 +263,17 @@ textarea::placeholder{
   height: 84px;
   border: 1px solid rgba(255,255,255,0.44);
   border-radius: 999px;
-
   background: rgba(255,255,255,0.18);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-
   display:flex;
   align-items:center;
   justify-content:center;
   gap: 14px;
-
   color: rgba(16,24,56,0.90);
   font-weight: 800;
   letter-spacing: 2.2px;
   font-size: 22px;
-
   box-shadow:
     0 0 50px var(--sunB),
     0 20px 54px rgba(255,210,120,0.42),
@@ -277,7 +305,6 @@ textarea::placeholder{
   opacity: 0.85;
 }
 
-/* Row for Clear + Intel */
 .tiny-row{
   width: 100%;
   display:flex;
@@ -285,7 +312,6 @@ textarea::placeholder{
   justify-content: space-between;
 }
 
-/* Glassmorphic secondary buttons */
 .ghost{
   flex: 1 1 0;
   height: 52px;
@@ -294,17 +320,14 @@ textarea::placeholder{
   background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.10));
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   color: var(--ghostText);
   font-weight: 800;
   font-size: 14px;
   letter-spacing: 0.8px;
   text-decoration: none;
-
   box-shadow:
     0 10px 22px rgba(10,14,30,0.10),
     0 0 34px rgba(255,255,255,0.16),
@@ -332,26 +355,36 @@ textarea::placeholder{
     inset 0 1px 1px rgba(255,255,255,0.68);
 }
 
-/* Optional: small icon space if you later add svg backgrounds */
-.ghost .mini-icon{
-  width: 16px;
-  height: 16px;
-  display:inline-block;
-  margin-right: 8px;
-  opacity: 0.85;
+@media (max-width: 680px){
+  .result{
+    grid-template-columns: 1fr;
+  }
+
+  .hint{
+    font-size: 16px;
+  }
+
+  textarea{
+    font-size: 20px;
+    min-height: 220px;
+  }
+
+  .tiny-row{
+    flex-wrap: wrap;
+  }
+
+  .ghost{
+    min-width: calc(50% - 6px);
+  }
 }
 
-/* === Mobile tuning === */
 @media (max-width: 520px){
   .title{ font-size: 38px; letter-spacing: 1.8px; }
   .subtitle{ font-size: 16px; }
   .slab{ border-radius: 30px; }
-  .result{ grid-template-columns: 140px 1px 1fr; }
-  .band, .threats, .hint{ font-size: 16px; }
-  textarea{ font-size: 20px; min-height: 240px; }
+  .band, .score, .hint{ font-size: 16px; }
+  textarea{ font-size: 20px; min-height: 220px; }
   .scan{ height: 78px; font-size: 20px; }
-
-  /* Make the small buttons feel "app-like" on phones */
   .ghost{
     height: 56px;
     font-size: 15px;
@@ -359,17 +392,6 @@ textarea::placeholder{
   }
 }
 
-/* === Smaller height screens === */
-@media (max-height: 720px){
-  .shield{ width: 96px; height: 96px; }
-  textarea{ max-height: 44dvh; }
-}
-
-/* ==========================================================================
-   ONE-SCREEN MOBILE FIT (HEIGHT-ONLY OVERRIDES)
-   - No aesthetic changes: only vertical sizing/spacing on short viewports
-   - Ensures logo + result + input + scan + buttons fit without scroll
-   ========================================================================== */
 @media (max-height: 780px) {
   .screen{
     padding:
@@ -411,7 +433,7 @@ textarea::placeholder{
   }
 
   .band,
-  .threats,
+  .score,
   .hint{
     font-size: 14px;
     line-height: 1.2;
@@ -424,10 +446,15 @@ textarea::placeholder{
 
   textarea{
     min-height: 140px;
-    max-height: 32dvh;
+    max-height: 30dvh;
     padding: 14px;
     font-size: 16px;
     line-height: 1.4;
+  }
+
+  .paste-hint,
+  .ocr-status{
+    font-size: 12px;
   }
 
   .action{

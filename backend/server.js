@@ -10,7 +10,9 @@ const app = express();
 app.disable('x-powered-by');
 
 // Parse JSON only
-app.use(express.json({ limit: '256kb' }));
+// Increased safely for screenshot/base64 payloads.
+// This does NOT change API shape or core logic.
+app.use(express.json({ limit: '8mb' }));
 
 // Serve UI
 app.use(express.static(path.join(__dirname, 'public'), {
