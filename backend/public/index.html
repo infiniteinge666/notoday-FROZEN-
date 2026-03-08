@@ -1,81 +1,80 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="color-scheme" content="light" />
-  <title>NoToday</title>
 
-  <link rel="icon" href="/assets/notoday-shield.png" />
-  <link rel="stylesheet" href="/styles/render-style.css" />
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NoToday Scanner</title>
+
+<link rel="stylesheet" href="/styles/render-style.css">
+
 </head>
 
 <body>
-  <main class="screen">
-    <header class="brand" aria-label="NoToday">
-      <img class="shield" src="/assets/notoday-shield.png" alt="NoToday Shield" />
-      <div class="title">NOTODAY</div>
-      <div class="subtitle">Real-Time Threat Detection</div>
-    </header>
 
-    <section id="slab" class="slab" data-band="SAFE" aria-label="Scanner">
-      <div class="result" role="status" aria-live="polite">
-        <div class="result-left">
-          <div id="band" class="band">SAFE</div>
-          <div id="threats" class="score">0 Threats</div>
-        </div>
+<div class="app">
 
-        <div id="hint" class="hint">No threats detected in this message.</div>
-      </div>
+<header class="header">
+<h1>NoToday</h1>
+<p class="tagline">Check messages before you trust them.</p>
+</header>
 
-      <div id="inputShell" class="input-shell">
-        <textarea
-          id="input"
-          placeholder="Paste a message, link, email, or screenshot..."
-          autocapitalize="off"
-          autocomplete="off"
-          spellcheck="false"
-        ></textarea>
+<main class="scanner">
 
-        <div class="paste-row">
-          <div id="pasteHint" class="paste-hint">
-            Paste text or press Ctrl+V with a screenshot copied.
-          </div>
-          <div id="ocrStatus" class="ocr-status" aria-live="polite"></div>
-        </div>
-      </div>
+<textarea
+id="inputText"
+placeholder="Paste a message, email, or suspicious text here..."
+></textarea>
 
-      <div class="slab-foot">
-        <div class="notice">
-          <strong>Privacy:</strong> Nothing you paste is stored.
-        </div>
-        <div class="notice soft">
-          Never paste <strong>OTPs</strong> / <strong>PINs</strong> / <strong>CVV</strong>.
-        </div>
-      </div>
-    </section>
+<div class="actions">
 
-    <footer class="action">
-      <button id="scanBtn" class="scan" type="button">
-        <span class="scan-icon" aria-hidden="true"></span>
-        <span class="scan-label">SCAN</span>
-      </button>
+<button id="scanBtn" class="primary">
+SCAN
+</button>
 
-      <div class="tiny-row">
-        <button id="clearBtn" class="ghost" type="button">Clear</button>
-        <button id="uploadBtn" class="ghost" type="button">Screenshot</button>
-        <a id="intelBtn" class="ghost" href="/intel" target="_blank" rel="noopener">Intel</a>
-      </div>
+<button id="pasteBtn" class="ghost">
+PASTE TEXT
+</button>
 
-      <input
-        id="imageInput"
-        type="file"
-        accept="image/png,image/jpeg,image/jpg,image/webp"
-        hidden
-      />
-    </footer>
-  </main>
+<button id="uploadBtn" class="ghost">
+UPLOAD SCREENSHOT
+</button>
 
-  <script src="/app.js" defer></script>
+<button id="clearBtn" class="ghost">
+CLEAR
+</button>
+
+<input
+type="file"
+id="imageInput"
+accept="image/*"
+style="display:none"
+/>
+
+</div>
+
+<div id="resultBox" class="result hidden">
+
+<div id="band" class="band"></div>
+
+<div id="score"></div>
+
+<ul id="reasons"></ul>
+
+</div>
+
+</main>
+
+<footer class="footer">
+<p>Pause before you act.</p>
+</footer>
+
+</div>
+
+<script src="/app.js"></script>
+
 </body>
+
 </html>
