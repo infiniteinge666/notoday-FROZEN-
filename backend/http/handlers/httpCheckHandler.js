@@ -57,7 +57,7 @@ module.exports = async function httpCheckHandler(req, res) {
             ingressType,
             degraded: true,
             ocr: { success: false },
-            reasons: ['Image could not be processed safely (invalid/too large).'],
+            reasons: ['Image could not be processed safely (invalid or too large).'],
             explanation: [
               'The image could not be processed safely.',
               'Try uploading or pasting a clearer screenshot, or paste the text instead.'
@@ -92,14 +92,17 @@ module.exports = async function httpCheckHandler(req, res) {
       }
 
       rawText = String(ocrResult.text || '').trim();
+
       ocrMeta = {
         success: true,
         chars: rawText.length,
         excerpt: rawText.slice(0, 200)
       };
+
     } else {
-      rawText = (req.body && req.body.raw) ? String(req.body.raw) : '';
-      rawText = rawText.trim();
+      // Accept BOTH "raw" and "text" input fields
+      rawText = (req.body?.raw || req.body?.text || '');
+      rawText = String(rawText).trim();
     }
 
     if (!rawText) {
