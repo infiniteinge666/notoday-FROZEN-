@@ -1,80 +1,122 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>NoToday Scanner</title>
-
-<link rel="stylesheet" href="/styles/render-style.css">
-
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
+  <title>NoToday</title>
+  <meta
+    name="description"
+    content="Check suspicious messages and screenshots before you trust them."
+  />
+  <link rel="stylesheet" href="./render-style.css" />
 </head>
-
 <body>
+  <main class="nt-shell">
+    <section class="nt-app" aria-label="NoToday scanner">
+      <header class="nt-header">
+        <img
+          src="./logo.png"
+          alt="NoToday shield logo"
+          class="nt-logo"
+          onerror="this.style.display='none'"
+        />
+        <h1 class="nt-title">NOTODAY</h1>
+        <p class="nt-subtitle">Check before you trust.</p>
+      </header>
 
-<div class="app">
+      <section class="nt-status-card" id="resultCard" aria-live="polite">
+        <div class="nt-status-top">
+          <div class="nt-band-wrap">
+            <span class="nt-band" id="bandLabel">READY</span>
+            <span class="nt-score" id="scoreLabel">Waiting for input</span>
+          </div>
+        </div>
 
-<header class="header">
-<h1>NoToday</h1>
-<p class="tagline">Check messages before you trust them.</p>
-</header>
+        <div class="nt-reason" id="reasonText">
+          Upload a screenshot from Photos or paste a suspicious message.
+        </div>
 
-<main class="scanner">
+        <div class="nt-why" id="whyText"></div>
+      </section>
 
-<textarea
-id="inputText"
-placeholder="Paste a message, email, or suspicious text here..."
-></textarea>
+      <section class="nt-input-card">
+        <label for="scanInput" class="sr-only">Paste message or link</label>
 
-<div class="actions">
+        <div
+          id="previewWrap"
+          class="nt-preview-wrap hidden"
+          aria-live="polite"
+        >
+          <div class="nt-preview-head">
+            <span class="nt-preview-badge">Screenshot uploaded ✓</span>
+            <span class="nt-preview-meta" id="previewMeta">Ready to scan</span>
+          </div>
 
-<button id="scanBtn" class="primary">
-SCAN
-</button>
+          <img
+            id="previewImage"
+            class="nt-preview-image"
+            alt="Uploaded screenshot preview"
+          />
+        </div>
 
-<button id="pasteBtn" class="ghost">
-PASTE TEXT
-</button>
+        <textarea
+          id="scanInput"
+          class="nt-textarea"
+          placeholder="Paste a message, link, email, or screenshot text here..."
+          autocapitalize="sentences"
+          autocomplete="off"
+          autocorrect="off"
+          spellcheck="false"
+          rows="7"
+        ></textarea>
 
-<button id="uploadBtn" class="ghost">
-UPLOAD SCREENSHOT
-</button>
+        <div class="nt-input-help" id="inputHelp">
+          Paste text here, or tap <strong>Screenshot</strong> to choose from Photos.
+        </div>
 
-<button id="clearBtn" class="ghost">
-CLEAR
-</button>
+        <div class="nt-privacy">
+          <strong>Privacy:</strong> Nothing you paste or upload is stored.
+          <br />
+          Never paste <strong>OTPs / PINs / CVV</strong>.
+        </div>
+      </section>
 
-<input
-type="file"
-id="imageInput"
-accept="image/*"
-style="display:none"
-/>
+      <div class="nt-primary-actions">
+        <button id="scanBtn" class="nt-btn nt-btn-primary" disabled>
+          <span class="nt-btn-icon">🛡️</span>
+          <span>SCAN</span>
+        </button>
+      </div>
 
-</div>
+      <div class="nt-secondary-actions">
+        <button id="uploadBtn" class="nt-btn nt-btn-secondary">
+          Screenshot
+        </button>
 
-<div id="resultBox" class="result hidden">
+        <button id="clearBtn" class="nt-btn nt-btn-secondary">
+          Clear
+        </button>
+      </div>
 
-<div id="band" class="band"></div>
+      <div class="nt-tertiary-actions">
+        <button id="intelBtn" class="nt-btn nt-btn-ghost">
+          Intel
+        </button>
+      </div>
 
-<div id="score"></div>
+      <input
+        type="file"
+        id="imageUpload"
+        accept="image/*"
+        capture="environment"
+        hidden
+      />
+    </section>
+  </main>
 
-<ul id="reasons"></ul>
-
-</div>
-
-</main>
-
-<footer class="footer">
-<p>Pause before you act.</p>
-</footer>
-
-</div>
-
-<script src="/app.js"></script>
-
+  <script src="./app.js"></script>
 </body>
-
 </html>
