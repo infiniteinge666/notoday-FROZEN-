@@ -2,17 +2,21 @@
 
 const scanInput = document.getElementById("scanInput");
 const scanBtn = document.getElementById("scanBtn");
+const scanButtonTitle = document.getElementById("scanButtonTitle");
+const scanButtonSubtitle = document.getElementById("scanButtonSubtitle");
+
 const uploadBtn = document.getElementById("uploadBtn");
 const cameraBtn = document.getElementById("cameraBtn");
 const clearBtn = document.getElementById("clearBtn");
 const imageUpload = document.getElementById("imageUpload");
 const removeImageBtn = document.getElementById("removeImageBtn");
+
 const previewTray = document.getElementById("previewTray");
 const previewImage = document.getElementById("previewImage");
 const previewMeta = document.getElementById("previewMeta");
+
 const charCount = document.getElementById("charCount");
 const typingState = document.getElementById("typingState");
-const themePulseBtn = document.getElementById("themePulseBtn");
 
 const resultCard = document.getElementById("resultCard");
 const resultGlyph = document.getElementById("resultGlyph");
@@ -30,7 +34,7 @@ let isScanning = false;
 let typingTimer = null;
 
 function setCardState(state) {
-  resultCard.className = `result-card glass-panel state-${state}`;
+  resultCard.className = `result-panel state-${state}`;
 }
 
 function clamp(value, min, max) {
@@ -45,40 +49,51 @@ function normalizeScore(score) {
 
 function formatFileSize(bytes) {
   if (!Number.isFinite(bytes) || bytes <= 0) return "Unknown size";
+
   const units = ["B", "KB", "MB", "GB"];
   let value = bytes;
-  let unitIndex = 0;
+  let index = 0;
 
-  while (value >= 1024 && unitIndex < units.length - 1) {
+  while (value >= 1024 && index < units.length - 1) {
     value /= 1024;
-    unitIndex += 1;
+    index += 1;
   }
 
-  const rounded = value >= 10 || unitIndex === 0 ? Math.round(value) : value.toFixed(1);
-  return `${rounded} ${units[unitIndex]}`;
-}
-
-function updateCharCount() {
-  const length = scanInput.value.length;
-  charCount.textContent = String(length);
-
-  if (length === 0) {
-    typingState.innerHTML = `<span class="live-dot"></span>Ready`;
-    return;
-  }
-
-  typingState.innerHTML = `<span class="live-dot"></span>Typing`;
-
-  window.clearTimeout(typingTimer);
-  typingTimer = window.setTimeout(() => {
-    typingState.innerHTML = `<span class="live-dot"></span>Input loaded`;
-  }, 700);
+  const formatted = value >= 10 || index === 0 ? Math.round(value) : value.toFixed(1);
+  return `${formatted} ${units[index]}`;
 }
 
 function getInputModeLabel() {
-  if (uploadedImageDataUrl && scanInput.value.trim()) return "Hybrid";
-  if (uploadedImageDataUrl) return "Screenshot";
+  const hasText = scanInput.value.trim().length > 0;
+  const hasImage = Boolean(uploadedImageDataUrl);
+
+  if (hasText && hasImage) return "Hybrid";
+  if (hasImage) return "Screenshot";
   return "Text";
+}
+
+function updateTypingState(label) {
+  typingState.innerHTML = `<span class="status-dot"></span><span>${label}</span>`;
+}
+
+function updateCharCount() {
+  const count = scanInput.value.length;
+  charCount.textContent = String(count);
+
+  if (count === 0) {
+    updateTypingState("Ready");
+    signalInput.textContent = getInputModeLabel();
+    return;
+  }
+
+  updateTypingState("Typing");
+
+  window.clearTimeout(typingTimer);
+  typingTimer = window.setTimeout(() => {
+    updateTypingState("Input loaded");
+  }, 700);
+
+  signalInput.textContent = getInputModeLabel();
 }
 
 function setIdleState() {
@@ -93,28 +108,16 @@ function setIdleState() {
   signalConfidence.textContent = "--";
 }
 
-function setUploadingState(file) {
+function setPreparedState(metaText = "--") {
   setCardState("idle");
   resultGlyph.textContent = "◌";
-  resultBand.textContent = "Image loaded";
-  resultSummary.textContent = "Screenshot attached and ready for scan.";
+  resultBand.textContent = "Prepared";
+  resultSummary.textContent = "Input is attached and ready for analysis.";
   riskScoreValue.textContent = "--";
   riskMeterBar.style.width = "0%";
   signalState.textContent = "Prepared";
   signalInput.textContent = getInputModeLabel();
-  signalConfidence.textContent = file ? formatFileSize(file.size) : "--";
-}
-
-function setScanningState() {
-  setCardState("scanning");
-  resultGlyph.textContent = "◔";
-  resultBand.textContent = "Scanning";
-  resultSummary.textContent = "Analyzing linguistic pressure, urgency, and suspicious patterns…";
-  riskScoreValue.textContent = "...";
-  riskMeterBar.style.width = "68%";
-  signalState.textContent = "Scanning";
-  signalInput.textContent = getInputModeLabel();
-  signalConfidence.textContent = "Model active";
+  signalConfidence.textContent = metaText;
 }
 
 function setEmptyState() {
@@ -129,41 +132,49 @@ function setEmptyState() {
   signalConfidence.textContent = "--";
 }
 
+function setScanningState() {
+  setCardState("scanning");
+  resultGlyph.textContent = "◔";
+  resultBand.textContent = "Scanning";
+  resultSummary.textContent = "Analyzing urgency, manipulation patterns, and suspicious signals…";
+  riskScoreValue.textContent = "...";
+  riskMeterBar.style.width = "68%";
+  signalState.textContent = "Scanning";
+  signalInput.textContent = getInputModeLabel();
+  signalConfidence.textContent = "Model active";
+}
+
 function renderResult(data) {
   const bandRaw = String(data?.band || "UNKNOWN").toUpperCase();
   const score = normalizeScore(data?.score);
-  const confidence = data?.confidence ?? (score === null ? "--" : `${Math.max(55, 100 - Math.abs(50 - score))}%`);
+
+  let derivedConfidence = "--";
+  if (typeof data?.confidence === "number") {
+    derivedConfidence = `${clamp(Math.round(data.confidence), 0, 100)}%`;
+  } else if (score !== null) {
+    derivedConfidence = `${Math.max(55, 100 - Math.abs(50 - score))}%`;
+  }
 
   let state = "idle";
-  let glyph = "◎";
-  let heading = bandRaw;
-  let summary = "Analysis complete.";
+  let glyph = "?";
+  let heading = "Unknown";
+  let summary = "The scan returned an unclassified result.";
 
-  switch (bandRaw) {
-    case "SAFE":
-      state = "safe";
-      glyph = "✓";
-      heading = "Safe";
-      summary = "Low-risk patterns detected. Still verify links and sender identity.";
-      break;
-    case "SUSPICIOUS":
-      state = "suspicious";
-      glyph = "!";
-      heading = "Suspicious";
-      summary = "Potential manipulation or scam indicators were found. Review carefully.";
-      break;
-    case "CRITICAL":
-      state = "critical";
-      glyph = "⨯";
-      heading = "Critical";
-      summary = "Strong scam or coercion signals detected. Do not click, pay, or respond yet.";
-      break;
-    default:
-      state = "idle";
-      glyph = "?";
-      heading = "Unknown";
-      summary = "The scan returned an unclassified result.";
-      break;
+  if (bandRaw === "SAFE") {
+    state = "safe";
+    glyph = "✓";
+    heading = "Safe";
+    summary = "Low-risk patterns detected. Still verify the sender and any linked destination.";
+  } else if (bandRaw === "SUSPICIOUS") {
+    state = "suspicious";
+    glyph = "!";
+    heading = "Suspicious";
+    summary = "Potential scam or manipulation indicators were found. Review carefully before acting.";
+  } else if (bandRaw === "CRITICAL") {
+    state = "critical";
+    glyph = "⨯";
+    heading = "Critical";
+    summary = "Strong scam or coercion signals detected. Do not click, pay, or reply yet.";
   }
 
   setCardState(state);
@@ -174,10 +185,10 @@ function renderResult(data) {
   riskMeterBar.style.width = score === null ? "0%" : `${score}%`;
   signalState.textContent = heading;
   signalInput.textContent = getInputModeLabel();
-  signalConfidence.textContent = typeof confidence === "number" ? `${confidence}%` : String(confidence);
+  signalConfidence.textContent = derivedConfidence;
 }
 
-function renderErrorState(message = "Server unavailable. Try again in a moment.") {
+function renderErrorState(message = "Scan failed. The server could not complete the request.") {
   setCardState("error");
   resultGlyph.textContent = "×";
   resultBand.textContent = "Error";
@@ -187,6 +198,24 @@ function renderErrorState(message = "Server unavailable. Try again in a moment."
   signalState.textContent = "Failed";
   signalInput.textContent = getInputModeLabel();
   signalConfidence.textContent = "--";
+}
+
+function setLoadingState(enabled) {
+  isScanning = enabled;
+
+  scanBtn.disabled = enabled;
+  uploadBtn.disabled = enabled;
+  cameraBtn.disabled = enabled;
+  clearBtn.disabled = enabled;
+  if (removeImageBtn) removeImageBtn.disabled = enabled;
+
+  if (enabled) {
+    scanButtonTitle.textContent = "Scanning";
+    scanButtonSubtitle.textContent = "Please wait";
+  } else {
+    scanButtonTitle.textContent = "Scan";
+    scanButtonSubtitle.textContent = "Shield analysis";
+  }
 }
 
 function openFilePicker() {
@@ -201,39 +230,34 @@ function resetImage() {
   previewMeta.textContent = "Ready for scan";
   previewTray.classList.add("hidden");
 
-  if (!scanInput.value.trim()) {
-    setIdleState();
+  if (scanInput.value.trim()) {
+    setPreparedState(`${scanInput.value.trim().length} chars`);
   } else {
-    signalInput.textContent = getInputModeLabel();
+    setIdleState();
   }
 }
 
 function clearAll() {
   scanInput.value = "";
   charCount.textContent = "0";
-  typingState.innerHTML = `<span class="live-dot"></span>Ready`;
+  updateTypingState("Ready");
   resetImage();
   setIdleState();
   scanInput.focus();
 }
 
-function setLoading(enabled) {
-  isScanning = enabled;
-  scanBtn.disabled = enabled;
-  uploadBtn.disabled = enabled;
-  cameraBtn.disabled = enabled;
-  clearBtn.disabled = enabled;
+scanInput.addEventListener("input", () => {
+  updateCharCount();
 
-  if (enabled) {
-    scanBtn.querySelector(".scan-button-label").textContent = "Scanning…";
-    scanBtn.querySelector(".scan-button-meta").textContent = "Checking risk signals";
+  if (scanInput.value.trim() || uploadedImageDataUrl) {
+    const metaText = uploadedImageDataUrl
+      ? "Input attached"
+      : `${scanInput.value.trim().length} chars`;
+    setPreparedState(metaText);
   } else {
-    scanBtn.querySelector(".scan-button-label").textContent = "Run Shield Scan";
-    scanBtn.querySelector(".scan-button-meta").textContent = "Private analysis preview";
+    setIdleState();
   }
-}
-
-scanInput.addEventListener("input", updateCharCount);
+});
 
 scanInput.addEventListener("keydown", (event) => {
   if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
@@ -257,10 +281,12 @@ imageUpload.addEventListener("change", () => {
   reader.onload = () => {
     uploadedImageDataUrl = String(reader.result || "");
     previewImage.src = uploadedImageDataUrl;
-    previewMeta.textContent = `${uploadedImageName || "image"} · ${formatFileSize(file.size)}`;
+    previewMeta.textContent = `${uploadedImageName} · ${formatFileSize(file.size)}`;
     previewTray.classList.remove("hidden");
-    setUploadingState(file);
+    updateTypingState("Image loaded");
+    setPreparedState(formatFileSize(file.size));
   };
+
   reader.readAsDataURL(file);
 });
 
@@ -275,17 +301,12 @@ scanBtn.addEventListener("click", async () => {
     return;
   }
 
-  setLoading(true);
+  setLoadingState(true);
   setScanningState();
 
   try {
     const payload = { text };
 
-    /**
-     * Kept compatible with the existing backend contract:
-     * original app only sent { text } to /check.
-     * We add image fields only when present, which most backends will safely ignore.
-     */
     if (hasImage) {
       payload.image = uploadedImageDataUrl;
       payload.imageName = uploadedImageName;
@@ -305,25 +326,13 @@ scanBtn.addEventListener("click", async () => {
 
     const json = await response.json();
     renderResult(json?.data || {});
+    updateTypingState("Scan complete");
   } catch (error) {
     renderErrorState("Scan failed. The server could not complete the request.");
+    updateTypingState("Unavailable");
   } finally {
-    setLoading(false);
+    setLoadingState(false);
   }
-});
-
-themePulseBtn.addEventListener("click", () => {
-  document.body.animate(
-    [
-      { filter: "saturate(1) brightness(1)" },
-      { filter: "saturate(1.06) brightness(1.02)" },
-      { filter: "saturate(1) brightness(1)" }
-    ],
-    {
-      duration: 900,
-      easing: "cubic-bezier(.2,.8,.2,1)"
-    }
-  );
 });
 
 updateCharCount();
