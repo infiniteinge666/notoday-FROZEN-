@@ -1,72 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-<title>NoToday Scanner</title>
-
-<link rel="stylesheet" href="styles.css">
-
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
+  <title>NoToday Shield Scanner</title>
+  <meta
+    name="description"
+    content="Scan suspicious messages, links, and screenshots with a premium glass UI."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
+  <div class="app-bg" aria-hidden="true">
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+    <div class="bg-orb orb-c"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-noise"></div>
+  </div>
 
-<div class="nt-container">
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <img src="notoday-shield.png" alt="" />
+        </div>
+        <div class="brand-copy">
+          <span class="eyebrow">NoToday</span>
+          <strong>Shield Scanner</strong>
+        </div>
+      </div>
 
-<header class="nt-header">
+      <button
+        id="themePulseBtn"
+        class="icon-button glass-button"
+        type="button"
+        aria-label="Pulse interface"
+        title="Pulse interface"
+      >
+        <span class="icon">✦</span>
+      </button>
+    </header>
 
-<div class="nt-logo">
-🛡️ NoToday
-</div>
+    <main class="page">
+      <section class="hero glass-panel">
+        <div class="hero-copy">
+          <span class="hero-kicker">Safer by design</span>
+          <h1>Spot manipulative messages before they cost you.</h1>
+          <p>
+            Paste suspicious text, scan a screenshot, and get an instant trust
+            signal with a richer interface and clearer feedback.
+          </p>
 
-</header>
+          <div class="hero-chips" aria-label="Highlights">
+            <span class="chip">Realtime feel</span>
+            <span class="chip">Screenshot ready</span>
+            <span class="chip">Risk banding</span>
+          </div>
+        </div>
 
-<main class="nt-scanner">
+        <div class="hero-emblem" aria-hidden="true">
+          <div class="emblem-glow"></div>
+          <img src="notoday-shield.png" alt="" />
+        </div>
+      </section>
 
-<textarea
-id="scanInput"
-class="nt-input"
-placeholder="Paste suspicious message or link here">
-</textarea>
+      <section class="workspace">
+        <div class="composer glass-panel">
+          <div class="section-head">
+            <div>
+              <span class="section-label">Source</span>
+              <h2>Inspect a message or link</h2>
+            </div>
+            <div id="typingState" class="live-pill" aria-live="polite">
+              <span class="live-dot"></span>
+              Ready
+            </div>
+          </div>
 
-<div class="nt-actions">
+          <label class="input-frame" for="scanInput">
+            <span class="input-topline">
+              <span>Message / Link / Email text</span>
+              <span id="charCount">0</span>
+            </span>
 
-<button id="cameraBtn" class="nt-btn-circle">
-📷
-</button>
+            <textarea
+              id="scanInput"
+              class="scan-input"
+              placeholder="Paste a suspicious text, email, DM, or link here..."
+              spellcheck="false"
+              autocomplete="off"
+            ></textarea>
 
-<input
-type="file"
-id="imageUpload"
-accept="image/*"
-capture="environment"
-style="display:none"
-/>
+            <span class="input-shine" aria-hidden="true"></span>
+          </label>
 
-<button id="uploadBtn" class="nt-btn-soft">
-Upload Screenshot
-</button>
+          <div class="action-row">
+            <button id="cameraBtn" class="action-pill glass-button" type="button">
+              <span class="action-icon">⌁</span>
+              <span>Camera</span>
+            </button>
 
-</div>
+            <button id="uploadBtn" class="action-pill glass-button" type="button">
+              <span class="action-icon">⬆</span>
+              <span>Upload</span>
+            </button>
 
-<button id="scanBtn" class="nt-btn-primary">
-Scan
-</button>
+            <input
+              type="file"
+              id="imageUpload"
+              accept="image/*"
+              capture="environment"
+              hidden
+            />
 
-<div id="result" class="nt-card nt-result">
+            <button id="clearBtn" class="action-pill glass-button subtle" type="button">
+              <span class="action-icon">×</span>
+              <span>Clear</span>
+            </button>
+          </div>
 
-<div class="band">READY</div>
-<div class="score">Awaiting scan</div>
+          <div id="previewTray" class="preview-tray hidden" aria-live="polite">
+            <div class="preview-thumb-wrap">
+              <img id="previewImage" class="preview-thumb" alt="Uploaded screenshot preview" />
+            </div>
+            <div class="preview-copy">
+              <strong>Screenshot loaded</strong>
+              <span id="previewMeta">Ready for scan</span>
+            </div>
+            <button
+              id="removeImageBtn"
+              class="mini-button"
+              type="button"
+              aria-label="Remove uploaded image"
+            >
+              Remove
+            </button>
+          </div>
 
-</div>
+          <button id="scanBtn" class="scan-button" type="button">
+            <span class="scan-button-bg" aria-hidden="true"></span>
+            <span class="scan-button-label">Run Shield Scan</span>
+            <span class="scan-button-meta">Private analysis preview</span>
+          </button>
+        </div>
 
-</main>
+        <aside class="results-stack">
+          <section id="resultCard" class="result-card glass-panel state-idle" aria-live="polite">
+            <div class="result-top">
+              <div class="result-badge">
+                <span class="badge-ring"></span>
+                <span id="resultGlyph" class="result-glyph">◎</span>
+              </div>
 
-</div>
+              <div class="result-heading">
+                <span class="section-label">Result</span>
+                <h2 id="resultBand">Ready</h2>
+                <p id="resultSummary">
+                  Waiting for text or screenshot input.
+                </p>
+              </div>
+            </div>
 
-<script src="app.js"></script>
+            <div class="meter-wrap">
+              <div class="meter-head">
+                <span>Risk score</span>
+                <strong id="riskScoreValue">--</strong>
+              </div>
+              <div class="meter">
+                <div id="riskMeterBar" class="meter-bar"></div>
+              </div>
+            </div>
 
+            <div class="signal-grid">
+              <div class="signal-card">
+                <span class="signal-label">State</span>
+                <strong id="signalState">Idle</strong>
+              </div>
+              <div class="signal-card">
+                <span class="signal-label">Input</span>
+                <strong id="signalInput">Text</strong>
+              </div>
+              <div class="signal-card">
+                <span class="signal-label">Confidence</span>
+                <strong id="signalConfidence">--</strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="tips-card glass-panel">
+            <span class="section-label">Scanner cues</span>
+            <ul class="tips-list">
+              <li>Urgency, secrecy, and payment pressure are common scam signals.</li>
+              <li>Look for mismatched domains, shortened links, and emotional coercion.</li>
+              <li>Upload screenshots when formatting or branding seems suspicious.</li>
+            </ul>
+          </section>
+        </aside>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
