@@ -6,7 +6,6 @@ const scanButtonTitle = document.getElementById("scanButtonTitle");
 const scanButtonSubtitle = document.getElementById("scanButtonSubtitle");
 
 const uploadBtn = document.getElementById("uploadBtn");
-const cameraBtn = document.getElementById("cameraBtn");
 const clearBtn = document.getElementById("clearBtn");
 const imageUpload = document.getElementById("imageUpload");
 const removeImageBtn = document.getElementById("removeImageBtn");
@@ -29,6 +28,7 @@ const signalInput = document.getElementById("signalInput");
 const signalConfidence = document.getElementById("signalConfidence");
 
 let uploadedImageDataUrl = "";
+let uploadedImageBase64 = "";
 let uploadedImageName = "";
 let isScanning = false;
 let typingTimer = null;
@@ -65,7 +65,7 @@ function formatFileSize(bytes) {
 
 function getInputModeLabel() {
   const hasText = scanInput.value.trim().length > 0;
-  const hasImage = Boolean(uploadedImageDataUrl);
+  const hasImage = Boolean(uploadedImageBase64);
 
   if (hasText && hasImage) return "Hybrid";
   if (hasImage) return "Screenshot";
@@ -81,7 +81,7 @@ function updateCharCount() {
   charCount.textContent = String(count);
 
   if (count === 0) {
-    updateTypingState("Ready");
+    updateTypingState(uploadedImageBase64 ? "Image loaded" : "Ready");
     signalInput.textContent = getInputModeLabel();
     return;
   }
@@ -94,6 +94,12 @@ function updateCharCount() {
   }, 700);
 
   signalInput.textContent = getInputModeLabel();
+}
+
+function updateScanAvailability() {
+  const hasText = scanInput.value.trim().length > 0;
+  const hasImage = Boolean(uploadedImageBase64);
+  scanBtn.disabled = isScanning || (!hasText && !hasImage);
 }
 
 function setIdleState() {
@@ -147,6 +153,8 @@ function setScanningState() {
 function renderResult(data) {
   const bandRaw = String(data?.band || "UNKNOWN").toUpperCase();
   const score = normalizeScore(data?.score);
+  const reasons = Array.isArray(data?.reasons) ? data.reasons : [];
+  const firstReason = reasons[0] || "";
 
   let derivedConfidence = "--";
   if (typeof data?.confidence === "number") {
@@ -158,23 +166,23 @@ function renderResult(data) {
   let state = "idle";
   let glyph = "?";
   let heading = "Unknown";
-  let summary = "The scan returned an unclassified result.";
+  let summary = firstReason || "The scan returned an unclassified result.";
 
   if (bandRaw === "SAFE") {
     state = "safe";
     glyph = "✓";
     heading = "Safe";
-    summary = "Low-risk patterns detected. Still verify the sender and any linked destination.";
+    summary = firstReason || "Low-risk patterns detected. Still verify the sender and any linked destination.";
   } else if (bandRaw === "SUSPICIOUS") {
     state = "suspicious";
     glyph = "!";
     heading = "Suspicious";
-    summary = "Potential scam or manipulation indicators were found. Review carefully before acting.";
+    summary = firstReason || "Potential scam or manipulation indicators were found. Review carefully before acting.";
   } else if (bandRaw === "CRITICAL") {
     state = "critical";
     glyph = "⨯";
     heading = "Critical";
-    summary = "Strong scam or coercion signals detected. Do not click, pay, or reply yet.";
+    summary = firstReason || "Strong scam or coercion signals detected. Do not click, pay, or reply yet.";
   }
 
   setCardState(state);
@@ -205,7 +213,6 @@ function setLoadingState(enabled) {
 
   scanBtn.disabled = enabled;
   uploadBtn.disabled = enabled;
-  cameraBtn.disabled = enabled;
   clearBtn.disabled = enabled;
   if (removeImageBtn) removeImageBtn.disabled = enabled;
 
@@ -215,6 +222,7 @@ function setLoadingState(enabled) {
   } else {
     scanButtonTitle.textContent = "Scan";
     scanButtonSubtitle.textContent = "Shield analysis";
+    updateScanAvailability();
   }
 }
 
@@ -224,6 +232,7 @@ function openFilePicker() {
 
 function resetImage() {
   uploadedImageDataUrl = "";
+  uploadedImageBase64 = "";
   uploadedImageName = "";
   imageUpload.value = "";
   previewImage.removeAttribute("src");
@@ -235,6 +244,8 @@ function resetImage() {
   } else {
     setIdleState();
   }
+
+  updateScanAvailability();
 }
 
 function clearAll() {
@@ -243,20 +254,32 @@ function clearAll() {
   updateTypingState("Ready");
   resetImage();
   setIdleState();
+  updateScanAvailability();
   scanInput.focus();
+}
+
+async function parseJsonSafely(response) {
+  const text = await response.text();
+  try {
+    return JSON.parse(text);
+  } catch {
+    throw new Error(text || `HTTP ${response.status}`);
+  }
 }
 
 scanInput.addEventListener("input", () => {
   updateCharCount();
 
-  if (scanInput.value.trim() || uploadedImageDataUrl) {
-    const metaText = uploadedImageDataUrl
+  if (scanInput.value.trim() || uploadedImageBase64) {
+    const metaText = uploadedImageBase64
       ? "Input attached"
       : `${scanInput.value.trim().length} chars`;
     setPreparedState(metaText);
   } else {
     setIdleState();
   }
+
+  updateScanAvailability();
 });
 
 scanInput.addEventListener("keydown", (event) => {
@@ -267,7 +290,6 @@ scanInput.addEventListener("keydown", (event) => {
 });
 
 uploadBtn.addEventListener("click", openFilePicker);
-cameraBtn.addEventListener("click", openFilePicker);
 clearBtn.addEventListener("click", clearAll);
 removeImageBtn.addEventListener("click", resetImage);
 
@@ -280,11 +302,16 @@ imageUpload.addEventListener("change", () => {
   const reader = new FileReader();
   reader.onload = () => {
     uploadedImageDataUrl = String(reader.result || "");
+    uploadedImageBase64 = uploadedImageDataUrl.includes(",")
+      ? uploadedImageDataUrl.split(",")[1]
+      : uploadedImageDataUrl;
+
     previewImage.src = uploadedImageDataUrl;
     previewMeta.textContent = `${uploadedImageName} · ${formatFileSize(file.size)}`;
     previewTray.classList.remove("hidden");
-    updateTypingState("Image loaded");
+    updateTypingState("Screenshot loaded");
     setPreparedState(formatFileSize(file.size));
+    updateScanAvailability();
   };
 
   reader.readAsDataURL(file);
@@ -294,10 +321,11 @@ scanBtn.addEventListener("click", async () => {
   if (isScanning) return;
 
   const text = scanInput.value.trim();
-  const hasImage = Boolean(uploadedImageDataUrl);
+  const hasImage = Boolean(uploadedImageBase64);
 
   if (!text && !hasImage) {
     setEmptyState();
+    updateScanAvailability();
     return;
   }
 
@@ -308,7 +336,7 @@ scanBtn.addEventListener("click", async () => {
     const payload = { text };
 
     if (hasImage) {
-      payload.image = uploadedImageDataUrl;
+      payload.image = uploadedImageBase64;
       payload.imageName = uploadedImageName;
     }
 
@@ -320,15 +348,16 @@ scanBtn.addEventListener("click", async () => {
       body: JSON.stringify(payload)
     });
 
+    const json = await parseJsonSafely(response);
+
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
+      throw new Error(json?.message || `HTTP ${response.status}`);
     }
 
-    const json = await response.json();
     renderResult(json?.data || {});
     updateTypingState("Scan complete");
   } catch (error) {
-    renderErrorState("Scan failed. The server could not complete the request.");
+    renderErrorState(error.message || "Scan failed. The server could not complete the request.");
     updateTypingState("Unavailable");
   } finally {
     setLoadingState(false);
@@ -337,3 +366,4 @@ scanBtn.addEventListener("click", async () => {
 
 updateCharCount();
 setIdleState();
+updateScanAvailability();

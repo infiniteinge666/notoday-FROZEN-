@@ -474,6 +474,28 @@ img {
 
 .pill-button {
   min-height: 52px;
+  min-width: 180px;
+  padding: 0 18px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 700;
+}
+@media (max-width: 560px) {
+  .action-row {
+    flex-wrap: wrap;
+  }
+
+  .pill-button,
+  .ghost-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+.pill-button {
+  min-height: 52px;
   padding: 0 18px;
   border-radius: 999px;
   display: inline-flex;
