@@ -1,249 +1,363 @@
 "use strict";
 
-/* =====================================================
-   NOTODAY FRONTEND APP
-   Mobile-first scanner UI
-===================================================== */
-
-const API_BASE = ""; // same origin
-
 /* ---------------- DOM ---------------- */
 
 const scanInput = document.getElementById("scanInput");
 const scanBtn = document.getElementById("scanBtn");
 const uploadBtn = document.getElementById("uploadBtn");
 const imageUpload = document.getElementById("imageUpload");
-const resultDiv = document.getElementById("result");
 const clearBtn = document.getElementById("clearBtn");
 const intelBtn = document.getElementById("intelBtn");
 
-/* ---------------- Animation helpers ---------------- */
+const bandLabel = document.getElementById("bandLabel");
+const scoreLabel = document.getElementById("scoreLabel");
+const reasonText = document.getElementById("reasonText");
+const whyText = document.getElementById("whyText");
+const inputHelp = document.getElementById("inputHelp");
 
-function restartAnimation(el, cls) {
-  if (!el) return;
-  el.classList.remove(cls);
-  void el.offsetWidth;
-  el.classList.add(cls);
+const previewWrap = document.getElementById("previewWrap");
+const previewImage = document.getElementById("previewImage");
+const previewMeta = document.getElementById("previewMeta");
+
+const API_BASE = window.location.origin;
+
+/* ---------------- STATE ---------------- */
+
+let selectedImageBase64 = "";
+let selectedImageName = "";
+let isScanning = false;
+
+/* ---------------- HELPERS ---------------- */
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
-function clearStateClasses() {
-  resultDiv.classList.remove(
-    "is-safe",
-    "is-suspicious",
-    "is-critical",
-    "is-entering",
-    "is-exiting"
+function hasTextInput() {
+  return scanInput.value.trim().length > 0;
+}
+
+function hasImageInput() {
+  return selectedImageBase64.trim().length > 0;
+}
+
+function hasAnyInput() {
+  return hasTextInput() || hasImageInput();
+}
+
+function setBandClass(band) {
+  const normalized = String(band || "READY").toUpperCase();
+  bandLabel.classList.remove(
+    "band-ready",
+    "band-safe",
+    "band-suspicious",
+    "band-critical",
+    "band-error"
   );
-}
 
-/* ---------------- Result UI ---------------- */
-
-function display(data) {
-  const band = data?.band || "UNKNOWN";
-  const score = data?.score ?? "-";
-
-  const reasons = (data?.reasons || []).join("<br>");
-  const why = (data?.why || []).join("<br>");
-  const whatNotToDo = (data?.whatNotToDo || []).join("<br>");
-
-  clearStateClasses();
-
-  if (band === "SAFE") resultDiv.classList.add("is-safe");
-  if (band === "SUSPICIOUS") resultDiv.classList.add("is-suspicious");
-  if (band === "CRITICAL") resultDiv.classList.add("is-critical");
-
-  resultDiv.innerHTML = `
-    <div class="result-left">
-      <div class="band">${band}</div>
-      <div class="score">Score: ${score}</div>
-    </div>
-
-    <div class="hint">
-      ${reasons || "Scan completed."}
-    </div>
-
-    ${
-      why
-        ? `<div class="why">
-            <strong>Why:</strong><br>${why}
-           </div>`
-        : ""
-    }
-
-    ${
-      whatNotToDo
-        ? `<div class="warn">
-            <strong>Do not:</strong><br>${whatNotToDo}
-           </div>`
-        : ""
-    }
-  `;
-
-  restartAnimation(resultDiv, "is-entering");
-}
-
-/* ---------------- Reset UI ---------------- */
-
-function resetUI() {
-  clearStateClasses();
-
-  resultDiv.innerHTML = `
-    <div class="result-left">
-      <div class="band">READY</div>
-      <div class="score">Paste text or upload screenshot</div>
-    </div>
-  `;
-
-  scanInput.value = "";
-  imageUpload.value = "";
-
-  restartAnimation(resultDiv, "is-entering");
-}
-
-/* ---------------- Input acknowledgement ---------------- */
-
-function acknowledgeInput() {
-  restartAnimation(scanInput, "is-ack");
-}
-
-/* ---------------- Screenshot Upload ---------------- */
-
-uploadBtn.addEventListener("click", () => {
-  imageUpload.click();
-});
-
-imageUpload.addEventListener("change", () => {
-  if (imageUpload.files.length) {
-    acknowledgeInput();
+  switch (normalized) {
+    case "SAFE":
+      bandLabel.classList.add("band-safe");
+      break;
+    case "SUSPICIOUS":
+      bandLabel.classList.add("band-suspicious");
+      break;
+    case "CRITICAL":
+      bandLabel.classList.add("band-critical");
+      break;
+    case "ERROR":
+      bandLabel.classList.add("band-error");
+      break;
+    default:
+      bandLabel.classList.add("band-ready");
+      break;
   }
-});
+}
 
-/* ---------------- Convert image to Base64 ---------------- */
+function updateScanButtonState() {
+  scanBtn.disabled = isScanning || !hasAnyInput();
+}
 
-function fileToBase64(file) {
+function showPreview(dataUrl, metaText) {
+  previewImage.src = dataUrl;
+  previewMeta.textContent = metaText || "Ready to scan";
+  previewWrap.classList.remove("hidden");
+}
+
+function hidePreview() {
+  previewImage.removeAttribute("src");
+  previewMeta.textContent = "Ready to scan";
+  previewWrap.classList.add("hidden");
+}
+
+function resetStatusCard() {
+  bandLabel.textContent = "READY";
+  scoreLabel.textContent = hasAnyInput()
+    ? "Input loaded"
+    : "Waiting for input";
+  reasonText.textContent = hasAnyInput()
+    ? "Ready to scan. Press SCAN when you want NoToday to check it."
+    : "Upload a screenshot from Photos or paste a suspicious message.";
+  whyText.innerHTML = "";
+  setBandClass("READY");
+}
+
+function setScanningState() {
+  bandLabel.textContent = "SCANNING";
+  scoreLabel.textContent = "Checking...";
+  reasonText.textContent = "Analyzing your input now.";
+  whyText.innerHTML = "";
+  setBandClass("READY");
+}
+
+function renderArrayLines(items) {
+  if (!Array.isArray(items) || items.length === 0) return "";
+  return items.map((item) => `<div>${escapeHtml(item)}</div>`).join("");
+}
+
+function displayResult(payload) {
+  const data = payload?.data || {};
+  const band = String(data.band || "UNKNOWN").toUpperCase();
+  const score =
+    typeof data.score === "number" ? `Score ${data.score}` : "Scan complete";
+
+  const reasons = Array.isArray(data.reasons) ? data.reasons : [];
+  const why = Array.isArray(data.why) ? data.why : [];
+  const whatNotToDo = Array.isArray(data.whatNotToDo) ? data.whatNotToDo : [];
+
+  bandLabel.textContent = band;
+  scoreLabel.textContent = score;
+  setBandClass(band);
+
+  if (reasons.length > 0) {
+    reasonText.textContent = reasons[0];
+  } else {
+    reasonText.textContent = "Scan complete.";
+  }
+
+  const whyBlock = [];
+  if (why.length > 0) {
+    whyBlock.push(
+      `<div class="nt-list-block"><strong>Why:</strong>${renderArrayLines(why)}</div>`
+    );
+  }
+  if (whatNotToDo.length > 0) {
+    whyBlock.push(
+      `<div class="nt-list-block"><strong>Do not:</strong>${renderArrayLines(whatNotToDo)}</div>`
+    );
+  }
+
+  whyText.innerHTML = whyBlock.join("");
+}
+
+function displayError(message) {
+  bandLabel.textContent = "ERROR";
+  scoreLabel.textContent = "Try again";
+  reasonText.textContent = message || "Something went wrong.";
+  whyText.innerHTML = "";
+  setBandClass("ERROR");
+}
+
+function clearImageState() {
+  selectedImageBase64 = "";
+  selectedImageName = "";
+  imageUpload.value = "";
+  hidePreview();
+}
+
+function resetAll() {
+  scanInput.value = "";
+  clearImageState();
+  inputHelp.innerHTML =
+    'Paste text here, or tap <strong>Screenshot</strong> to choose from Photos.';
+  resetStatusCard();
+  updateScanButtonState();
+}
+
+function fileToDataUrl(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
-    reader.onload = () => {
-      resolve(reader.result.split(",")[1]);
-    };
-
-    reader.onerror = reject;
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error("Could not read image file."));
 
     reader.readAsDataURL(file);
   });
 }
 
-/* ---------------- Scan Logic ---------------- */
+async function safeJson(response) {
+  const text = await response.text();
 
-async function runScan() {
-  const text = scanInput.value.trim();
-  const file = imageUpload.files[0];
+  try {
+    return JSON.parse(text);
+  } catch (_error) {
+    throw new Error(`Expected JSON but received: ${text.slice(0, 200)}`);
+  }
+}
 
-  if (!text && !file) {
-    display({
-      band: "SAFE",
-      score: 0,
-      reasons: ["No input provided."],
-      why: ["Paste a message, link, or upload screenshot."],
-      whatNotToDo: []
-    });
+/* ---------------- EVENTS ---------------- */
+
+scanInput.addEventListener("input", () => {
+  resetStatusCard();
+  updateScanButtonState();
+});
+
+uploadBtn.addEventListener("click", () => {
+  imageUpload.click();
+});
+
+imageUpload.addEventListener("change", async (event) => {
+  const file = event.target.files?.[0];
+  if (!file) return;
+
+  if (!file.type.startsWith("image/")) {
+    displayError("Please choose an image from Photos.");
+    clearImageState();
+    updateScanButtonState();
     return;
   }
 
-  scanBtn.disabled = true;
-  scanBtn.classList.add("is-scanning");
-
   try {
-    let payload = {};
+    const dataUrl = await fileToDataUrl(file);
+    const base64 = String(dataUrl).split(",")[1] || "";
 
-    if (text) payload.text = text;
+    selectedImageBase64 = base64;
+    selectedImageName = file.name || "screenshot";
 
-    if (file) {
-      payload.image = await fileToBase64(file);
-    }
+    showPreview(dataUrl, "Screenshot selected from Photos");
+    inputHelp.innerHTML =
+      'Screenshot uploaded ✓ Press <strong>SCAN</strong> to analyze it.';
+    resetStatusCard();
+    updateScanButtonState();
+  } catch (error) {
+    displayError(error.message || "Could not load screenshot.");
+    clearImageState();
+    updateScanButtonState();
+  }
+});
 
-    const res = await fetch(`${API_BASE}/check`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
+clearBtn.addEventListener("click", () => {
+  resetAll();
+});
 
-    const json = await res.json();
+scanBtn.addEventListener("click", async () => {
+  if (!hasAnyInput() || isScanning) return;
 
-    if (json.success) {
-      display(json.data);
-    } else {
-      throw new Error(json.message || "Scan failed");
-    }
-  } catch (err) {
-    console.error(err);
+  isScanning = true;
+  updateScanButtonState();
+  setScanningState();
 
-    display({
-      band: "SUSPICIOUS",
-      score: "-",
-      reasons: ["Scan failed."],
-      why: ["Network error or server unavailable."],
-      whatNotToDo: ["Do not trust suspicious messages."]
-    });
+  const payload = {};
+
+  if (hasTextInput()) {
+    payload.text = scanInput.value.trim();
   }
 
-  scanBtn.disabled = false;
-  scanBtn.classList.remove("is-scanning");
-}
+  if (hasImageInput()) {
+    payload.image = selectedImageBase64;
+  }
 
-/* ---------------- Scan button ---------------- */
+  try {
+    const response = await fetch(`${API_BASE}/check`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
 
-scanBtn.addEventListener("click", runScan);
+    const json = await safeJson(response);
 
-/* ---------------- Clear ---------------- */
+    if (!response.ok) {
+      throw new Error(json?.message || "Scan failed.");
+    }
 
-clearBtn.addEventListener("click", resetUI);
+    displayResult(json);
 
-/* ---------------- Intel button ---------------- */
+    if (hasImageInput()) {
+      const reasonCount =
+        Array.isArray(json?.data?.reasons) && json.data.reasons.length > 0
+          ? json.data.reasons.length
+          : 0;
+
+      previewMeta.textContent =
+        reasonCount > 0
+          ? `Screenshot scanned successfully`
+          : `Screenshot uploaded`;
+    }
+  } catch (error) {
+    displayError(error.message || "Could not complete scan.");
+  } finally {
+    isScanning = false;
+    updateScanButtonState();
+  }
+});
 
 intelBtn.addEventListener("click", async () => {
   try {
-    const res = await fetch(`${API_BASE}/intel`);
-    const json = await res.json();
+    const response = await fetch(`${API_BASE}/intel`);
+    const json = await safeJson(response);
 
-    const intel = json?.data;
+    if (!response.ok) {
+      throw new Error(json?.message || "Could not load intel.");
+    }
 
-    resultDiv.innerHTML = `
-      <div class="result-left">
-        <div class="band">INTEL</div>
-        <div class="score">Version ${intel.version}</div>
-      </div>
+    const data = json?.data || {};
+    const counts = data.counts || {};
 
-      <div class="hint">
-        Scam patterns: ${intel.scamPatterns}<br>
-        Bad domains: ${intel.knownBadDomains}<br>
-        Domain keywords: ${intel.scamDomainKeywords}
+    bandLabel.textContent = "INTEL";
+    scoreLabel.textContent = `v${String(data.version || "").replace(/^v/i, "") || "?"}`;
+    reasonText.textContent = "Current live intelligence loaded.";
+    whyText.innerHTML = `
+      <div class="nt-list-block">
+        <div><strong>Known bad domains:</strong> ${escapeHtml(counts.knownBadDomains ?? "-")}</div>
+        <div><strong>Scam keywords:</strong> ${escapeHtml(counts.scamDomainKeywords ?? "-")}</div>
+        <div><strong>Official domains:</strong> ${escapeHtml(counts.saOfficialDomains ?? "-")}</div>
+        <div><strong>Scam patterns:</strong> ${escapeHtml(counts.scamPatterns ?? "-")}</div>
       </div>
     `;
-
-    restartAnimation(resultDiv, "is-entering");
-  } catch (err) {
-    console.error(err);
-
-    display({
-      band: "SAFE",
-      score: "-",
-      reasons: ["Intel unavailable"],
-      why: ["Server did not respond"],
-      whatNotToDo: []
-    });
+    setBandClass("READY");
+  } catch (error) {
+    displayError(error.message || "Could not load intel.");
   }
 });
 
-/* ---------------- Paste detection ---------------- */
+document.addEventListener("paste", async (event) => {
+  const items = event.clipboardData?.items;
+  if (!items || items.length === 0) return;
 
-scanInput.addEventListener("paste", () => {
-  setTimeout(acknowledgeInput, 0);
+  for (const item of items) {
+    if (item.type && item.type.startsWith("image/")) {
+      const file = item.getAsFile();
+      if (!file) return;
+
+      try {
+        const dataUrl = await fileToDataUrl(file);
+        const base64 = String(dataUrl).split(",")[1] || "";
+
+        selectedImageBase64 = base64;
+        selectedImageName = "pasted-image";
+
+        showPreview(dataUrl, "Screenshot pasted successfully");
+        inputHelp.innerHTML =
+          'Screenshot pasted ✓ Press <strong>SCAN</strong> to analyze it.';
+        resetStatusCard();
+        updateScanButtonState();
+      } catch (error) {
+        displayError(error.message || "Could not paste screenshot.");
+      }
+
+      event.preventDefault();
+      return;
+    }
+  }
 });
 
-/* ---------------- Initial state ---------------- */
+/* ---------------- INIT ---------------- */
 
-resetUI();
+resetAll();

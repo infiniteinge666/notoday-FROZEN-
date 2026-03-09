@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -6,181 +6,117 @@
     name="viewport"
     content="width=device-width, initial-scale=1, viewport-fit=cover"
   />
-  <title>NoToday Shield Scanner</title>
+  <title>NoToday</title>
   <meta
     name="description"
-    content="Minimal premium scam scanner with soft luminous UI."
+    content="Check suspicious messages and screenshots before you trust them."
   />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
- <link rel="stylesheet" href="/styles/styles.css">
+  <link rel="stylesheet" href="./render-style.css" />
 </head>
 <body>
-  <div class="app-bg" aria-hidden="true">
-    <div class="bg-image"></div>
-    <div class="bg-glow bg-glow-a"></div>
-    <div class="bg-glow bg-glow-b"></div>
-    <div class="bg-vignette"></div>
-  </div>
+  <main class="nt-shell">
+    <section class="nt-app" aria-label="NoToday scanner">
+      <header class="nt-header">
+        <img
+          src="./logo.png"
+          alt="NoToday shield logo"
+          class="nt-logo"
+          onerror="this.style.display='none'"
+        />
+        <h1 class="nt-title">NOTODAY</h1>
+        <p class="nt-subtitle">Check before you trust.</p>
+      </header>
 
-  <div class="page-shell">
-    <header class="topbar">
-      <div class="brand">
-        <div class="brand-mark">
-          <img src="/assets/notoday-shield.png" alt="NoToday Shield" />
+      <section class="nt-status-card" id="resultCard" aria-live="polite">
+        <div class="nt-status-top">
+          <div class="nt-band-wrap">
+            <span class="nt-band" id="bandLabel">READY</span>
+            <span class="nt-score" id="scoreLabel">Waiting for input</span>
+          </div>
         </div>
-        <div class="brand-copy">
-          <span class="brand-name">NoToday</span>
-          <span class="brand-sub">Shield Scanner</span>
+
+        <div class="nt-reason" id="reasonText">
+          Upload a screenshot from Photos or paste a suspicious message.
         </div>
+
+        <div class="nt-why" id="whyText"></div>
+      </section>
+
+      <section class="nt-input-card">
+        <label for="scanInput" class="sr-only">Paste message or link</label>
+
+        <div
+          id="previewWrap"
+          class="nt-preview-wrap hidden"
+          aria-live="polite"
+        >
+          <div class="nt-preview-head">
+            <span class="nt-preview-badge">Screenshot uploaded ✓</span>
+            <span class="nt-preview-meta" id="previewMeta">Ready to scan</span>
+          </div>
+
+          <img
+            id="previewImage"
+            class="nt-preview-image"
+            alt="Uploaded screenshot preview"
+          />
+        </div>
+
+        <textarea
+          id="scanInput"
+          class="nt-textarea"
+          placeholder="Paste a message, link, email, or screenshot text here..."
+          autocapitalize="sentences"
+          autocomplete="off"
+          autocorrect="off"
+          spellcheck="false"
+          rows="7"
+        ></textarea>
+
+        <div class="nt-input-help" id="inputHelp">
+          Paste text here, or tap <strong>Screenshot</strong> to choose from Photos.
+        </div>
+
+        <div class="nt-privacy">
+          <strong>Privacy:</strong> Nothing you paste or upload is stored.
+          <br />
+          Never paste <strong>OTPs / PINs / CVV</strong>.
+        </div>
+      </section>
+
+      <div class="nt-primary-actions">
+        <button id="scanBtn" class="nt-btn nt-btn-primary" disabled>
+          <span class="nt-btn-icon">🛡️</span>
+          <span>SCAN</span>
+        </button>
       </div>
 
-      <div class="topbar-actions">
-        <button
-          id="clearBtn"
-          class="ghost-button"
-          type="button"
-          aria-label="Clear scan input"
-        >
+      <div class="nt-secondary-actions">
+        <button id="uploadBtn" class="nt-btn nt-btn-secondary">
+          Screenshot
+        </button>
+
+        <button id="clearBtn" class="nt-btn nt-btn-secondary">
           Clear
         </button>
       </div>
-    </header>
 
-    <main class="scene">
-      <section class="hero-copy">
-        <p class="eyebrow">Mobile first</p>
-        <h1>Spot manipulative messages before they cost you.</h1>
-        <p class="hero-text">
-          Upload a screenshot from Photos or paste suspicious text. NoToday gives you a calm, immediate trust signal.
-        </p>
-      </section>
+      <div class="nt-tertiary-actions">
+        <button id="intelBtn" class="nt-btn nt-btn-ghost">
+          Intel
+        </button>
+      </div>
 
-      <section class="scanner-stage">
-        <div class="scanner-panel">
-          <div class="scanner-inner">
-            <div class="scanner-status" id="typingState" aria-live="polite">
-              <span class="status-dot"></span>
-              <span>Ready</span>
-            </div>
+      <input
+        type="file"
+        id="imageUpload"
+        accept="image/*"
+        capture="environment"
+        hidden
+      />
+    </section>
+  </main>
 
-            <label class="input-shell" for="scanInput">
-              <span class="input-label">Message / Link / Email text</span>
-              <textarea
-                id="scanInput"
-                class="scan-input"
-                placeholder="Paste a suspicious text, DM, email, or link here..."
-                spellcheck="false"
-                autocomplete="off"
-              ></textarea>
-              <span class="input-meta">
-                <span id="charCount">0</span>
-                <span>characters</span>
-              </span>
-            </label>
-
-            <div id="previewTray" class="preview-tray hidden" aria-live="polite">
-              <div class="preview-media">
-                <img
-                  id="previewImage"
-                  class="preview-image"
-                  alt="Uploaded screenshot preview"
-                />
-              </div>
-
-              <div class="preview-content">
-                <div class="preview-title">Screenshot attached ✓</div>
-                <div id="previewMeta" class="preview-meta">Ready for scan</div>
-              </div>
-
-              <button
-                id="removeImageBtn"
-                class="ghost-button small"
-                type="button"
-              >
-                Remove
-              </button>
-            </div>
-
-            <div class="action-row">
-              <button id="uploadBtn" class="pill-button" type="button">
-                <span class="pill-icon">＋</span>
-                <span>Screenshot</span>
-              </button>
-
-              <input
-                id="imageUpload"
-                type="file"
-                accept="image/*"
-                hidden
-              />
-            </div>
-          </div>
-
-          <div class="scan-action-wrap">
-            <button id="scanBtn" class="scan-orb" type="button" aria-label="Run Shield Scan">
-              <span class="scan-orb-core"></span>
-              <span class="scan-orb-ring scan-orb-ring-a"></span>
-              <span class="scan-orb-ring scan-orb-ring-b"></span>
-              <span class="scan-orb-label">
-                <strong id="scanButtonTitle">Scan</strong>
-                <span id="scanButtonSubtitle">Shield analysis</span>
-              </span>
-            </button>
-          </div>
-        </div>
-
-        <aside id="resultCard" class="result-panel state-idle" aria-live="polite">
-          <div class="result-glow"></div>
-
-          <div class="result-head">
-            <div class="result-badge">
-              <span id="resultGlyph">◎</span>
-            </div>
-
-            <div class="result-copy">
-              <p class="eyebrow result-eyebrow">Result</p>
-              <h2 id="resultBand">Ready</h2>
-              <p id="resultSummary">
-                Waiting for text or screenshot input.
-              </p>
-            </div>
-          </div>
-
-          <div class="result-meter-block">
-            <div class="result-meter-head">
-              <span>Risk score</span>
-              <strong id="riskScoreValue">--</strong>
-            </div>
-
-            <div class="result-meter">
-              <div id="riskMeterBar" class="result-meter-bar"></div>
-            </div>
-          </div>
-
-          <div class="signal-row">
-            <div class="signal-chip">
-              <span class="signal-label">State</span>
-              <strong id="signalState">Idle</strong>
-            </div>
-            <div class="signal-chip">
-              <span class="signal-label">Input</span>
-              <strong id="signalInput">Text</strong>
-            </div>
-            <div class="signal-chip">
-              <span class="signal-label">Confidence</span>
-              <strong id="signalConfidence">--</strong>
-            </div>
-          </div>
-        </aside>
-      </section>
-    </main>
-  </div>
-
-  <script src="app.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
