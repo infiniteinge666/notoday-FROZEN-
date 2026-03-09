@@ -87,7 +87,7 @@ img {
   background:
     linear-gradient(rgba(245, 248, 255, 0.22), rgba(245, 248, 255, 0.22)),
     url("assets/ui-bg.png") center center / cover no-repeat;
-  opacity: 0.9;
+  opacity: 0.2;
 }
 
 .bg-glow {
