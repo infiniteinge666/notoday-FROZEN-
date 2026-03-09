@@ -1,263 +1,317 @@
-/* =========================================
-   NOTODAY V1 ANIMATION PACK
-   calm, mobile-first, touchable
-========================================= */
-
 :root{
-  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
-  --dur-fast: 180ms;
-  --dur-med: 360ms;
-  --dur-slow: 900ms;
 
-  --scan-glow: rgba(120, 214, 226, 0.55);
-  --safe-glow: rgba(120, 220, 160, 0.45);
-  --suspicious-glow: rgba(255, 190, 90, 0.45);
-  --critical-glow: rgba(255, 110, 110, 0.45);
+/* ===== Background prism ===== */
+
+--bg-top:#eef6fb;
+--bg-bottom:#cddbea;
+
+/* ===== Glass ===== */
+
+--card:rgba(255,255,255,0.45);
+--card-strong:rgba(255,255,255,0.70);
+--stroke:rgba(255,255,255,0.65);
+
+/* ===== Text ===== */
+
+--text:#1c2c39;
+--text-soft:#6b7c8c;
+
+/* ===== Shadows ===== */
+
+--shadow-soft:0 20px 60px rgba(0,20,40,0.12);
+--shadow-card:0 30px 80px rgba(0,20,40,0.18);
+
+/* ===== Security colours ===== */
+
+--safe:#3ca485;
+--suspicious:#c49a2c;
+--critical:#d13d3d;
+
+--ready:#4a6a85;
+--error:#9d2c2c;
 }
 
-/* subtle ambient drift for silver prism background */
-.app-bg,
-body::before {
-  animation: prismDrift 18s ease-in-out infinite alternate;
+*{
+box-sizing:border-box;
 }
 
-@keyframes prismDrift {
-  0% {
-    transform: translate3d(0,0,0) scale(1);
-    opacity: 0.92;
-  }
-  100% {
-    transform: translate3d(-1.5%, -1%, 0) scale(1.03);
-    opacity: 1;
-  }
+html,body{
+margin:0;
+padding:0;
+min-height:100%;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;
+color:var(--text);
+
+background:
+radial-gradient(circle at top,rgba(255,255,255,0.9),rgba(255,255,255,0.2) 35%,transparent 60%),
+radial-gradient(circle at bottom,rgba(160,190,220,0.35),transparent 40%),
+linear-gradient(180deg,var(--bg-top),var(--bg-bottom));
+
 }
 
-/* touch feedback */
-button,
-.action-btn,
-#scanBtn,
-#clearBtn,
-#intelBtn,
-#uploadBtn {
-  transition:
-    transform var(--dur-fast) var(--ease-soft),
-    box-shadow var(--dur-med) var(--ease-soft),
-    opacity var(--dur-fast) var(--ease-soft),
-    background-color var(--dur-med) var(--ease-soft),
-    border-color var(--dur-med) var(--ease-soft),
-    color var(--dur-med) var(--ease-soft);
-  will-change: transform, box-shadow, opacity;
+img{
+max-width:100%;
+display:block;
 }
 
-button:active,
-.action-btn:active,
-#scanBtn:active,
-#clearBtn:active,
-#intelBtn:active,
-#uploadBtn:active {
-  transform: scale(0.975);
+/* =========================
+App shell
+========================= */
+
+.nt-shell{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:flex-start;
+padding:40px 18px;
 }
 
-/* primary scan button */
-#scanBtn {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
+.nt-app{
+width:100%;
+max-width:540px;
 }
 
-#scanBtn::after {
-  content: "";
-  position: absolute;
-  inset: -20%;
-  border-radius: inherit;
-  background: radial-gradient(circle, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 60%);
-  opacity: 0;
-  transform: scale(0.85);
-  transition: opacity var(--dur-med) var(--ease-soft), transform var(--dur-med) var(--ease-soft);
-  pointer-events: none;
-  z-index: 0;
+/* =========================
+Header
+========================= */
+
+.nt-header{
+text-align:center;
+margin-bottom:28px;
 }
 
-#scanBtn:hover::after,
-#scanBtn:focus-visible::after {
-  opacity: 1;
-  transform: scale(1);
+.nt-logo{
+width:72px;
+margin:auto;
+filter:drop-shadow(0 10px 24px rgba(0,0,0,0.25));
 }
 
-/* scan button pulse when scan starts */
-#scanBtn.is-scanning {
-  animation: scanButtonLift 600ms var(--ease-soft) 1, scanPulse 1200ms var(--ease-soft) 1;
+.nt-title{
+font-size:3rem;
+font-weight:900;
+letter-spacing:.04em;
+margin:10px 0 6px;
 }
 
-@keyframes scanButtonLift {
-  0%   { transform: scale(1); }
-  35%  { transform: scale(1.02); }
-  100% { transform: scale(1); }
+.nt-subtitle{
+font-weight:600;
+color:var(--text-soft);
 }
 
-@keyframes scanPulse {
-  0% {
-    box-shadow:
-      0 0 0 0 var(--scan-glow),
-      0 8px 20px rgba(0,0,0,0.16);
-  }
-  70% {
-    box-shadow:
-      0 0 0 18px rgba(120,214,226,0),
-      0 12px 28px rgba(0,0,0,0.18);
-  }
-  100% {
-    box-shadow:
-      0 0 0 0 rgba(120,214,226,0),
-      0 8px 20px rgba(0,0,0,0.16);
-  }
+/* =========================
+Glass cards
+========================= */
+
+.nt-status-card,
+.nt-input-card{
+
+background:var(--card);
+
+border-radius:28px;
+border:1px solid var(--stroke);
+
+backdrop-filter:blur(22px);
+-webkit-backdrop-filter:blur(22px);
+
+box-shadow:var(--shadow-card);
+
+padding:18px;
+margin-bottom:16px;
 }
 
-/* input glow when content is pasted or image attached */
-.input-ack,
-#scanInput.is-ack {
-  animation: inputAcknowledge 700ms var(--ease-soft) 1;
+/* =========================
+Status
+========================= */
+
+.nt-band{
+font-weight:900;
+letter-spacing:.04em;
+font-size:1.1rem;
 }
 
-@keyframes inputAcknowledge {
-  0% {
-    box-shadow: 0 0 0 0 rgba(120,214,226,0);
-    border-color: rgba(120,214,226,0.18);
-  }
-  35% {
-    box-shadow: 0 0 0 10px rgba(120,214,226,0.10);
-    border-color: rgba(120,214,226,0.55);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(120,214,226,0);
-    border-color: rgba(120,214,226,0.22);
-  }
+.band-ready{color:var(--ready);}
+.band-safe{color:var(--safe);}
+.band-suspicious{color:var(--suspicious);}
+.band-critical{color:var(--critical);}
+.band-error{color:var(--error);}
+
+.nt-score{
+font-size:.95rem;
+color:var(--text-soft);
 }
 
-/* result panel reveal */
-.result-animate-in,
-#result.is-entering,
-.result-card.is-entering {
-  animation: resultSlideUp var(--dur-med) var(--ease-soft) 1;
+.nt-reason{
+margin-top:12px;
+font-size:1.05rem;
+font-weight:600;
 }
 
-@keyframes resultSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(18px) scale(0.985);
-    filter: blur(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
+.nt-why{
+margin-top:10px;
+font-size:.95rem;
+color:var(--text-soft);
 }
 
-/* result panel clear/reset */
-.result-animate-out,
-#result.is-exiting,
-.result-card.is-exiting {
-  animation: resultSlideDown 220ms ease-in forwards;
+/* =========================
+Textarea
+========================= */
+
+.nt-textarea{
+
+width:100%;
+min-height:220px;
+
+border-radius:22px;
+
+border:1px solid rgba(255,255,255,0.7);
+
+background:rgba(255,255,255,0.55);
+
+padding:18px;
+
+font-size:1rem;
+
+outline:none;
+
+box-shadow:inset 0 1px 0 rgba(255,255,255,0.7);
 }
 
-@keyframes resultSlideDown {
-  from {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(10px) scale(0.99);
-  }
+.nt-textarea:focus{
+
+border-color:#7ab0ff;
+
+box-shadow:
+0 0 0 4px rgba(122,176,255,0.25),
+inset 0 1px 0 rgba(255,255,255,0.7);
 }
 
-/* status color transitions */
-.band,
-.status-band,
-.result-band,
-.result-state {
-  transition:
-    background-color var(--dur-med) var(--ease-soft),
-    color var(--dur-med) var(--ease-soft),
-    box-shadow var(--dur-med) var(--ease-soft),
-    border-color var(--dur-med) var(--ease-soft),
-    transform var(--dur-med) var(--ease-soft);
+/* =========================
+Buttons
+========================= */
+
+.nt-btn{
+
+width:100%;
+min-height:64px;
+
+border-radius:999px;
+
+font-weight:800;
+letter-spacing:.04em;
+
+border:1px solid rgba(255,255,255,0.7);
+
+backdrop-filter:blur(18px);
+
+transition:all .15s ease;
+
+box-shadow:var(--shadow-soft);
 }
 
-/* SAFE */
-.is-safe .band,
-.is-safe .status-band,
-.is-safe .result-band,
-.is-safe .result-state {
-  box-shadow: 0 0 20px 0 var(--safe-glow);
+.nt-btn-primary{
+
+background:rgba(255,255,255,0.85);
+
+color:#243040;
+
+display:flex;
+justify-content:center;
+align-items:center;
+gap:10px;
+
 }
 
-/* SUSPICIOUS */
-.is-suspicious .band,
-.is-suspicious .status-band,
-.is-suspicious .result-band,
-.is-suspicious .result-state {
-  box-shadow: 0 0 20px 0 var(--suspicious-glow);
+.nt-btn-secondary{
+
+background:rgba(255,255,255,0.55);
+
+color:#435368;
 }
 
-/* CRITICAL */
-.is-critical .band,
-.is-critical .status-band,
-.is-critical .result-band,
-.is-critical .result-state {
-  box-shadow: 0 0 24px 0 var(--critical-glow);
-  animation: criticalBeat 700ms var(--ease-soft) 1;
+.nt-btn-ghost{
+
+background:transparent;
+color:#5c6d82;
+border:0;
 }
 
-@keyframes criticalBeat {
-  0%   { transform: scale(1); }
-  25%  { transform: scale(1.018); }
-  50%  { transform: scale(1); }
-  75%  { transform: scale(1.012); }
-  100% { transform: scale(1); }
+.nt-btn:active{
+
+transform:scale(.97);
 }
 
-/* screenshot attached badge / helper text */
-.upload-ready,
-.upload-status.is-ready,
-#uploadBtn.is-ready {
-  animation: uploadConfirmed 680ms var(--ease-soft) 1;
+.nt-btn:hover{
+
+transform:translateY(-2px);
 }
 
-@keyframes uploadConfirmed {
-  0% {
-    transform: translateY(0);
-    box-shadow: 0 0 0 0 rgba(120,214,226,0);
-  }
-  35% {
-    transform: translateY(-1px);
-    box-shadow: 0 0 0 10px rgba(120,214,226,0.10);
-  }
-  100% {
-    transform: translateY(0);
-    box-shadow: 0 0 0 0 rgba(120,214,226,0);
-  }
+/* =========================
+Layout
+========================= */
+
+.nt-primary-actions{
+margin-top:16px;
 }
 
-/* optional spinner for scan button/icon */
-.spin {
-  animation: ntSpin 900ms linear infinite;
+.nt-secondary-actions{
+
+display:grid;
+grid-template-columns:1fr 1fr;
+
+gap:12px;
+margin-top:12px;
 }
 
-@keyframes ntSpin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+.nt-tertiary-actions{
+margin-top:10px;
+text-align:center;
 }
 
-/* reduced motion: because not everyone wants the UI doing ballet */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 1ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 1ms !important;
-    scroll-behavior: auto !important;
-  }
+/* =========================
+Preview
+========================= */
+
+.nt-preview-wrap{
+
+background:var(--card-strong);
+
+border-radius:22px;
+
+padding:12px;
+
+margin-bottom:12px;
+
+border:1px solid rgba(255,255,255,0.6);
+}
+
+.nt-preview-image{
+
+border-radius:18px;
+
+border:1px solid rgba(200,210,230,0.6);
+
+max-height:200px;
+
+object-fit:contain;
+
+}
+
+/* =========================
+Mobile
+========================= */
+
+@media(max-width:480px){
+
+.nt-shell{
+padding:28px 14px;
+}
+
+.nt-textarea{
+min-height:180px;
+}
+
+.nt-btn{
+min-height:58px;
+}
+
 }
