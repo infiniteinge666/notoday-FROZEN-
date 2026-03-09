@@ -27,9 +27,7 @@ body {
     "Segoe UI", sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.28) 35%, transparent 60%),
-    radial-gradient(circle at bottom, rgba(255, 214, 214, 0.3), transparent 30%),
-    linear-gradient(180deg, var(--bg-1), var(--bg-2));
+url("/assets/ui-bg.png") center/cover no-repeat fixed;
 }
 
 body {
