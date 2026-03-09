@@ -1,346 +1,169 @@
 "use strict";
 
+/* =====================================================
+   NOTODAY FRONTEND APP
+   Mobile-first scanner UI
+===================================================== */
+
+const API_BASE = ""; // same origin
+
+/* ---------------- DOM ---------------- */
+
 const scanInput = document.getElementById("scanInput");
 const scanBtn = document.getElementById("scanBtn");
-const scanButtonTitle = document.getElementById("scanButtonTitle");
-const scanButtonSubtitle = document.getElementById("scanButtonSubtitle");
-
 const uploadBtn = document.getElementById("uploadBtn");
-const clearBtn = document.getElementById("clearBtn");
 const imageUpload = document.getElementById("imageUpload");
-const removeImageBtn = document.getElementById("removeImageBtn");
+const resultDiv = document.getElementById("result");
+const clearBtn = document.getElementById("clearBtn");
+const intelBtn = document.getElementById("intelBtn");
 
-const previewTray = document.getElementById("previewTray");
-const previewImage = document.getElementById("previewImage");
-const previewMeta = document.getElementById("previewMeta");
+/* ---------------- Animation helpers ---------------- */
 
-const charCount = document.getElementById("charCount");
-const typingState = document.getElementById("typingState");
-
-const resultCard = document.getElementById("resultCard");
-const resultGlyph = document.getElementById("resultGlyph");
-const resultBand = document.getElementById("resultBand");
-const resultSummary = document.getElementById("resultSummary");
-const riskScoreValue = document.getElementById("riskScoreValue");
-const riskMeterBar = document.getElementById("riskMeterBar");
-const signalState = document.getElementById("signalState");
-const signalInput = document.getElementById("signalInput");
-const signalConfidence = document.getElementById("signalConfidence");
-
-let uploadedImageDataUrl = "";
-let uploadedImageBase64 = "";
-let uploadedImageName = "";
-let isScanning = false;
-let typingTimer = null;
-
-function setCardState(state) {
-  resultCard.className = `result-panel state-${state}`;
+function restartAnimation(el, cls) {
+  if (!el) return;
+  el.classList.remove(cls);
+  void el.offsetWidth;
+  el.classList.add(cls);
 }
 
-function clamp(value, min, max) {
-  return Math.min(Math.max(value, min), max);
+function clearStateClasses() {
+  resultDiv.classList.remove(
+    "is-safe",
+    "is-suspicious",
+    "is-critical",
+    "is-entering",
+    "is-exiting"
+  );
 }
 
-function normalizeScore(score) {
-  const numeric = Number(score);
-  if (!Number.isFinite(numeric)) return null;
-  return clamp(Math.round(numeric), 0, 100);
-}
+/* ---------------- Result UI ---------------- */
 
-function formatFileSize(bytes) {
-  if (!Number.isFinite(bytes) || bytes <= 0) return "Unknown size";
+function display(data) {
+  const band = data?.band || "UNKNOWN";
+  const score = data?.score ?? "-";
 
-  const units = ["B", "KB", "MB", "GB"];
-  let value = bytes;
-  let index = 0;
+  const reasons = (data?.reasons || []).join("<br>");
+  const why = (data?.why || []).join("<br>");
+  const whatNotToDo = (data?.whatNotToDo || []).join("<br>");
 
-  while (value >= 1024 && index < units.length - 1) {
-    value /= 1024;
-    index += 1;
-  }
+  clearStateClasses();
 
-  const formatted = value >= 10 || index === 0 ? Math.round(value) : value.toFixed(1);
-  return `${formatted} ${units[index]}`;
-}
+  if (band === "SAFE") resultDiv.classList.add("is-safe");
+  if (band === "SUSPICIOUS") resultDiv.classList.add("is-suspicious");
+  if (band === "CRITICAL") resultDiv.classList.add("is-critical");
 
-function getInputModeLabel() {
-  const hasText = scanInput.value.trim().length > 0;
-  const hasImage = Boolean(uploadedImageBase64);
+  resultDiv.innerHTML = `
+    <div class="result-left">
+      <div class="band">${band}</div>
+      <div class="score">Score: ${score}</div>
+    </div>
 
-  if (hasText && hasImage) return "Hybrid";
-  if (hasImage) return "Screenshot";
-  return "Text";
-}
+    <div class="hint">
+      ${reasons || "Scan completed."}
+    </div>
 
-function updateTypingState(label) {
-  typingState.innerHTML = `<span class="status-dot"></span><span>${label}</span>`;
-}
-
-function updateCharCount() {
-  const count = scanInput.value.length;
-  charCount.textContent = String(count);
-
-  if (count === 0) {
-    updateTypingState(uploadedImageBase64 ? "Image loaded" : "Ready");
-    signalInput.textContent = getInputModeLabel();
-    return;
-  }
-
-  updateTypingState("Typing");
-
-  window.clearTimeout(typingTimer);
-  typingTimer = window.setTimeout(() => {
-    updateTypingState("Input loaded");
-  }, 700);
-
-  signalInput.textContent = getInputModeLabel();
-}
-
-function updateScanAvailability() {
-  const hasText = scanInput.value.trim().length > 0;
-  const hasImage = Boolean(uploadedImageBase64);
-  scanBtn.disabled = isScanning || (!hasText && !hasImage);
-}
-
-function setIdleState() {
-  setCardState("idle");
-  resultGlyph.textContent = "◎";
-  resultBand.textContent = "Ready";
-  resultSummary.textContent = "Waiting for text or screenshot input.";
-  riskScoreValue.textContent = "--";
-  riskMeterBar.style.width = "0%";
-  signalState.textContent = "Idle";
-  signalInput.textContent = getInputModeLabel();
-  signalConfidence.textContent = "--";
-}
-
-function setPreparedState(metaText = "--") {
-  setCardState("idle");
-  resultGlyph.textContent = "◌";
-  resultBand.textContent = "Prepared";
-  resultSummary.textContent = "Input is attached and ready for analysis.";
-  riskScoreValue.textContent = "--";
-  riskMeterBar.style.width = "0%";
-  signalState.textContent = "Prepared";
-  signalInput.textContent = getInputModeLabel();
-  signalConfidence.textContent = metaText;
-}
-
-function setEmptyState() {
-  setCardState("error");
-  resultGlyph.textContent = "!";
-  resultBand.textContent = "Nothing to scan";
-  resultSummary.textContent = "Paste text or upload a screenshot before starting a scan.";
-  riskScoreValue.textContent = "--";
-  riskMeterBar.style.width = "0%";
-  signalState.textContent = "Blocked";
-  signalInput.textContent = getInputModeLabel();
-  signalConfidence.textContent = "--";
-}
-
-function setScanningState() {
-  setCardState("scanning");
-  resultGlyph.textContent = "◔";
-  resultBand.textContent = "Scanning";
-  resultSummary.textContent = "Analyzing urgency, manipulation patterns, and suspicious signals…";
-  riskScoreValue.textContent = "...";
-  riskMeterBar.style.width = "68%";
-  signalState.textContent = "Scanning";
-  signalInput.textContent = getInputModeLabel();
-  signalConfidence.textContent = "Model active";
-}
-
-function renderResult(data) {
-  const bandRaw = String(data?.band || "UNKNOWN").toUpperCase();
-  const score = normalizeScore(data?.score);
-  const reasons = Array.isArray(data?.reasons) ? data.reasons : [];
-  const firstReason = reasons[0] || "";
-
-  let derivedConfidence = "--";
-  if (typeof data?.confidence === "number") {
-    derivedConfidence = `${clamp(Math.round(data.confidence), 0, 100)}%`;
-  } else if (score !== null) {
-    derivedConfidence = `${Math.max(55, 100 - Math.abs(50 - score))}%`;
-  }
-
-  let state = "idle";
-  let glyph = "?";
-  let heading = "Unknown";
-  let summary = firstReason || "The scan returned an unclassified result.";
-
-  if (bandRaw === "SAFE") {
-    state = "safe";
-    glyph = "✓";
-    heading = "Safe";
-    summary = firstReason || "Low-risk patterns detected. Still verify the sender and any linked destination.";
-  } else if (bandRaw === "SUSPICIOUS") {
-    state = "suspicious";
-    glyph = "!";
-    heading = "Suspicious";
-    summary = firstReason || "Potential scam or manipulation indicators were found. Review carefully before acting.";
-  } else if (bandRaw === "CRITICAL") {
-    state = "critical";
-    glyph = "⨯";
-    heading = "Critical";
-    summary = firstReason || "Strong scam or coercion signals detected. Do not click, pay, or reply yet.";
-  }
-
-  setCardState(state);
-  resultGlyph.textContent = glyph;
-  resultBand.textContent = heading;
-  resultSummary.textContent = summary;
-  riskScoreValue.textContent = score === null ? "--" : `${score}/100`;
-  riskMeterBar.style.width = score === null ? "0%" : `${score}%`;
-  signalState.textContent = heading;
-  signalInput.textContent = getInputModeLabel();
-  signalConfidence.textContent = derivedConfidence;
-}
-
-function renderErrorState(message = "Scan failed. The server could not complete the request.") {
-  setCardState("error");
-  resultGlyph.textContent = "×";
-  resultBand.textContent = "Error";
-  resultSummary.textContent = message;
-  riskScoreValue.textContent = "--";
-  riskMeterBar.style.width = "0%";
-  signalState.textContent = "Failed";
-  signalInput.textContent = getInputModeLabel();
-  signalConfidence.textContent = "--";
-}
-
-function setLoadingState(enabled) {
-  isScanning = enabled;
-
-  scanBtn.disabled = enabled;
-  uploadBtn.disabled = enabled;
-  clearBtn.disabled = enabled;
-  if (removeImageBtn) removeImageBtn.disabled = enabled;
-
-  if (enabled) {
-    scanButtonTitle.textContent = "Scanning";
-    scanButtonSubtitle.textContent = "Please wait";
-  } else {
-    scanButtonTitle.textContent = "Scan";
-    scanButtonSubtitle.textContent = "Shield analysis";
-    updateScanAvailability();
-  }
-}
-
-function openFilePicker() {
-  imageUpload.click();
-}
-
-function resetImage() {
-  uploadedImageDataUrl = "";
-  uploadedImageBase64 = "";
-  uploadedImageName = "";
-  imageUpload.value = "";
-  previewImage.removeAttribute("src");
-  previewMeta.textContent = "Ready for scan";
-  previewTray.classList.add("hidden");
-
-  if (scanInput.value.trim()) {
-    setPreparedState(`${scanInput.value.trim().length} chars`);
-  } else {
-    setIdleState();
-  }
-
-  updateScanAvailability();
-}
-
-function clearAll() {
-  scanInput.value = "";
-  charCount.textContent = "0";
-  updateTypingState("Ready");
-  resetImage();
-  setIdleState();
-  updateScanAvailability();
-  scanInput.focus();
-}
-
-async function parseJsonSafely(response) {
-  const text = await response.text();
-  try {
-    return JSON.parse(text);
-  } catch {
-    throw new Error(text || `HTTP ${response.status}`);
-  }
-}
-
-scanInput.addEventListener("input", () => {
-  updateCharCount();
-
-  if (scanInput.value.trim() || uploadedImageBase64) {
-    const metaText = uploadedImageBase64
-      ? "Input attached"
-      : `${scanInput.value.trim().length} chars`;
-    setPreparedState(metaText);
-  } else {
-    setIdleState();
-  }
-
-  updateScanAvailability();
-});
-
-scanInput.addEventListener("keydown", (event) => {
-  if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
-    event.preventDefault();
-    scanBtn.click();
-  }
-});
-
-uploadBtn.addEventListener("click", openFilePicker);
-clearBtn.addEventListener("click", clearAll);
-removeImageBtn.addEventListener("click", resetImage);
-
-imageUpload.addEventListener("change", () => {
-  const file = imageUpload.files?.[0];
-  if (!file) return;
-
-  uploadedImageName = file.name;
-
-  const reader = new FileReader();
-  reader.onload = () => {
-    uploadedImageDataUrl = String(reader.result || "");
-    uploadedImageBase64 = uploadedImageDataUrl.includes(",")
-      ? uploadedImageDataUrl.split(",")[1]
-      : uploadedImageDataUrl;
-
-    previewImage.src = uploadedImageDataUrl;
-    previewMeta.textContent = `${uploadedImageName} · ${formatFileSize(file.size)}`;
-    previewTray.classList.remove("hidden");
-    updateTypingState("Screenshot loaded");
-    setPreparedState(formatFileSize(file.size));
-    updateScanAvailability();
-  };
-
-  reader.readAsDataURL(file);
-});
-
-scanBtn.addEventListener("click", async () => {
-  if (isScanning) return;
-
-  const text = scanInput.value.trim();
-  const hasImage = Boolean(uploadedImageBase64);
-
-  if (!text && !hasImage) {
-    setEmptyState();
-    updateScanAvailability();
-    return;
-  }
-
-  setLoadingState(true);
-  setScanningState();
-
-  try {
-    const payload = { text };
-
-    if (hasImage) {
-      payload.image = uploadedImageBase64;
-      payload.imageName = uploadedImageName;
+    ${
+      why
+        ? `<div class="why">
+            <strong>Why:</strong><br>${why}
+           </div>`
+        : ""
     }
 
-    const response = await fetch("/check", {
+    ${
+      whatNotToDo
+        ? `<div class="warn">
+            <strong>Do not:</strong><br>${whatNotToDo}
+           </div>`
+        : ""
+    }
+  `;
+
+  restartAnimation(resultDiv, "is-entering");
+}
+
+/* ---------------- Reset UI ---------------- */
+
+function resetUI() {
+  clearStateClasses();
+
+  resultDiv.innerHTML = `
+    <div class="result-left">
+      <div class="band">READY</div>
+      <div class="score">Paste text or upload screenshot</div>
+    </div>
+  `;
+
+  scanInput.value = "";
+  imageUpload.value = "";
+
+  restartAnimation(resultDiv, "is-entering");
+}
+
+/* ---------------- Input acknowledgement ---------------- */
+
+function acknowledgeInput() {
+  restartAnimation(scanInput, "is-ack");
+}
+
+/* ---------------- Screenshot Upload ---------------- */
+
+uploadBtn.addEventListener("click", () => {
+  imageUpload.click();
+});
+
+imageUpload.addEventListener("change", () => {
+  if (imageUpload.files.length) {
+    acknowledgeInput();
+  }
+});
+
+/* ---------------- Convert image to Base64 ---------------- */
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      resolve(reader.result.split(",")[1]);
+    };
+
+    reader.onerror = reject;
+
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ---------------- Scan Logic ---------------- */
+
+async function runScan() {
+  const text = scanInput.value.trim();
+  const file = imageUpload.files[0];
+
+  if (!text && !file) {
+    display({
+      band: "SAFE",
+      score: 0,
+      reasons: ["No input provided."],
+      why: ["Paste a message, link, or upload screenshot."],
+      whatNotToDo: []
+    });
+    return;
+  }
+
+  scanBtn.disabled = true;
+  scanBtn.classList.add("is-scanning");
+
+  try {
+    let payload = {};
+
+    if (text) payload.text = text;
+
+    if (file) {
+      payload.image = await fileToBase64(file);
+    }
+
+    const res = await fetch(`${API_BASE}/check`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -348,22 +171,79 @@ scanBtn.addEventListener("click", async () => {
       body: JSON.stringify(payload)
     });
 
-    const json = await parseJsonSafely(response);
+    const json = await res.json();
 
-    if (!response.ok) {
-      throw new Error(json?.message || `HTTP ${response.status}`);
+    if (json.success) {
+      display(json.data);
+    } else {
+      throw new Error(json.message || "Scan failed");
     }
+  } catch (err) {
+    console.error(err);
 
-    renderResult(json?.data || {});
-    updateTypingState("Scan complete");
-  } catch (error) {
-    renderErrorState(error.message || "Scan failed. The server could not complete the request.");
-    updateTypingState("Unavailable");
-  } finally {
-    setLoadingState(false);
+    display({
+      band: "SUSPICIOUS",
+      score: "-",
+      reasons: ["Scan failed."],
+      why: ["Network error or server unavailable."],
+      whatNotToDo: ["Do not trust suspicious messages."]
+    });
+  }
+
+  scanBtn.disabled = false;
+  scanBtn.classList.remove("is-scanning");
+}
+
+/* ---------------- Scan button ---------------- */
+
+scanBtn.addEventListener("click", runScan);
+
+/* ---------------- Clear ---------------- */
+
+clearBtn.addEventListener("click", resetUI);
+
+/* ---------------- Intel button ---------------- */
+
+intelBtn.addEventListener("click", async () => {
+  try {
+    const res = await fetch(`${API_BASE}/intel`);
+    const json = await res.json();
+
+    const intel = json?.data;
+
+    resultDiv.innerHTML = `
+      <div class="result-left">
+        <div class="band">INTEL</div>
+        <div class="score">Version ${intel.version}</div>
+      </div>
+
+      <div class="hint">
+        Scam patterns: ${intel.scamPatterns}<br>
+        Bad domains: ${intel.knownBadDomains}<br>
+        Domain keywords: ${intel.scamDomainKeywords}
+      </div>
+    `;
+
+    restartAnimation(resultDiv, "is-entering");
+  } catch (err) {
+    console.error(err);
+
+    display({
+      band: "SAFE",
+      score: "-",
+      reasons: ["Intel unavailable"],
+      why: ["Server did not respond"],
+      whatNotToDo: []
+    });
   }
 });
 
-updateCharCount();
-setIdleState();
-updateScanAvailability();
+/* ---------------- Paste detection ---------------- */
+
+scanInput.addEventListener("paste", () => {
+  setTimeout(acknowledgeInput, 0);
+});
+
+/* ---------------- Initial state ---------------- */
+
+resetUI();
