@@ -2,6 +2,7 @@
 
 const { runCheck } = require('../../core/engine');
 const { runOCR } = require('../../core/ocr');
+const { logScan } = require('../../core/scanLogger');
 
 function decodeBase64Image(dataUrl) {
   const s = String(dataUrl || '').trim();
@@ -11,7 +12,7 @@ function decodeBase64Image(dataUrl) {
   if (match) {
     try {
       const buffer = Buffer.from(match[3], 'base64');
-      if (buffer.length > 4 * 1024 * 1024) return null; // 4MB hard limit
+      if (buffer.length > 4 * 1024 * 1024) return null;
       return buffer;
     } catch {
       return null;
@@ -29,6 +30,10 @@ function decodeBase64Image(dataUrl) {
 }
 
 module.exports = async function httpCheckHandler(req, res) {
+
+  // 🔎 minimal instrumentation
+  logScan(req);
+
   try {
     const intelState = req.app.locals.intelState || {};
     const intel = intelState.intel || null;
@@ -100,7 +105,6 @@ module.exports = async function httpCheckHandler(req, res) {
       };
 
     } else {
-      // Accept BOTH "raw" and "text" input fields
       rawText = (req.body?.raw || req.body?.text || '');
       rawText = String(rawText).trim();
     }
