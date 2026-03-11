@@ -3,28 +3,44 @@
 const fs = require("fs");
 const path = require("path");
 
-const LOG_FILE = path.join(__dirname, "..", "logs", "scan.log");
+/*
+   Minimal deterministic scan request logger
+   - no database
+   - no blocking IO
+   - append only
+   - survives crashes
+*/
 
+const LOG_DIR = path.join(__dirname, "../data");
+const LOG_FILE = path.join(LOG_DIR, "scanRequests.log");
+
+/* ensure data folder exists */
 try {
-    fs.mkdirSync(path.dirname(LOG_FILE), { recursive: true });
+    if (!fs.existsSync(LOG_DIR)) {
+        fs.mkdirSync(LOG_DIR, { recursive: true });
+    }
 } catch (_) {}
 
-function logScan(req) {
+/* main logger */
+function logScan(meta = {}) {
     try {
-        const ts = Date.now();
 
-        const ip =
-            req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
-            req.socket?.remoteAddress ||
-            "unknown";
+        const record = {
+            t: Date.now(),
+            ip: meta.ip || null,
+            ingress: meta.ingress || "TEXT",
+            len: meta.len || 0
+        };
 
-        const ua =
-            (req.headers["user-agent"] || "unknown")
-            .replace(/\s+/g, " ")
-            .substring(0, 80);
+        const line = JSON.stringify(record) + "\n";
 
-        fs.appendFile(LOG_FILE, `${ts}|${ip}|${ua}\n`, () => {});
-    } catch (_) {}
+        fs.appendFile(LOG_FILE, line, () => {});
+
+    } catch (_) {
+        /* silent by design */
+    }
 }
 
-module.exports = { logScan };
+module.exports = {
+    logScan
+};

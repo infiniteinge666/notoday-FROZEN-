@@ -1,177 +1,59 @@
-'use strict';
+"use strict";
 
-const { runCheck } = require('../../core/engine');
-const { runOCR } = require('../../core/ocr');
-const { logScan } = require('../../core/scanLogger');
+const { runCheck } = require("../../core/engine");
+const { loadIntelOrDie } = require("../../intel/loadIntel");
+const { logScan } = require("../../core/scanLogger");
 
-function decodeBase64Image(dataUrl) {
-  const s = String(dataUrl || '').trim();
+const INTEL_PATH = require("path").join(
+    __dirname,
+    "../../data/scamIntel.json"
+);
 
-  // data URL path
-  const match = s.match(/^data:(image\/(png|jpeg|jpg|webp));base64,(.+)$/i);
-  if (match) {
+/*
+   HTTP /check handler
+   deterministic
+   logging added
+*/
+
+async function httpCheckHandler(req, res) {
     try {
-      const buffer = Buffer.from(match[3], 'base64');
-      if (buffer.length > 4 * 1024 * 1024) return null;
-      return buffer;
-    } catch {
-      return null;
-    }
-  }
 
-  // raw base64 fallback
-  try {
-    const buffer = Buffer.from(s, 'base64');
-    if (!buffer.length || buffer.length > 4 * 1024 * 1024) return null;
-    return buffer;
-  } catch {
-    return null;
-  }
+        const body = req.body || {};
+        const text = body.text || "";
+        const ingressType = body.ingressType || "TEXT";
+
+        /* --- minimal scan logging --- */
+        logScan({
+            ip: req.headers["x-forwarded-for"] || req.socket.remoteAddress,
+            ingress: ingressType,
+            len: text.length
+        });
+
+        /* --- load intel --- */
+        const intel = loadIntelOrDie(INTEL_PATH);
+
+        /* --- run engine --- */
+        const result = await runCheck({
+            text,
+            ingressType,
+            intel
+        });
+
+        res.json({
+            success: true,
+            data: result,
+            message: "OK"
+        });
+
+    } catch (err) {
+
+        console.error("[checkHandler]", err);
+
+        res.status(500).json({
+            success: false,
+            message: "Scan failure"
+        });
+    }
 }
 
-module.exports = async function httpCheckHandler(req, res) {
-
-  // 🔎 minimal instrumentation
-  logScan(req);
-
-  try {
-    const intelState = req.app.locals.intelState || {};
-    const intel = intelState.intel || null;
-    const degraded = !!intelState.degraded;
-
-    let rawText = '';
-    let ingressType = 'TEXT';
-    let ocrMeta = null;
-
-    const imagePayload =
-      req.body?.imageBase64 ||
-      req.body?.image ||
-      null;
-
-    if (imagePayload) {
-      ingressType = 'IMAGE';
-
-      const imageBuffer = decodeBase64Image(imagePayload);
-
-      if (!imageBuffer) {
-        return res.status(200).json({
-          success: true,
-          data: {
-            band: 'SUSPICIOUS',
-            score: 50,
-            ingressType,
-            degraded: true,
-            ocr: { success: false },
-            reasons: ['Image could not be processed safely (invalid or too large).'],
-            explanation: [
-              'The image could not be processed safely.',
-              'Try uploading or pasting a clearer screenshot, or paste the text instead.'
-            ]
-          },
-          message: 'OK'
-        });
-      }
-
-      const ocrResult = await runOCR(imageBuffer);
-
-      if (!ocrResult.success || !ocrResult.text) {
-        return res.status(200).json({
-          success: true,
-          data: {
-            band: 'SUSPICIOUS',
-            score: 50,
-            ingressType,
-            degraded: true,
-            ocr: {
-              success: false,
-              ...(ocrResult?.error ? { error: ocrResult.error } : {})
-            },
-            reasons: ['OCR could not reliably extract text.'],
-            explanation: [
-              'We could not reliably read text from this image.',
-              'Try a clearer screenshot or paste the message text.'
-            ]
-          },
-          message: 'OK'
-        });
-      }
-
-      rawText = String(ocrResult.text || '').trim();
-
-      ocrMeta = {
-        success: true,
-        chars: rawText.length,
-        excerpt: rawText.slice(0, 200)
-      };
-
-    } else {
-      rawText = (req.body?.raw || req.body?.text || '');
-      rawText = String(rawText).trim();
-    }
-
-    if (!rawText) {
-      return res.status(200).json({
-        success: true,
-        data: {
-          band: 'SAFE',
-          score: 0,
-          ingressType,
-          degraded: false,
-          reasons: ['No input provided.'],
-          why: ['Paste a message, link, email, or screenshot to scan.'],
-          whatNotToDo: ['Never paste OTPs / PINs / CVV.'],
-          intelVersion: intel?.version || 'unknown'
-        },
-        message: 'OK'
-      });
-    }
-
-    if (!intel || degraded) {
-      return res.status(200).json({
-        success: true,
-        data: {
-          band: 'SUSPICIOUS',
-          score: 50,
-          ingressType,
-          degraded: true,
-          reasons: ['Intel store unavailable (degraded mode).'],
-          explanation: [
-            'The system is running in degraded mode and cannot complete a reliable scan right now.',
-            'Please try again shortly.'
-          ],
-          ...(ocrMeta ? { ocr: ocrMeta } : {})
-        },
-        message: 'OK'
-      });
-    }
-
-    const result = runCheck(rawText, intel);
-
-    return res.status(200).json({
-      success: true,
-      data: {
-        ...result,
-        ingressType,
-        degraded: false,
-        ...(ocrMeta ? { ocr: ocrMeta } : {})
-      },
-      message: 'OK'
-    });
-
-  } catch (err) {
-    return res.status(200).json({
-      success: true,
-      data: {
-        band: 'SUSPICIOUS',
-        score: 50,
-        degraded: true,
-        reasons: ['System error (bounded).'],
-        explanation: [
-          'The system could not complete this scan safely.',
-          'Please try again with different input.'
-        ]
-      },
-      message: 'OK'
-    });
-  }
-};
+module.exports = httpCheckHandler;
