@@ -47,7 +47,7 @@ html, body {
 
   /* Exact background target (provided image) */
   background:
-    url('/assets/ui-bg.png') center top / cover no-repeat fixed;
+    url('backend\public\assets\ui-bg.png') center top / cover no-repeat fixed;
 }
 
 .brand{
@@ -272,7 +272,7 @@ textarea::placeholder{
   width: 34px;
   height: 34px;
   display:inline-block;
-  background: url('/assets/notoday-shield.png') center / contain no-repeat;
+  background: url('backend\public\assets\ui-bg.png') center / contain no-repeat;
   filter: drop-shadow(0 8px 14px rgba(10,14,30,0.24));
   opacity: 0.85;
 }
