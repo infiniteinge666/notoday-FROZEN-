@@ -1,3 +1,4 @@
+This build was frozen on 2026-03-23 and is not under repair
 # NoToday — Public Test Build (Single Service)
 
 NoToday is a calm, explainable scam-risk checker.
